@@ -26,7 +26,6 @@
         android:layout_width="130dp"
         android:layout_height="57dp"
         android:elevation="25dp"
-        android:fontFamily="@font/righteous"
         android:shadowColor="@color/black"
         android:text="Enter"
         android:textAlignment="center"
