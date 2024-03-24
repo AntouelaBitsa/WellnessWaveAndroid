@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_user_type);
 //        setContentView(R.layout.activity_doc_sign_in);
 //        setContentView(R.layout.activity_doc_details);
-        setContentView(R.layout.activity_pat_sign_in);
+//        setContentView(R.layout.activity_pat_sign_in);
+        setContentView(R.layout.activity_pat_details);
     }
 }
