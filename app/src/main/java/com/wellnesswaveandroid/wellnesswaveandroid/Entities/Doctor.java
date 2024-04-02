@@ -1,25 +1,40 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Doctor {
 
+    @SerializedName("docId")
     private Integer docId;
-    private String docFisrtName;
+    @SerializedName("firstName")
+    private String docFirstName;
+    @SerializedName("lastName")
     private String docLastName;
+    @SerializedName("docUsername")
     private String docUsername;
+    @SerializedName("password")
     private String docPassword;
+    @SerializedName("email")
     private String docEmail;
-    private String docAmka;
+    @SerializedName("amka")
+    private String docSecuredNum;
+    @SerializedName("phoneNum")
     private String docPhoneNum;
+    @SerializedName("profession")
     private String docProfession;
+    @SerializedName("address")
     private String docAddress;
 
-    public Doctor(String docFisrtName, String docLastName, String docUsername, String docPassword, String docEmail, String docAmka, String docPhoneNum, String docProfession, String docAddress) {
-        this.docFisrtName = docFisrtName;
+    public Doctor() {
+    }
+
+    public Doctor(String docFirstName, String docLastName, String docUsername, String docPassword, String docEmail, String docSecuredNum, String docPhoneNum, String docProfession, String docAddress) {
+        this.docFirstName = docFirstName;
         this.docLastName = docLastName;
         this.docUsername = docUsername;
         this.docPassword = docPassword;
         this.docEmail = docEmail;
-        this.docAmka = docAmka;
+        this.docSecuredNum = docSecuredNum;
         this.docPhoneNum = docPhoneNum;
         this.docProfession = docProfession;
         this.docAddress = docAddress;
@@ -33,12 +48,12 @@ public class Doctor {
         this.docId = docId;
     }
 
-    public String getDocFisrtName() {
-        return docFisrtName;
+    public String getDocFirstName() {
+        return docFirstName;
     }
 
-    public void setDocFisrtName(String docFisrtName) {
-        this.docFisrtName = docFisrtName;
+    public void setDocFirstName(String docFirstName) {
+        this.docFirstName = docFirstName;
     }
 
     public String getDocLastName() {
@@ -73,12 +88,12 @@ public class Doctor {
         this.docEmail = docEmail;
     }
 
-    public String getDocAmka() {
-        return docAmka;
+    public String getDocSecuredNum() {
+        return docSecuredNum;
     }
 
-    public void setDocAmka(String docAmka) {
-        this.docAmka = docAmka;
+    public void setDocSecuredNum(String docSecuredNum) {
+        this.docSecuredNum = docSecuredNum;
     }
 
     public String getDocPhoneNum() {
@@ -109,12 +124,12 @@ public class Doctor {
     public String toString() {
         return "Doctor{" +
                 "docId=" + docId +
-                ", docFisrtName='" + docFisrtName + '\'' +
+                ", docFisrtName='" + docFirstName + '\'' +
                 ", docLastName='" + docLastName + '\'' +
                 ", docUsername='" + docUsername + '\'' +
                 ", docPassword='" + docPassword + '\'' +
                 ", docEmail='" + docEmail + '\'' +
-                ", docAmka='" + docAmka + '\'' +
+                ", docAmka='" + docSecuredNum + '\'' +
                 ", docPhoneNum='" + docPhoneNum + '\'' +
                 ", docProfession='" + docProfession + '\'' +
                 ", docAddress='" + docAddress + '\'' +
