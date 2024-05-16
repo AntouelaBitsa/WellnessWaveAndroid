@@ -24,11 +24,13 @@ public class Doctor {
     private String docProfession;
     @SerializedName("address")
     private String docAddress;
+    @SerializedName("userType")
+    private int userType;
 
     public Doctor() {
     }
 
-    public Doctor(String docFirstName, String docLastName, String docUsername, String docPassword, String docEmail, String docSecuredNum, String docPhoneNum, String docProfession, String docAddress) {
+    public Doctor(String docFirstName, String docLastName, String docUsername, String docPassword, String docEmail, String docSecuredNum, String docPhoneNum, String docProfession, String docAddress, int userType) {
         this.docFirstName = docFirstName;
         this.docLastName = docLastName;
         this.docUsername = docUsername;
@@ -38,6 +40,7 @@ public class Doctor {
         this.docPhoneNum = docPhoneNum;
         this.docProfession = docProfession;
         this.docAddress = docAddress;
+        this.userType = 1;
     }
 
     public Integer getDocId() {
@@ -118,6 +121,14 @@ public class Doctor {
 
     public void setDocAddress(String docAddress) {
         this.docAddress = docAddress;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     @Override
