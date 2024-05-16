@@ -17,13 +17,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.DocDetails"
+            android:exported="false" />
+        <activity
             android:name=".Activities.PatDetails"
             android:exported="false" />
         <activity
             android:name=".Activities.PatSignInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.DocDetails"
             android:exported="false" />
         <activity
             android:name=".Activities.DocSignInActivity"

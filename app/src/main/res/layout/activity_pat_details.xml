@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@+id/usrImg2" />
 
     <TextView
-        android:id="@+id/docLNameTxt"
+        android:id="@+id/patLNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Last Name"
