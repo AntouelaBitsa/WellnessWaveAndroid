@@ -68,9 +68,10 @@ public class DocSignInActivity extends AppCompatActivity {
                 String phoneNum = String.valueOf(docPhoneNum.getText());
                 String profession = String.valueOf(docProfession.getText());
                 String address = String.valueOf(docAddress.getText());
+                int type = 1; //code for doc
 
                 //setting values to object doctor
-                doctor = new Doctor(firstName, lastName, username, password, email, securedNum, phoneNum, profession,address);
+                doctor = new Doctor(firstName, lastName, username, password, email, securedNum, phoneNum, profession,address,type);
 
                 //setting retrofit service
                 retrofitService = new RetrofitService();
