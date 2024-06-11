@@ -3,11 +3,16 @@
     <style name="Base.Theme.WellnessWaveAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:statusBarColor" tools:targetApi="1">@color/darkgrass</item>
+        <item name="android:statusBarColor" tools:targetApi="1">@android:color/transparent</item>
         <item name="android:navigationBarColor" tools:targetApi="1">@color/darkgrass</item>
         <item name="android:colorBackground" tools:targetApi="1">@color/linen</item>
         <item name="android:fontFamily" tools:targetApi="1">@font/righteous</item>
     </style>
 
     <style name="Theme.WellnessWaveAndroid" parent="Base.Theme.WellnessWaveAndroid" />
+  <!-- Base application theme. -->
+    <style name="Base.Base.Theme.WellnessWaveAndroid" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>
