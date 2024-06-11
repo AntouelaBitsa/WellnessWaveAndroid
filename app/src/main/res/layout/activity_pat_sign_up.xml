@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.PatSignInActivity">
+    tools:context=".Activities.PatSignUpActivity">
 
     <ImageView
         android:id="@+id/logInRightLogoImgView"
@@ -114,6 +114,7 @@
         android:background="@drawable/rounded_edit_text_background_smokedmilky"
         android:elevation="10dp"
         android:hint="  Password"
+        android:inputType="textPassword"
         android:textColorHint="@color/grass"
         app:layout_constraintBottom_toBottomOf="@+id/passwordImg2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,6 +140,7 @@
         android:background="@drawable/rounded_edit_text_background_smokedmilky"
         android:elevation="10dp"
         android:hint="  Email@example.com"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/grass"
         app:layout_constraintBottom_toBottomOf="@+id/emailImg2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +208,7 @@
         app:srcCompat="@drawable/dob_outlined_30dp" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-        android:id="@+id/docProfessionEdt"
+        android:id="@+id/patDobEdt"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
@@ -219,31 +221,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dobImg"
         app:layout_constraintTop_toTopOf="@+id/dobImg" />
-
-    <ImageView
-        android:id="@+id/addressImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dobImg"
-        app:srcCompat="@drawable/address_outlined_30dp" />
-
-    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-        android:id="@+id/patAddressEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Address"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/addressImg2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addressImg2"
-        app:layout_constraintTop_toTopOf="@+id/addressImg2" />
 
     <Button
         android:id="@+id/patSaveBtn"
@@ -259,6 +236,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patAddressEdt" />
+        app:layout_constraintTop_toBottomOf="@+id/patDobEdt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
