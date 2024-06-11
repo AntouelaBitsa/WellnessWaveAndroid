@@ -42,22 +42,90 @@ public class DocDetails extends AppCompatActivity {
         addressTxt = (TextView) findViewById(R.id.docAddressTxt);
 
         Log.d("Are HEre", " Yes");
-//        TEST Harcoded Data doesn't show in ui
-        firstNameTxt.setText("Antoyela");
-        lastNameTxt.setText("Antoyela");
-        usernameTxt.setText("Antoyela");
-        passwordTxt.setText("Antoyela");
-        emailTxt.setText("Antoyela");
-        amkaTxt.setText("Antoyela");
-        phoneNumTxt.setText("Antoyela");
-        professionTxt.setText("Antoyela");
-        addressTxt.setText("Antoyela");
+        Toast.makeText(DocDetails.this, "Intent worked Successfully", Toast.LENGTH_LONG).show();
+
+        Intent importedData = getIntent();
+        String firstName = importedData.getStringExtra("first_name");
+        String lastName = importedData.getStringExtra("last_name");
+        String username = importedData.getStringExtra("username");
+        String email = importedData.getStringExtra("email");
+        String phoneNum = importedData.getStringExtra("phone");
+        String profession = importedData.getStringExtra("prof");
+        String address = importedData.getStringExtra("address");
+
+        System.out.println("Intent Print : " + firstName+lastName+username+email+phoneNum+profession+address);
+
+        firstNameTxt.setText(firstName);
+        lastNameTxt.setText(lastName);
+        usernameTxt.setText(username);
+        emailTxt.setText(email);
+        phoneNumTxt.setText(phoneNum);
+        professionTxt.setText(profession);
+        addressTxt.setText(address);    
 
 //        callGetRequestForDetails();
         //TEST INTENT FROM MAIN
-        intentGetMethod("Antouela");
+//        intentGetMethod("Antouela");
     }
 
+
+
+    private void callGetRequestForDetails() {
+        retrofitService = new RetrofitService();
+
+        DoctorApi doctorApi = retrofitService.getRetrofit().create(DoctorApi.class);
+
+        Integer docId = 1;
+        doctorApi.getDoctorById(docId).enqueue(new Callback<Doctor>() {
+            @Override
+            public void onResponse(Call<Doctor> call, Response<Doctor> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(DocDetails.this, "Failed Get Request", Toast.LENGTH_LONG).show();
+                    Log.d("On Response Details", "onResponse: " + response.code() +"  "+ response.body());
+                }
+
+                Log.d("Getting the response", "SUCCESS");
+
+                Doctor responseDoc = response.body();
+
+                System.out.println("Doctor DETAILS:  " +  responseDoc.toString());
+                Log.d("DOC DETAILS : " , responseDoc.toString());
+
+                //getting the response to String values
+                String firstName = responseDoc.getDocFirstName().toString();
+                String lastName = responseDoc.getDocLastName().toString();
+                String username = responseDoc.getDocUsername().toString();
+                String password = responseDoc.getDocPassword().toString();
+                String email = responseDoc.getDocEmail().toString();
+                String amka = responseDoc.getDocSecuredNum().toString();
+                String phoneNum = responseDoc.getDocPhoneNum().toString();
+                String profession = responseDoc.getDocProfession().toString();
+                String address = responseDoc.getDocAddress().toString();
+
+                Log.d("Setting the response", "SUCCESS");
+                //setting the responses to activity textviews
+                firstNameTxt.setText(firstName.toString());
+                lastNameTxt.setText(String.valueOf(lastName));
+                usernameTxt.setText(String.valueOf(username));
+                passwordTxt.setText(String.valueOf(password));
+                emailTxt.setText(String.valueOf(email));
+                amkaTxt.setText(String.valueOf(amka));
+                phoneNumTxt.setText(String.valueOf(phoneNum));
+                professionTxt.setText(String.valueOf(profession));
+                addressTxt.setText(String.valueOf(address));
+
+            }
+
+            @Override
+            public void onFailure(Call<Doctor> call, Throwable t) {
+                Toast.makeText(DocDetails.this, "Request Failed" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("TAG" + "onFailure", "onResponse: " + t.getMessage());
+            }
+        });
+
+    }
+
+    //for testing purpose
     private void intentGetMethod(String testsrt) {
         Intent takeData = getIntent();
         String firstName = takeData.getStringExtra("first_name");
@@ -92,61 +160,6 @@ public class DocDetails extends AppCompatActivity {
         phoneNumTxt.setText(testsrt);
         professionTxt.setText(testsrt);
         addressTxt.setText(testsrt);
-
-    }
-
-    private void callGetRequestForDetails() {
-        retrofitService = new RetrofitService();
-
-        DoctorApi doctorApi = retrofitService.getRetrofit().create(DoctorApi.class);
-
-        Integer docId = 1;
-        doctorApi.getDoctorById(docId).enqueue(new Callback<Doctor>() {
-            @Override
-            public void onResponse(Call<Doctor> call, Response<Doctor> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(DocDetails.this, "Failed Get Request", Toast.LENGTH_LONG).show();
-                    Log.d("On Response Details", "onResponse: " + response.code() +"  "+ response.body());
-                }
-
-                Log.d("Getting the response", "SUCCESS");
-                //getting the response to String values
-
-                Doctor responseDoc = response.body();
-
-                System.out.println("Doctor DETAILS:  " +  responseDoc.toString());
-                Log.d("DOC DETAILS : " , responseDoc.toString());
-
-                String firstName = responseDoc.getDocFirstName().toString();
-                String lastName = responseDoc.getDocLastName().toString();
-                String username = responseDoc.getDocUsername().toString();
-                String password = responseDoc.getDocPassword().toString();
-                String email = responseDoc.getDocEmail().toString();
-                String amka = responseDoc.getDocSecuredNum().toString();
-                String phoneNum = responseDoc.getDocPhoneNum().toString();
-                String profession = responseDoc.getDocProfession().toString();
-                String address = responseDoc.getDocAddress().toString();
-
-                Log.d("Setting the response", "SUCCESS");
-                //setting the responses to activity textviews
-                firstNameTxt.setText(firstName.toString());
-                lastNameTxt.setText(String.valueOf(lastName));
-                usernameTxt.setText(String.valueOf(username));
-                passwordTxt.setText(String.valueOf(password));
-                emailTxt.setText(String.valueOf(email));
-                amkaTxt.setText(String.valueOf(amka));
-                phoneNumTxt.setText(String.valueOf(phoneNum));
-                professionTxt.setText(String.valueOf(profession));
-                addressTxt.setText(String.valueOf(address));
-
-            }
-
-            @Override
-            public void onFailure(Call<Doctor> call, Throwable t) {
-                Toast.makeText(DocDetails.this, "Request Failed" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG" + "onFailure", "onResponse: " + t.getMessage());
-            }
-        });
 
     }
 }

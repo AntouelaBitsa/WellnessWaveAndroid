@@ -43,6 +43,18 @@ public class Doctor {
         this.userType = 1;
     }
 
+    public Doctor(Integer docId, String docFirstName, String docLastName, String docUsername, String docEmail, String docPhoneNum, String docProfession, String docAddress, int userType) {
+        this.docId = docId;
+        this.docFirstName = docFirstName;
+        this.docLastName = docLastName;
+        this.docUsername = docUsername;
+        this.docEmail = docEmail;
+        this.docPhoneNum = docPhoneNum;
+        this.docProfession = docProfession;
+        this.docAddress = docAddress;
+        this.userType = userType;
+    }
+
     public Integer getDocId() {
         return docId;
     }
