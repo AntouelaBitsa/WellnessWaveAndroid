@@ -71,44 +71,36 @@ public class LogInActivity extends AppCompatActivity {
                         //TODO : POSTREQUEST result object (code, message)
                         //if statement for successful response and not null body()
                         System.out.println("Inside onResponse : OK2");
-                        if (!response.isSuccessful() && response.body() == null){
-                            System.out.println(":Before sessionHelper : OK3");
-                            Result userSessionHelper = response.body();
-                            int status = userSessionHelper.getStatus(); //TEST
-                            String userJSON = userSessionHelper.getMessage(); //TEST
-                            System.out.println(">>> PRINT response.body() : " + response.body().toString() + " - " + status + " - " + userJSON); //TEST
-
-                            if (userSessionHelper.getMessage() == null){
-                                System.out.println("Inside if : NOT OK");
-                                System.out.println("userSession Json " + userSessionHelper.getMessage());
-                                Log.d(TAG, "onResponse: FAILED " + response.body().toString() + " " + response.code());
-
-                            } else if (userSessionHelper.getStatus() == 1){
-                                Toast.makeText(LogInActivity.this, "User Doesn't exist", Toast.LENGTH_LONG).show();
-                                System.out.println("POST response : " + userSessionHelper.getMessage() + " and status = " + userSessionHelper.getStatus());
-
-                            }else {
-                                System.out.println("Before Intent : OK4");
-                                System.out.println("-->> Successfull USER LOG IN ");
-                                //TODO: check for user type == 2 to be a patient
-                                //TODO : call SpliJSONImpl class to get the user type
-                                int userType = splitJSON.extractUserType(userJSON);
-                                if(userType == 1) {
-                                    docIntentImplementation(userJSON);
-
-                                } //else if (userType == 2) {
-//                                    Patient patient = splitJSON.extractPatFromJson(userJSON);
-//                                }
-
-//                                Intent logInUser = new Intent(LogInActivity.this, DocDetails.class);
-//                                logInUser.putExtra("userSessionJson", userJSON); // Pass data to next activity -> must pass each filed seperatly
-//                                startActivity(logInUser);
-                            }
-
-
-                        }else {
+                        if (!response.isSuccessful() || response.body() == null) {
                             System.out.println("Response Error: " + response.code() + " - " + response.message().toString());
                         }
+
+                        System.out.println(":Before sessionHelper : OK3");
+                        Result userSessionHelper = response.body();
+                        int status = userSessionHelper.getStatus(); //TEST
+                        String userJSON = userSessionHelper.getMessage(); //TEST
+                        System.out.println(">>> PRINT response.body() : " + response.body().toString() + " - " + status + " - " + userJSON); //TEST
+
+                        if (userSessionHelper.getMessage() == null){
+                            System.out.println("Inside if : NOT OK");
+                            System.out.println("userSession Json " + userSessionHelper.getMessage());
+                            Log.d(TAG, "onResponse: FAILED " + response.body().toString() + " " + response.code());
+                        } else if (userSessionHelper.getStatus() == 1){
+                            Toast.makeText(LogInActivity.this, "User Doesn't exist", Toast.LENGTH_LONG).show();
+                            System.out.println("POST response : " + userSessionHelper.getMessage() + " and status = " + userSessionHelper.getStatus());
+
+                        }
+                        System.out.println("Before Intent : OK4");
+                        System.out.println("-->> Successfull USER LOG IN ");
+                        //TODO: check for user type == 2 to be a patient
+                        //TODO : call SpliJSONImpl class to get the user type
+                        int userType = splitJSON.extractUserType(userJSON);
+                        if(userType == 1) {
+                            docIntentImplementation(userJSON);
+
+                        } //else if (userType == 2) {
+//                           Patient patient = splitJSON.extractPatFromJson(userJSON);
+//                      }
                     }
 
 //                    private void docIntentImplementation() {
