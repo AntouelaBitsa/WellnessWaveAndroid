@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.DocSignInActivity">
+    tools:context=".Activities.DocSignUpActivity">
 
     <ImageView
         android:id="@+id/logInRightLogoImgView"
@@ -114,6 +114,7 @@
         android:background="@drawable/rounded_edit_text_background_smokedmilky"
         android:elevation="10dp"
         android:hint="  Password"
+        android:inputType="textPassword"
         android:textColorHint="@color/grass"
         app:layout_constraintBottom_toBottomOf="@+id/passwordImg2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,6 +140,7 @@
         android:background="@drawable/rounded_edit_text_background_smokedmilky"
         android:elevation="10dp"
         android:hint="  Email@example.com"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/grass"
         app:layout_constraintBottom_toBottomOf="@+id/emailImg2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -239,6 +241,7 @@
         android:background="@drawable/rounded_edit_text_background_smokedmilky"
         android:elevation="10dp"
         android:hint="  Address"
+        android:inputType="textPostalAddress"
         android:textColorHint="@color/grass"
         app:layout_constraintBottom_toBottomOf="@+id/addressImg2"
         app:layout_constraintEnd_toEndOf="parent"
