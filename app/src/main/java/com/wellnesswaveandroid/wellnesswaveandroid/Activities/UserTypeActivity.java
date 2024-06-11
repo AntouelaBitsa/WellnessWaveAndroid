@@ -21,16 +21,22 @@ public class UserTypeActivity extends AppCompatActivity {
         doctorUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent doctorSignIn = new Intent(UserTypeActivity.this, DocSignInActivity.class);
+                Intent doctorSignIn = new Intent(UserTypeActivity.this, DocSignUpActivity.class);
                 startActivity(doctorSignIn);
             }
         });
 
-
+        //DONE: call patients SignUp Activity
         //Calling sign in for user type : Patient
-//        Button patientUser = findViewById(R.id.patientUserTypeBtn);
-//        Intent patientSignIn = new Intent(UserTypeActivity.this, PatSignInActivity.class);
-//        startActivity(patientSignIn);
+        Button patientUser = findViewById(R.id.patientUserTypeBtn);
+        patientUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent patientSignIn = new Intent(UserTypeActivity.this, PatSignUpActivity.class);
+                startActivity(patientSignIn);
+            }
+        });
+
 
     }
 }
