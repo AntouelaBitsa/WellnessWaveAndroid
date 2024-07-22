@@ -55,6 +55,10 @@ public class Doctor {
         this.userType = userType;
     }
 
+    public Doctor(Integer idDoc) {
+        this.docId = idDoc;
+    }
+
     public Integer getDocId() {
         return docId;
     }

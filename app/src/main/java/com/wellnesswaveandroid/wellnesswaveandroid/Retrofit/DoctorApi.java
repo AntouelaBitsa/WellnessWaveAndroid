@@ -19,7 +19,7 @@ public interface DoctorApi {
     @GET("/getDoctorById/{id}")
     Call<Doctor> getDoctorById(@Path("id") Integer id);
 
-    //TODO : post endpoint for LogIN
+    //DONE : post endpoint for LogIN -> MAYBE NOT NEEDED
     @FormUrlEncoded
     @POST("/doctorLogInSession")
     Call<Result> logIN(@Field("username") String username, @Field("password") String password);
