@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="specialisations_array">
+        <item>Allergist-Immunologist</item>
+        <item>Cardiologist</item>
+        <item>Neurologist</item>
+        <item>Dermatologist</item>
+        <item>Emergency Physician</item>
+        <item>Pathologist</item>
+        <item>Gynecologist</item>
+        <item>Andrologist</item>
+        <item>Urologist</item>
+        <item>Orila</item>
+        <item>Psychologist</item>
+        <item>Gastroenterologist</item>
+        <item>Endocrinologist</item>
+        <item>Dientician</item>
+        <item>Oncologist</item>
+        <item>Nephrologist</item>
+        <item>Ophthalmologist</item>
+        <item>Orthopedist</item>
+    </string-array>
+
+    <string-array name="apoint_time">
+        <item>09:00</item>
+        <item>09:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+    </string-array>
+</resources>
