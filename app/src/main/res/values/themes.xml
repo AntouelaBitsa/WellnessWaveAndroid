@@ -7,6 +7,7 @@
         <item name="android:navigationBarColor" tools:targetApi="1">@color/darkgrass</item>
         <item name="android:colorBackground" tools:targetApi="1">@color/linen</item>
         <item name="android:fontFamily" tools:targetApi="1">@font/righteous</item>
+
     </style>
 
     <style name="Theme.WellnessWaveAndroid" parent="Base.Theme.WellnessWaveAndroid" />
@@ -15,4 +16,34 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <!-- just override the colors used in the default style -->
+        <item name="colorOnPrimary">@color/smokedlinen</item>
+        <item name="colorPrimary">@color/darkgrass</item>
+        <item name="materialCalendarStyle">@style/CustomMaterialCalendar</item>
+    </style>
+
+    <style name="CustomMaterialCalendar" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="android:background">@color/linen</item>
+    </style>
+
+    <style name="MaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="colorSurfaceContainerHigh">@color/linen</item>
+        <item name="colorPrimary">@color/darkgrass</item>
+        <item name="colorOnPrimaryContainer">@color/matcha</item>
+        <item name="colorOnTertiaryContainer">@color/darkgrass2</item>
+        <item name="colorTertiary" >@color/smokedmilky</item>
+        <item name="colorSurfaceContainerHighest">@color/matcha</item>
+        <item name="colorTertiaryContainer">@color/matcha</item>
+        <item name="colorPrimaryContainer">@color/matcha</item>
+        <item name="colorOnSurfaceInverse">@color/smokedmilky</item>
+    </style>
+
+    <style name="CustomMaterialTimePicker" parent="Widget.MaterialComponents.TimePicker">
+        <item name="android:background">@color/linen</item>
+    </style>
+
+
+
 </resources>
