@@ -36,18 +36,25 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_doc_details);
 //        setContentView(R.layout.activity_pat_sign_in);
 //        setContentView(R.layout.activity_pat_details);
+//        setContentView(R.layout.activity_book_appointment);
 
         enter = findViewById(R.id.enterBtn);
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent enterApplication = new Intent(MainActivity.this, LogInActivity.class);
-                //TEST
+                startActivity(enterApplication);
+
+//                TEST BookAppointments
+//                Intent enterApplication = new Intent(MainActivity.this, BookAppointmentActivity.class);
+//                startActivity(enterApplication);
+//                TEST DocDetails
 //                Intent enterApplication = new Intent(MainActivity.this, DocDetails.class);
 //                enterApplication.putExtra();
-                startActivity(enterApplication);
             }
         });
+
+
         //TEST METHOD -> THIS WORKED WITH INTENT AND SUCCESSFULL GET REQUEST
 //        detailsClassCall();
     }

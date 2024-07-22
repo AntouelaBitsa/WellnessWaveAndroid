@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +25,23 @@ public class DocDetails extends AppCompatActivity {
 
     TextView firstNameTxt, lastNameTxt, usernameTxt, passwordTxt, emailTxt, amkaTxt, phoneNumTxt, professionTxt, addressTxt;
     RetrofitService retrofitService;
+    private Button btnTest;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_details);
+
+        //TEST BUTTON
+        btnTest = findViewById(R.id.btnTestDoc);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DocDetails.this,BookAppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //initialization: find views by id for edit texts
         firstNameTxt = (TextView) findViewById(R.id.docFNameTxt);
@@ -69,7 +82,7 @@ public class DocDetails extends AppCompatActivity {
     }
 
 
-
+//NOT IN USE
     private void callGetRequestForDetails() {
         retrofitService = new RetrofitService();
 
@@ -125,7 +138,7 @@ public class DocDetails extends AppCompatActivity {
 
     }
 
-    //for testing purpose
+    //for testing purpose -> NOT IN USE
     private void intentGetMethod(String testsrt) {
         Intent takeData = getIntent();
         String firstName = takeData.getStringExtra("first_name");

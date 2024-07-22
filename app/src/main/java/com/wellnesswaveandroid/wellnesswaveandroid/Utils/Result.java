@@ -1,14 +1,20 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
     private int status;
     private String message;
     private int userType;
-    public Result() {
-    }
+//    private List<Doctor> specialisedDoc;
+//    public Result(int status, List<Doctor> doctorList) {
+//        this.status = status;
+//        this.specialisedDoc = doctorList;
+//    }
 
     // Getters and setters
     public int getStatus() {
@@ -35,6 +41,14 @@ public class Result {
         this.userType = userType;
     }
 
+//    public List<Doctor> getSpecialisedDoc() {
+//        return specialisedDoc;
+//    }
+//
+//    public void setSpecialisedDoc(List<Doctor> specialisedDoc) {
+//        this.specialisedDoc = specialisedDoc;
+//    }
+
     @Override
     public String toString() {
         return "Result{" +
@@ -42,4 +56,6 @@ public class Result {
                 ", sessionJson='" + message + '\'' +
                 '}';
     }
+
+
 }
