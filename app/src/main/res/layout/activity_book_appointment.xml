@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.BookAppointmentActivity">
+
+    <ImageView
+        android:id="@+id/rightLogoImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_logo_transparent_round" />
+
+    <ImageView
+        android:id="@+id/circlesImg"
+        android:layout_width="622dp"
+        android:layout_height="810dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="224dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
+
+    <TextView
+        android:id="@+id/bookAppointTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginEnd="198dp"
+        android:text="Book Appointment"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/specialisationTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="60dp"
+        android:text="Specialisation"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookAppointTxt" />
+
+    <Spinner
+        android:id="@+id/specialisationSpn"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/specialisationTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/specialisationTxt"
+        app:layout_constraintTop_toTopOf="@+id/specialisationTxt"
+        android:entries="@array/specialisations_array"/>
+
+    <TextView
+        android:id="@+id/doctorTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Doctor"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specialisationTxt" />
+
+    <Spinner
+        android:id="@+id/doctorSpn"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/doctorTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.648"
+        app:layout_constraintStart_toEndOf="@+id/doctorTxt"
+        app:layout_constraintTop_toTopOf="@+id/doctorTxt" />
+
+    <TextView
+        android:id="@+id/dateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Date"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorTxt" />
+
+    <!-- <Spinner
+        android:id="@+id/dateSpn"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dateTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toEndOf="@+id/dateTxt"
+        app:layout_constraintTop_toTopOf="@+id/dateTxt" /> -->
+
+    <Button
+        android:id="@+id/pickDateBtn"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/linen"
+        android:elevation="10dp"
+        android:text="Pick Date"
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dateTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toEndOf="@+id/dateTxt"
+        app:rippleColor="@color/matcha"/>
+
+    <TextView
+        android:id="@+id/slctdDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Selected Date : "
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass2"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/pickDateBtn"
+        app:layout_constraintStart_toStartOf="@+id/pickDateBtn"
+        app:layout_constraintTop_toBottomOf="@+id/pickDateBtn" />
+
+    <TextView
+        android:id="@+id/timeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="70dp"
+        android:text="Time"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTxt" />
+
+    <!--<Spinner
+        android:id="@+id/timeSpn"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/timeTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintStart_toEndOf="@+id/timeTxt"
+        app:layout_constraintTop_toTopOf="@+id/timeTxt"
+        app:layout_constraintVertical_bias="0.566" />-->
+
+    <Button
+        android:id="@+id/pickTimeBtn"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/linen"
+        android:elevation="10dp"
+        android:text="Pick Time"
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/timeTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toEndOf="@+id/timeTxt"
+        app:rippleColor="@color/matcha"/>
+
+    <TextView
+        android:id="@+id/slctdTimeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Selected Time : "
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass2"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/pickTimeBtn"
+        app:layout_constraintStart_toStartOf="@+id/pickTimeBtn"
+        app:layout_constraintTop_toBottomOf="@+id/pickTimeBtn" />
+
+    <TextView
+        android:id="@+id/commentsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="65dp"
+        android:text="Comments"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTxt" />
+
+    <EditText
+        android:id="@+id/commentsMltlnTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:ems="10"
+        android:hint="Add any comment to your doctor"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:lines="3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/commentsTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/commentsTxt" />
+
+    <Button
+        android:id="@+id/bookBtn"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/linen"
+        android:elevation="10dp"
+        android:text="Book"
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentsTxt"
+        app:rippleColor="@color/matcha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
