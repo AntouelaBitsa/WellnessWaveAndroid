@@ -6,4 +6,262 @@
     android:layout_height="match_parent"
     tools:context=".Activities.InsertDiagnosisActivity">
 
+    <ImageView
+        android:id="@+id/rightLogoImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="Logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_logo_transparent_round" />
+
+    <ImageView
+        android:id="@+id/circlesImg"
+        android:layout_width="622dp"
+        android:layout_height="810dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="224dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
+
+    <TextView
+        android:id="@+id/insertDiagnosis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="198dp"
+        android:text="Insert Diagnosis"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Search Bar : to get a customized style must create a drawable
+    of the shape you want to appear and then in the themes.xml you must define
+    what specifically you want to change-->
+    <SearchView
+        android:id="@+id/patSearchBar"
+        style="@style/CustomSearchBarStyle"
+        android:layout_width="340dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="25dp"
+        android:queryHint="Search Patient"
+        android:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/insertDiagnosis" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patRecyclerView"
+        android:layout_width="301dp"
+        android:layout_height="199dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="20dp"
+        android:elevation="25dp"
+        android:background="@drawable/recycler_background"
+        app:layout_constraintEnd_toEndOf="@+id/patSearchBar"
+        app:layout_constraintStart_toStartOf="@+id/patSearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/patSearchBar"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <TextView
+        android:id="@+id/diagnosisTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="35dp"
+        android:text="Diagnosis"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patSearchBar" />
+
+    <!--Plain Text-->
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/diagnosisEdt"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rounded_edit_text_background_smokedlinen"
+        android:elevation="10dp"
+        android:hint="Diagnosis"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/grass"
+        app:layout_constraintBottom_toBottomOf="@+id/diagnosisTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/diagnosisTxt"
+        app:layout_constraintTop_toTopOf="@+id/diagnosisTxt" />
+
+    <TextView
+        android:id="@+id/treatmentTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Treatment"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diagnosisTxt" />
+
+    <!--Plain Text-->
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/treatmentEdt"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rounded_edit_text_background_smokedlinen"
+        android:elevation="10dp"
+        android:hint="Treatment"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/grass"
+        app:layout_constraintBottom_toBottomOf="@+id/treatmentTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/treatmentTxt"
+        app:layout_constraintTop_toTopOf="@+id/treatmentTxt" />
+
+    <TextView
+        android:id="@+id/doseTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Dose"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentTxt" />
+
+    <!--Plain Text-->
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/doseEdt"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rounded_edit_text_background_smokedlinen"
+        android:elevation="10dp"
+        android:hint="Dose"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/grass"
+        app:layout_constraintBottom_toBottomOf="@+id/doseTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toEndOf="@+id/doseTxt"
+        app:layout_constraintTop_toTopOf="@+id/doseTxt"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <TextView
+        android:id="@+id/startDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Start"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doseTxt" />
+
+    <!--Date Picker Maybe Button-->
+    <Button
+        android:id="@+id/startDatePckrBtn"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/smokedlinen"
+        android:text="Start Date"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/grass"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/startDateTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toEndOf="@+id/startDateTxt"
+        app:layout_constraintTop_toTopOf="@+id/startDateTxt"
+        app:layout_constraintVertical_bias="0.566" />
+
+    <TextView
+        android:id="@+id/endDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="End"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateTxt" />
+
+    <!--Date Picker Maybe Button-->
+
+    <Button
+        android:id="@+id/endDatePckrBtn"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/smokedlinen"
+        android:text="End Date"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/grass"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/endDateTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.598"
+        app:layout_constraintStart_toEndOf="@+id/endDateTxt"
+        app:layout_constraintTop_toTopOf="@+id/endDateTxt"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/diagnosisInfoTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="55dp"
+        android:text="Info"
+        android:textColor="@color/darkgrass2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDateTxt" />
+
+    <!--Plain Text Material-->
+
+    <!--Button Save-->
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/infoEdt"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rounded_edit_text_background_smokedlinen"
+        android:elevation="10dp"
+        android:hint="Diagnosis"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/grass"
+        app:layout_constraintBottom_toBottomOf="@+id/diagnosisInfoTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toEndOf="@+id/diagnosisInfoTxt"
+        app:layout_constraintTop_toTopOf="@+id/diagnosisInfoTxt"
+        app:layout_constraintVertical_bias="0.533" />
+
+    <Button
+        android:id="@+id/saveDiagnBtn"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/smokedlinen"
+        android:text="Save"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/darkgrass"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diagnosisInfoTxt" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

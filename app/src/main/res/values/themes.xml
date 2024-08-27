@@ -17,6 +17,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <!--TODO: Date Picker-->
     <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <!-- just override the colors used in the default style -->
         <item name="colorOnPrimary">@color/smokedlinen</item>
@@ -28,6 +29,7 @@
         <item name="android:background">@color/linen</item>
     </style>
 
+    <!--Time Picker-->
     <style name="MaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
         <item name="colorSurfaceContainerHigh">@color/linen</item>
         <item name="colorPrimary">@color/darkgrass</item>
@@ -44,6 +46,14 @@
         <item name="android:background">@color/linen</item>
     </style>
 
+    <!-- Custom SearchView style -->
+    <style name="CustomSearchBarStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@drawable/custom_search_bar</item>
+        <item name="android:background">@drawable/custom_search_bar</item>
+        <item name="android:textColor">@color/darkgrass</item>
+        <item name="android:textColorHint">@color/grass</item>
+        <item name="android:elevation">10dp</item>
+    </style>
 
 
 </resources>
