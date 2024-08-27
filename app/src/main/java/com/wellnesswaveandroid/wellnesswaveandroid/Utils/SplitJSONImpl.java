@@ -29,8 +29,10 @@ public class SplitJSONImpl {
 
     //DONE : split JSON for Doctor -> MAYBE CHANGE IT TO GSON FROM_JSON
     public Doctor extractDocFromJson(String userJSON) {
-        Doctor completedDoc = new Doctor();
+        //Empty doctor singleton pattern doctor
+        Doctor completedDoc = Doctor.getInstance().clone();
         try{
+            //Converted JSON to Doctor object
             Doctor doc = objectMapper.readValue(userJSON, Doctor.class);
 
             //Extracting individual Fields
@@ -46,35 +48,15 @@ public class SplitJSONImpl {
 
             completedDoc = new Doctor(docId, docFirstName, docLastName, docUsername, docEmail, docPhoneNum, docProfession, docAddress, userType);
             System.out.println("Doctor after LOGIN :  " + completedDoc.toString());
+            //setting data like a singleton pattern
+            //LOGIC: set the doc (fromJSON conversion) -> the empty doc
+//            completedDoc.setDoctorData(doc);
+//            System.out.println("Singleton Doctor after LOGIN :  " + completedDoc.toString());
+
 
         }catch(Exception e){
             e.printStackTrace();
         }
         return completedDoc;
     }
-
-    //DONE : split JSON for Patient -> MAYBE CHANGE IT TO GSON FROM_JSON
-    /*public Patient extractPatFromJson(String userJSON) {
-        Patient completedPat = new Patient();
-        try{
-            Patient pat = objectMapper.readValue(userJSON, Patient.class);
-
-            //Extracting individual Fields
-            Integer patId = pat.getPatientId();
-            String patFirstName = pat.getPatFirstName();
-            String patLastName = pat.getPatLastName();
-            String patUsername = pat.getPatUsername();
-            String patEmail = pat.getPatEmail();
-            String patPhoneNum = pat.getPatPhoneNum();
-            String patDob = pat.getPatDob();
-            userType = pat.getUserType();
-
-            completedPat = new Patient(patId, patFirstName, patLastName, patUsername, patEmail, patPhoneNum, patDob, userType);
-            System.out.println("Patient after LOGIN :  " + completedPat.toString());
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return completedPat;
-    }*/
 }

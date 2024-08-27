@@ -16,15 +16,11 @@ import com.google.gson.Gson;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DoctorApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.LogInDtoApi;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.PatientApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.LogInDTO;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.SplitJSONImpl;
-
-import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -140,38 +136,45 @@ public class LogInActivity extends AppCompatActivity {
 
     //DONE : docIntentImplementation()
     private void docIntentImplementation(String userJSON) {
-        Doctor doctor = splitJSON.extractDocFromJson(userJSON);
+        Doctor docInstance = splitJSON.extractDocFromJson(userJSON);
+        System.out.println("[D] TEST PRINT: " + userJSON.toString());
+        System.out.println("Doctor intent implementation... GSON");
+        Doctor.getInstance().setDoctorData(docInstance); //test
+//        Gson gson = new Gson();
+//        Doctor tempDoc = gson.fromJson(userJSON, Doctor.class);
+//        Doctor docInstance = Doctor.getInstance();
+//        docInstance.setDoctorData(tempDoc);
+        System.out.println("Singleton Doctor after LOGIN :  " + docInstance.toString());
+        System.out.println("[D] docIntentImplementation : " + docInstance.getDocEmail()+ " " + docInstance.toString());
         Intent logInDocUser = new Intent(LogInActivity.this, DocDetails.class);
-        logInDocUser.putExtra("first_name", doctor.getDocFirstName()); // Pass data to next activity -> must pass each filed seperatly
-        logInDocUser.putExtra("last_name", doctor.getDocLastName());
-        logInDocUser.putExtra("username", doctor.getDocUsername());
-        logInDocUser.putExtra("email", doctor.getDocEmail());
-        logInDocUser.putExtra("phone", doctor.getDocPhoneNum());
-        logInDocUser.putExtra("prof", doctor.getDocProfession());
-        logInDocUser.putExtra("address", doctor.getDocAddress());
+        logInDocUser.putExtra("doc_id", docInstance.getDocId()); //test
+        logInDocUser.putExtra("first_name", docInstance.getDocFirstName()); // Pass data to next activity -> must pass each filed seperatly
+        logInDocUser.putExtra("last_name", docInstance.getDocLastName());
+        logInDocUser.putExtra("username", docInstance.getDocUsername());
+        logInDocUser.putExtra("email", docInstance.getDocEmail());
+        logInDocUser.putExtra("phone", docInstance.getDocPhoneNum());
+        logInDocUser.putExtra("prof", docInstance.getDocProfession());
+        logInDocUser.putExtra("address", docInstance.getDocAddress());
         startActivity(logInDocUser);
 
     }
 
     //DONE : patIntentImplementation()
     private void patIntentImplementation(String userJSON){
+        System.out.println("[P] TEST PRINT: " + userJSON.toString());
         Gson gson = new Gson();
-        Patient patient = gson.fromJson(userJSON, Patient.class);
-        patient = Patient.getInstance();
-        patient.setPatientData(patient);
-        System.out.println("[P] patIntentImplementation : " + patient.getPatEmail());
+        Patient tempPat = gson.fromJson(userJSON, Patient.class);
+        Patient patient = Patient.getInstance();
+        patient.setPatientData(tempPat);
+        System.out.println("[P] patIntentImplementation : " + patient.getPatEmail()+ " " + patient.toString());
         Intent logInPatUser = new Intent(LogInActivity.this, PatDetails.class);
-//        Intent logInPatUser = new Intent(LogInActivity.this, BookAppointmentActivity.class);
         logInPatUser.putExtra("first_namep", patient.getPatFirstName()); // Pass data to next activity -> must pass each filed seperatly
         logInPatUser.putExtra("last_namep", patient.getPatLastName());
         logInPatUser.putExtra("usernamep", patient.getPatUsername());
         logInPatUser.putExtra("emailp", patient.getPatEmail());
         logInPatUser.putExtra("phonep", patient.getPatPhoneNum());
         logInPatUser.putExtra("dobp", patient.getPatDob());
-//        logInPatUser.putExtra("pat_object", (Serializable) patient);
         startActivity(logInPatUser);
-
-
     }
 
 }
