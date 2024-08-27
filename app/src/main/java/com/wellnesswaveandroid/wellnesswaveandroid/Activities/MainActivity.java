@@ -1,25 +1,13 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DoctorApi;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
