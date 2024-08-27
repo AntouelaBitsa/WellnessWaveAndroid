@@ -84,8 +84,13 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         saveDiagn = findViewById(R.id.saveDiagnBtn);
 
         //TODO: get connected doctors id
+//--------------------COMMENTS FOR THODORIS-----------------------
+//--------------------GETTING DOCTOR INSTANCE: SINGLETON PATTERN-----------------------
         docInstance = Doctor.getInstance();
         if (docInstance != null) {
+            //--------------------HERE DOCTOR_ID HAS ONLY ID AS A VALUE-----------------------
+            //--------------------WHILE IN OBJECT CREATION IT PASSES ALL THE OBJECT-----------------------
+            //--------------------THE ISSUE DOESN'T SEEM TO BE THIS ONE THOUGH-----------------------
             doctorID = docInstance.getDocId();
             System.out.println("////////////////doctorID => " + doctorID);
         }else{
@@ -95,7 +100,8 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
 //        Intent intent2 = getIntent();
 //        doctorID = Integer.valueOf(intent2.getStringExtra("doc_id"));
         System.out.println(">[InsrtDgn 01.1 onCreate]: doctorID= " + doctorID);
-
+//--------------------COMMENTS FOR THODORIS START-----------------------
+//--------------------SEARCH VIEW IMPLEMENTATION -----------------------
         //Search View Session
         searchView.clearFocus();
         System.out.println(">[InsrtDgn 02 onCreate] : before setOnQueryTextFocusChangeListener");
@@ -146,6 +152,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
             }
         });
 
+//--------------------SETTING RECYCLER LAYOUT MANAGER-----------------------
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -170,6 +177,8 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         //TODO: Set Date Picker in buttons->  startDateBtn, endDateBtn
         //TODO: Get content from date selection button
         //--------------------Material Design Start Date Picker--------------------------
+
+//--------------------DATE PICKER FOR START TREATMENT-----------------------
         startDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +203,8 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         System.out.println(">[InsrtDgn 05.1 onCreate]: start date= " + formattedStartDate);
 
         //--------------------Material Design End Date Picker--------------------------
+
+//--------------------DATE PICKER FOR END TREATMENT-----------------------
         endDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,10 +231,12 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
 
         //TODO: Implement onClick of button: saveDiagn
         System.out.println(">[InsrtDgn 08 onCreate]: before saveDiagn onClick!!!");
+//--------------------SAVE BUTTON ONCLICK IMPLEMENTATION-----------------------
         saveDiagn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: Get content from editText-> diagnosisTxt, treeatmentTxt, doseTxt, infoTxt
+//--------------------GETTING TEXTS FROM UI COMPONENTS-----------------------
                 diagnosis = diagnosisTxt.getText().toString();
                 treatment = treatmentTxt.getText().toString();
                 dose = doseTxt.getText().toString();
@@ -233,18 +246,27 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 info = infoTxt.getText().toString();
                 System.out.println(">[InsrtDgn 07 onCreate]: info= " + info);
                 //TODO: Create Object Diagnosis
+//--------------------CREATING A NEW OBJECT OF DIAGNOSIS-----------------------
+//--------------------HERE THE DOCTOR_ID PARAMETER: GETS THE HOLE OBJECT INSTANCE-----------------------
                 diagnosisReg = new Diagnosis(diagnosis,treatment,dose,formattedStartDate,formattedEndDate,info,doctorID,patientID);
                 System.out.println("Diagnosis => " + diagnosisReg.toString());
                 //TODO: Implement API POST Request
+//--------------------CALLS THE CREATE DIAGNOSIS REQUEST METHOD-----------------------
                 createDiagnosisRequest(diagnosisReg);
             }
         });
     }
 
     private void createDiagnosisRequest(Diagnosis diagnosis) {
+//--------------------ENTERS METHOD-----------------------
         RetrofitService retrofitService = new RetrofitService();
         DiagnosisApi diagnosisApi = retrofitService.getRetrofit().create(DiagnosisApi.class);
         System.out.println("//////////////inside create diagnosis + before enqueue/////////////");
+//--------------------RUN STOPS HERE-----------------------
+//--------------------THE ISSUE SEEMS TO BE WITH RETROFIT THAT CANNOT CREATE THE BODY FOR THE POST REQUEST--------------------
+//--------------------ALSO GO TO DIAGNOSIS_API => FOR THE ISSUE WITH BODY CREATION-----------------------
+//--------------------SECOND ISSUE IS WITH PARAMETERS IN DIAGNOSIS MISMATCH--------------------
+//--------------------BUT AFTER EXTERNAL CONTROL I HAVEN'T DETECT SUCH ISSUE WITH FRONTEND AND BACKEND-----------------------
         diagnosisApi.createDiagnosis(diagnosis).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
@@ -268,6 +290,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
             }
         });
     }
+    //--------------------COMMENTS FOR THODORIS - END-----------------------
 
     //API Get Request: search patient and having dynamic data in recycler view
     private void searchPatient(String amka) {
