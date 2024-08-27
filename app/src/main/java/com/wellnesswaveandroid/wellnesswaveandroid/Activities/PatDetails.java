@@ -15,7 +15,7 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 
 public class PatDetails extends AppCompatActivity {
     private TextView firstNameTxt, lastNameTxt, usernameTxt, passwordTxt, emailTxt, amkaTxt, phoneNumTxt, dobTxt;
-    private RetrofitService retrofitService;
+//    private RetrofitService retrofitService;
     private Button btnTest;
 
     @Override
@@ -53,7 +53,8 @@ public class PatDetails extends AppCompatActivity {
         String phoneNum = importPatData.getStringExtra("phonep");
         String dob = importPatData.getStringExtra("dobp");
 
-        System.out.println("Intent Print : " + firstName+lastName+username+email+phoneNum+dob);
+        System.out.println("Intent Print : " + firstName+ " "+lastName+ " " +username+
+                " " +email+ " " +phoneNum+ " " +dob);
 
         firstNameTxt.setText(firstName);
         lastNameTxt.setText(lastName);
