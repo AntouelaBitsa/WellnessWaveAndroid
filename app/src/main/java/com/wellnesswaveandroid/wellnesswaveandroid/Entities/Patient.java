@@ -3,6 +3,8 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 import com.google.gson.annotations.SerializedName;
 
 public class Patient {
+    //Transfer patient data between activities
+    private static Patient patInstance;
 
     @SerializedName("patientId")
     private Integer patientId;
@@ -23,8 +25,7 @@ public class Patient {
     @SerializedName("dob")
     private String patDob;
     private int userType;
-    //Transfer patient data between activities
-    private static Patient patInstance;
+
 
     //Transfer patient data between activities
     public static synchronized Patient getInstance(){
@@ -46,8 +47,13 @@ public class Patient {
         this.userType = p.getUserType();
     }
 
-    //This constructor must be private fot the data transfer
+    //This constructor must be private for data transfer :  Singleton Pattern
     private Patient() {
+    }
+
+    //Constructor accessed by Patient.getInstance().clone() -> creates a new empty Patient
+    public Patient clone(){
+        return new Patient();
     }
 
     public Patient(Integer patientId, String patFirstName, String patLastName, String patUsername, String patEmail, String patPhoneNum, String patDob, int userType) {

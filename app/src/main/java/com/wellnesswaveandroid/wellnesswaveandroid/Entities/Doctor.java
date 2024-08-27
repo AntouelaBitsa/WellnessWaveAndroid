@@ -3,6 +3,7 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 import com.google.gson.annotations.SerializedName;
 
 public class Doctor {
+    private static Doctor docInstance;
 
     @SerializedName("docId")
     private Integer docId;
@@ -27,7 +28,33 @@ public class Doctor {
     @SerializedName("userType")
     private int userType;
 
-    public Doctor() {
+    //Transfer patient data between activities
+    public static synchronized Doctor getInstance(){
+        if (docInstance == null){
+            docInstance = new Doctor();
+        }
+        return docInstance;
+    }
+
+    //Transfer patient data between activities
+    public void setDoctorData(Doctor d){
+        this.docId = d.getDocId();
+        this.docFirstName = d.getDocFirstName();
+        this.docLastName = d.getDocLastName();
+        this.docUsername = d.getDocUsername();
+        this.docEmail = d.getDocEmail();
+        this.docPhoneNum = d.getDocPhoneNum();
+        this.docProfession = d.getDocProfession();
+        this.docAddress = d.getDocAddress();
+        this.userType = d.getUserType();
+    }
+
+    private Doctor() {
+    }
+
+    //Constructor accessed by Doctor.getInstance().clone() -> creates a new empty Doctor
+    public Doctor clone(){
+        return new Doctor();
     }
 
     public Doctor(String docFirstName, String docLastName, String docUsername, String docPassword, String docEmail, String docSecuredNum, String docPhoneNum, String docProfession, String docAddress, int userType) {
