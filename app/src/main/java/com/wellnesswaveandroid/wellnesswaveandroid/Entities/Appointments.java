@@ -9,9 +9,9 @@ public class Appointments {
     @SerializedName("appointmentId")
     private Integer appointmentId;
     @SerializedName("date")
-    private LocalDate date;
+    private String date;
     @SerializedName("time")
-    private LocalTime time;
+    private String time;
     @SerializedName("appointInfo")
     private String appointInfo;
     @SerializedName("doctor")
@@ -22,31 +22,33 @@ public class Appointments {
     public Appointments() {
     }
 
-    public Appointments(LocalDate date, LocalTime time, String appointInfo, Doctor doctor, Patient patient) {
+    public Appointments(String date, String time, String appointInfo, Integer doctorId, Integer patientId) {
         this.date = date;
         this.time = time;
         this.appointInfo = appointInfo;
-        this.doctor = doctor;
-        this.patient = patient;
+//        this.doctor = Doctor.getInstance();
+        this.doctor.setDocId(doctorId);
+        this.patient = Patient.getInstance();
+        this.patient.setPatientId(patientId);
     }
 
     public Integer getDocIDApp(){
         return doctor.getDocId();
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

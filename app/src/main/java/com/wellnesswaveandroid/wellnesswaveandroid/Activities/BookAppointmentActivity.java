@@ -4,7 +4,6 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,17 +20,12 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Appointments;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.AppointmentsApi;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DoctorApi;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.PatientApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 
@@ -65,7 +59,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private Integer bookPat;
     private LocalDate localDateFrmt;
     private LocalTime localTimeFrmt;
-    private RetrofitService retrofitService;
+//    private RetrofitService retrofitService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +94,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.d("TAG 3 ", "Inside on item selected method");
                 specialisation = spec[position];
-                //TODO : GET/POST request to get a list o doctors filtered by specialisation
+                //TODO : POST request to get a list o doctors filtered by specialisation
                 //TODO : the endpoint need to get as parameters the specialisation String
 //                getFilteredDocBySpecialisation(specialisation);
                 System.out.println("specialisation onClick => " + specialisation);
@@ -143,11 +137,11 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
                     @Override
                     public void onPositiveButtonClick(Long selection) {
-                        formattedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                        formattedDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                                 .format(new Date(selection));
                         dateTxt.setText("Selected Date : " + formattedDate);  //TEST
-                        //Convert Date String to LocalDate
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        //Convert Date String to LocalDate - Not needed
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         localDateFrmt = LocalDate.parse(formattedDate, dateFormatter);
                     }
                 });
@@ -186,7 +180,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
         System.out.println("BTN => Time Selected : " + formattedTime);
 
-        //TODO: OnClick listener
+        //TODO: OnClick listener bookAppointment
         bookAppoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,28 +190,56 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 }
                 //DONE: here we get the data we need from instance of patient
                 bookPat = p.getPatientId();
-                //DONE: Data gathering
-                appointments = new Appointments(localDateFrmt,localTimeFrmt,comments,new Doctor(idDoc),new Patient(bookPat));
-                System.out.println("Appointment data: " + appointments.toString());
+                System.out.println("[P2] patientID = " + bookPat + " [D2] doctorID = " + selectedDocId);
                 //DONE: get the text from multiline edit text
                 comments = String.valueOf(commentsMltlnTxt.getText());
-                System.out.println("TXT => Comments Selected : " + comments);
+                //DONE: Data gathering
+//                appointments = new Appointments(localDateFrmt,localTimeFrmt,comments,selectedDocId,bookPat);
+                appointments = new Appointments(formattedDate,formattedTime,comments,selectedDocId,bookPat);
+                System.out.println("Appointment data: " + appointments);
+//                System.out.println("TXT => Comments Selected : " + comments);
                 System.out.println("Specialisation => " + specialisation + " Doctor => " + doctor + " Date => " + formattedDate + " Time => " + formattedTime + " Commennts => " + comments);
                 Log.d("TAG 2001", "onClick: " + "Specialisation => " + specialisation + " Doctor => " + doctor + " Date => " + formattedDate + " Time => " + formattedTime + " Commennts => " + comments);
+
+                //TODO: Post request implementation
+                System.out.println("[Appnmnt 1] Before createAppointment()");
+                createAppointForPat(appointments);
             }
-            //TODO: Post request implementation
-            RetrofitService retrofitAppointSrvc = new RetrofitService();
-            AppointmentsApi appointmentsApi = retrofitAppointSrvc.getRetrofit().create(AppointmentsApi.class);
 
         });
 
+    }
+
+    private void createAppointForPat(Appointments ap) {
+        System.out.println("[Appnmnt 2] Inside createAppointment() before retrofit initialization -> appointment = " + ap);
+        RetrofitService retrofitAppointSrvc = new RetrofitService();
+        System.out.println("[Appnmnt 2.1] API initialization = ");
+        AppointmentsApi appointmentsApi = retrofitAppointSrvc.getRetrofit().create(AppointmentsApi.class);
+        appointmentsApi.createAppointments(ap).enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                System.out.println("[Appnmnt 3] Inside on Response: " + response.body() + " => " + response.isSuccessful());
+                if (response.isSuccessful()){
+                    Log.d("[APP 1] TAG:" + " SUCCESS: ", "onResponse: " + response.body());
+                    Toast.makeText(BookAppointmentActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }else {
+                    Log.d("[APP 1] TAG:" + " FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(BookAppointmentActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d("[APP 2] TAG: " + " onFailure: ", "The Message is : " + t.getMessage());
+            }
+        });
     }
 
     private void testGetSpec(String specialisation) {
         System.out.println("Specialisation = " + specialisation);
         System.out.println("OK1.1");
 
-        retrofitService = new RetrofitService();
+        RetrofitService retrofitService = new RetrofitService();
         AppointmentsApi api = retrofitService.getRetrofit().create(AppointmentsApi.class);
 
         System.out.println("OK1.2");
@@ -263,14 +285,14 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 specialisedArray = gson.fromJson(message, doctorListType);
                 docFAndLName.clear();
                 //Test print
-                for (Doctor doctor : specialisedArray) {
-                    System.out.println("Doctor ID: " + doctor.getDocId() + ", Name: " + doctor.getDocFirstName() + " " + doctor.getDocLastName());
-                }
-                for(Doctor doc: specialisedArray ){
+                for (Doctor doc : specialisedArray) {
+                    System.out.println("Doctor ID: " + doc.getDocId() + ", Name: " + doc.getDocFirstName() + " " + doc.getDocLastName());
                     selectedDocId = doc.getDocId();
                     docFAndLName.add(doc.getDocFirstName() + " " + doc.getDocLastName());
-                    System.out.println("docFAndLName : " + docFAndLName);
                 }
+                //TEST PRINTS
+                System.out.println("[D2] ID : " + selectedDocId);
+                System.out.println("[D2] docFAndLName : " + docFAndLName);
                 doctorAdapter.notifyDataSetChanged();
             }
 
