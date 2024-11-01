@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="specialisations_array">
+        <item>Cardiologist</item>
+        <item>Neurologist</item>
+        <item>Dermatologist</item>
+        <item>Pathologist</item>
+        <item>Gynecologist</item>
+        <item>Andrologist</item>
+        <item>Urologist</item>
+        <item>Otolaryngologist</item>
+        <item>Psychiatrist</item>
+        <item>Gastroenterologist</item>
+        <item>Endocrinologist</item>
+        <item>Nutritionist</item>
+        <item>Oncologist</item>
+        <item>Nephrologist</item>
+        <item>Ophthalmologist</item>
+        <item>Orthopedist</item>
+        <item>Rheumatologist</item>
+        <item>Pulmonologist</item>
+        <item>Pediatrician</item>
+    </string-array>
+
+    <array name="specialization_icons_set">
+        <item>@drawable/cardiology</item>
+        <item>@drawable/neurology</item>
+        <item>@drawable/dermatology</item>
+        <item>@drawable/pathology</item>
+        <item>@drawable/gynecology_1</item>
+        <item>@drawable/andrology</item>
+        <item>@drawable/urology</item>
+        <item>@drawable/otolaryngology</item>
+        <item>@drawable/psychology</item>
+        <item>@drawable/gastroenterology</item>
+        <item>@drawable/endocrinology</item>
+        <item>@drawable/nutrition</item>
+        <item>@drawable/oncology</item>
+        <item>@drawable/nephrology</item>
+        <item>@drawable/ophthalmology</item>
+        <item>@drawable/orthopedics</item>
+        <item>@drawable/rheumatology</item>
+        <item>@drawable/pulmonology</item>
+        <item>@drawable/pediatrics</item>
+    </array>
+</resources>
