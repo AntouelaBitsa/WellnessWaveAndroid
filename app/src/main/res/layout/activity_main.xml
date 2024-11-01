@@ -39,4 +39,20 @@
         app:layout_constraintVertical_bias="0.051"
         app:rippleColor="@color/grass" />
 
+    <!---android:visibility="invisible"-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/linen"
+        app:itemIconTint="@color/darkgrass"
+        app:itemTextColor="@color/darkgrass"
+        app:itemRippleColor="@color/grass"
+        android:visibility="invisible"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
