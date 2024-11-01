@@ -5,23 +5,23 @@ import com.google.gson.annotations.SerializedName;
 import java.time.LocalDate;
 
 public class Diagnosis {
-//    @SerializedName("diagnosisId")
+    @SerializedName("diagnosisId")
     private Integer diagnosisId;
-//    @SerializedName("diagnType")
+    @SerializedName("diagnType")
     private String diagnType;
-//    @SerializedName("diagnosisId")
+    @SerializedName("treatment")
     private String treatment;
-//    @SerializedName("treatmDose")
+    @SerializedName("treatmDose")
     private String treatmDose;
-//    @SerializedName("startDate")
+    @SerializedName("startDate")
     private String startDate;
-//    @SerializedName("endDate")
+    @SerializedName("endDate")
     private String endDate;
-//    @SerializedName("diagnInfo")
+    @SerializedName("diagnInfo")
     private String diagnInfo;
-//    @SerializedName("doctor")
+    @SerializedName("doctor")
     private Doctor doctor;
-//    @SerializedName("patient")
+    @SerializedName("patient")
     private Patient patient;
 
     public Diagnosis() {

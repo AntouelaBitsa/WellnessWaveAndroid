@@ -18,6 +18,7 @@ public class Appointments {
     private Doctor doctor;
     @SerializedName("patient")
     private Patient patient;
+    private boolean isExpandable;
 
     public Appointments() {
     }
@@ -26,10 +27,11 @@ public class Appointments {
         this.date = date;
         this.time = time;
         this.appointInfo = appointInfo;
-//        this.doctor = Doctor.getInstance();
+        this.doctor = Doctor.getInstance();
         this.doctor.setDocId(doctorId);
         this.patient = Patient.getInstance();
         this.patient.setPatientId(patientId);
+        isExpandable = false;
     }
 
     public Integer getDocIDApp(){
@@ -74,6 +76,22 @@ public class Appointments {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Integer getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public boolean isExpandable() {
+        return isExpandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        isExpandable = expandable;
     }
 
     @Override

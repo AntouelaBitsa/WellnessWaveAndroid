@@ -43,6 +43,7 @@ public class Patient {
         this.patUsername = p.getPatUsername();
         this.patEmail = p.getPatEmail();
         this.patPhoneNum = p.getPatPhoneNum();
+        this.patSecuredNum = p.getPatSecuredNum();
         this.patDob = p.getPatDob();
         this.userType = p.getUserType();
     }
