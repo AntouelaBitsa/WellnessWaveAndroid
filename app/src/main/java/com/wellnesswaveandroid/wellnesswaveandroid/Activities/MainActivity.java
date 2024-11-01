@@ -1,30 +1,26 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button enter;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //For testing puposes
-//        setContentView(R.layout.activity_log_in);
-//        setContentView(R.layout.activity_user_type);
-//        setContentView(R.layout.activity_doc_sign_in);
-//        setContentView(R.layout.activity_doc_details);
-//        setContentView(R.layout.activity_pat_sign_in);
-//        setContentView(R.layout.activity_pat_details);
-//        setContentView(R.layout.activity_book_appointment);
 
         enter = findViewById(R.id.enterBtn);
         enter.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //The initialization of navigation bar implemented here
+        //Navigation and visibility is going to be implemented into Log In + change visibility in Intent
+        bottomNavigationView = findViewById(R.id.bottomNavBar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return false;
+            }
+        });
 
         //TEST METHOD -> THIS WORKED WITH INTENT AND SUCCESSFULL GET REQUEST
 //        detailsClassCall();
