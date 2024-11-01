@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:padding="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    android:layout_margin="10dp"
+    android:backgroundTint="@color/matcha">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCarouselItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cardItemSpecializationTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:hint="Specialization"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:textColor="@color/darkgrass"/>
+
+        <!--set image to this image view-->
+        <ImageView
+            android:id="@+id/cardItemImgSpecialization"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            android:contentDescription="Add new appointment"
+            />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

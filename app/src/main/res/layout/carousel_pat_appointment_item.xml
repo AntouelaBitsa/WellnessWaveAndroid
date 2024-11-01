@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/carouselItemDocAppointments"
+    android:layout_width="150dp"
+    android:layout_height="180dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    android:backgroundTint="@color/matcha"
+    android:padding="10dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCarouselItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/cardItemDocProfTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Day"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/cardItemDateDocTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="01/01/2025"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <Button
+            android:id="@+id/appointCrslCrdItmPatInfolBtn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="110dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/linen"
+            android:elevation="8dp"
+            android:text="Info"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/grass"
+            android:textSize="14sp"
+            app:rippleColor="@color/darkgrass2" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
