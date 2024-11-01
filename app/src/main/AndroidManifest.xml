@@ -13,17 +13,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_transparent_foreground"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.WellnessWaveAndroid"
+        android:theme="@style/Theme.WellnessWaveAndroid.New"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activities.RescheduleAppointment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DoctorHomePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PatientHomePageActivity"
+            android:exported="false" />
         <activity
             android:name=".Activities.InsertDiagnosisActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.BookAppointmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.DoctorHomeActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.PatientHomeActivity"
