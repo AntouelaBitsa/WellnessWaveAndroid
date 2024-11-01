@@ -6,9 +6,19 @@
         <item name="android:statusBarColor" tools:targetApi="1">@android:color/transparent</item>
         <item name="android:navigationBarColor" tools:targetApi="1">@color/darkgrass</item>
         <item name="android:colorBackground" tools:targetApi="1">@color/linen</item>
-        <item name="android:fontFamily" tools:targetApi="1">@font/righteous</item>
-
+        <item name="android:fontFamily" tools:targetApi="1">@font/geologica</item>
     </style>
+
+    <style name="Theme.WellnessWaveAndroid.New" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor" tools:targetApi="1">@android:color/transparent</item>
+        <item name="android:navigationBarColor" tools:targetApi="1">@android:color/transparent</item>
+        <item name="android:colorBackground" tools:targetApi="1">#FFFFFF</item>
+        <item name="android:textColor">#140F2D</item>
+        <item name="android:fontFamily" tools:targetApi="1">@font/geologica</item>
+    </style>
+
 
     <style name="Theme.WellnessWaveAndroid" parent="Base.Theme.WellnessWaveAndroid" />
   <!-- Base application theme. -->
@@ -17,12 +27,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <!--TODO: Date Picker-->
+    <!--DONE: Date Picker-->
     <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <!-- just override the colors used in the default style -->
-        <item name="colorOnPrimary">@color/smokedlinen</item>
         <item name="colorPrimary">@color/darkgrass</item>
-        <item name="materialCalendarStyle">@style/CustomMaterialCalendar</item>
+        <item name="colorSurface">@color/linen</item>
     </style>
 
     <style name="CustomMaterialCalendar" parent="Widget.MaterialComponents.MaterialCalendar">
@@ -55,5 +64,24 @@
         <item name="android:elevation">10dp</item>
     </style>
 
+    <!-- Custom style for BottomNavigationView -->
+    <style name="CustomBottomNavBar" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="indicatorColor"> @color/grass</item>
+    </style>
+
+    <style name="myOutlineButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/linen</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:strokeColor">#1270B0</item>
+        <item name="android:textColor">#140F2D</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="rippleColor">#F6AE2D</item>
+    </style>
 
 </resources>
