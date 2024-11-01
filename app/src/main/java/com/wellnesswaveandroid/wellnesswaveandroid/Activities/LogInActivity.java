@@ -146,7 +146,8 @@ public class LogInActivity extends AppCompatActivity {
 //        docInstance.setDoctorData(tempDoc);
         System.out.println("Singleton Doctor after LOGIN :  " + docInstance.toString());
         System.out.println("[D] docIntentImplementation : " + docInstance.getDocEmail()+ " " + docInstance.toString());
-        Intent logInDocUser = new Intent(LogInActivity.this, DocDetails.class);
+//        Intent logInDocUser = new Intent(LogInActivity.this, DocDetails.class);
+        Intent logInDocUser = new Intent(LogInActivity.this, DoctorHomePageActivity.class);
         logInDocUser.putExtra("doc_id", docInstance.getDocId()); //test
         logInDocUser.putExtra("first_name", docInstance.getDocFirstName()); // Pass data to next activity -> must pass each filed seperatly
         logInDocUser.putExtra("last_name", docInstance.getDocLastName());
@@ -167,7 +168,8 @@ public class LogInActivity extends AppCompatActivity {
         Patient patient = Patient.getInstance();
         patient.setPatientData(tempPat);
         System.out.println("[P] patIntentImplementation : " + patient.getPatEmail()+ " " + patient.toString());
-        Intent logInPatUser = new Intent(LogInActivity.this, PatDetails.class);
+//        Intent logInPatUser = new Intent(LogInActivity.this, PatDetails.class);
+        Intent logInPatUser = new Intent(LogInActivity.this, PatientHomePageActivity.class);
         logInPatUser.putExtra("first_namep", patient.getPatFirstName()); // Pass data to next activity -> must pass each filed seperatly
         logInPatUser.putExtra("last_namep", patient.getPatLastName());
         logInPatUser.putExtra("usernamep", patient.getPatUsername());
