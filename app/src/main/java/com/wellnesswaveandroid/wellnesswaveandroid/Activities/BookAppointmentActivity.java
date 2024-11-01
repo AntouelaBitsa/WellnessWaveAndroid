@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -59,6 +60,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private Integer bookPat;
     private LocalDate localDateFrmt;
     private LocalTime localTimeFrmt;
+    private BottomNavigationView bottomNavigationView;
 //    private RetrofitService retrofitService;
 
     @Override
@@ -66,6 +68,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_appointment);
         //TODO : fields validation
+
+        bottomNavigationView = findViewById(R.id.bottomNavBar);
 
         System.out.println("Components initialisation");
         specialisationSpinner = (Spinner) findViewById(R.id.specialisationSpn);
