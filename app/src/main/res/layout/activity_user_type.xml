@@ -7,25 +7,17 @@
     tools:context=".Activities.UserTypeActivity">
 
     <ImageView
-        android:id="@+id/logInRightLogoImgView"
+        android:id="@+id/rightLogoImgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
-
-    <ImageView
-        android:id="@+id/circlesImg"
-        android:layout_width="622dp"
-        android:layout_height="810dp"
-        android:layout_marginStart="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
+        app:srcCompat="@drawable/wellness_wave_logo" />
 
     <TextView
         android:id="@+id/memberTxt"
@@ -33,44 +25,47 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
         android:elegantTextHeight="true"
-        android:text="What member do you \n want to become ?"
+        android:text="Please select your role to proceed"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass"
-        android:textSize="18sp"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/doctorUserTypeBtn"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-        android:layout_width="wrap_content"
+        style="@style/CustomButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="@color/smokedlinen"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/yellow"
         android:text="Doctor"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass"
+        android:textStyle="bold"
+        android:textColor="@color/icywhite"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/memberTxt"
-        app:rippleColor="@color/matcha" />
+        app:rippleColor="@color/grey" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/patientUserTypeBtn"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-        android:layout_width="wrap_content"
+        style="@style/CustomButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:backgroundTint="@color/smokedlinen"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/magenda"
         android:text="Patient"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass"
+        android:textStyle="bold"
+        android:textColor="@color/icywhite"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
