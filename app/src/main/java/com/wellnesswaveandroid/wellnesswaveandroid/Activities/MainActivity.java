@@ -3,6 +3,7 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,42 +15,38 @@ import com.wellnesswaveandroid.wellnesswaveandroid.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button enter;
+    private Button signInNavToActivity, signUpNavToActivity;
     private BottomNavigationView bottomNavigationView;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        enter = findViewById(R.id.enterBtn);
-        enter.setOnClickListener(new View.OnClickListener() {
+        signInNavToActivity = findViewById(R.id.signInMain);
+        signInNavToActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent enterApplication = new Intent(MainActivity.this, LogInActivity.class);
-                startActivity(enterApplication);
-
+                Intent navigateToSignIn = new Intent(MainActivity.this, LogInActivity.class);
+                startActivity(navigateToSignIn);
 //                TEST BookAppointments
-//                Intent enterApplication = new Intent(MainActivity.this, BookAppointmentActivity.class);
-//                startActivity(enterApplication);
+//                Intent navigateToSignIn = new Intent(MainActivity.this, BookAppointmentActivity.class);
+//                startActivity(navigateToSignIn);
 //                TEST DocDetails
-//                Intent enterApplication = new Intent(MainActivity.this, DocDetails.class);
-//                enterApplication.putExtra();
+//                Intent navigateToSignIn = new Intent(MainActivity.this, DocDetails.class);
+//                navigateToSignIn.putExtra();
             }
         });
 
-        //The initialization of navigation bar implemented here
-        //Navigation and visibility is going to be implemented into Log In + change visibility in Intent
-        bottomNavigationView = findViewById(R.id.bottomNavBar);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        signUpNavToActivity = findViewById(R.id.signUpHereTxtBtn);
+        signUpNavToActivity.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
+            public void onClick(View v) {
+                Intent navigateToUserType = new Intent(MainActivity.this, UserTypeActivity.class);
+                startActivity(navigateToUserType);
             }
         });
-
-        //TEST METHOD -> THIS WORKED WITH INTENT AND SUCCESSFULL GET REQUEST
-//        detailsClassCall();
     }
 
     //THE RIGHT WAY FOR DETAILS ACTIVITIES

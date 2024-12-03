@@ -4,55 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/navyBlue"
     tools:context=".Activities.MainActivity">
-
+    
     <ImageView
-        android:id="@+id/logoImgView1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="256dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/svgDecoration"
+        android:layout_width="412dp"
+        android:layout_height="561dp"
+        android:layout_marginTop="236dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_foreground" />
+        app:srcCompat="@drawable/rectangle_docorator_white" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/enterBtn"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-        android:layout_width="130dp"
-        android:layout_height="57dp"
-        android:elevation="25dp"
-        android:shadowColor="@color/black"
-        android:text="Enter"
-        android:textAlignment="center"
-        android:textColor="@color/grass"
-        android:textSize="20sp"
-        app:backgroundTint="@color/smokedlinen"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/svgDoctorDecor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/undraw_icon_decoration_doctor" />
+
+    <TextView
+        android:id="@+id/appNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wellness Wave"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImgView1"
-        app:layout_constraintVertical_bias="0.051"
-        app:rippleColor="@color/grass" />
+        app:layout_constraintTop_toBottomOf="@+id/svgDoctorDecor" />
 
-    <!---android:visibility="invisible"-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavBar"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your health in handy"
+        android:textColor="@color/skyblue"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/appNameTxt"
+        app:layout_constraintStart_toStartOf="@+id/appNameTxt"
+        app:layout_constraintTop_toBottomOf="@+id/appNameTxt" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/signInMain"
+        style="@style/CustomButtonStyle2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/linen"
-        app:itemIconTint="@color/darkgrass"
-        app:itemTextColor="@color/darkgrass"
-        app:itemRippleColor="@color/grass"
-        android:visibility="invisible"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/yellow"
+        android:text="Sign In"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:rippleColor="@color/magenda" />
+
+    <TextView
+        android:id="@+id/becomeMemberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="78dp"
+        android:text="Become a mebmber of Wellness Wave"
+        android:textColor="@color/skyblue"
+        android:textSize="12sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintTop_toBottomOf="@+id/signInMain" />
+
+    <Button
+        android:id="@+id/signUpHereTxtBtn"
+        style="@style/ThemeOverlay.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@android:color/transparent"
+        android:text="Sign Up Here"
+        android:textColor="@color/navyBlue"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@color/magenda" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
