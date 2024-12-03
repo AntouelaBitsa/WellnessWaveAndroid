@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/navyBlue"
     tools:context=".Activities.MainActivity">
-    
+
     <ImageView
         android:id="@+id/svgDecoration"
         android:layout_width="412dp"
