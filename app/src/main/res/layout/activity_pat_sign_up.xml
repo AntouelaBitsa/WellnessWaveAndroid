@@ -7,235 +7,160 @@
     tools:context=".Activities.PatSignUpActivity">
 
     <ImageView
-        android:id="@+id/logInRightLogoImgView"
+        android:id="@+id/rightLogoImgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
-
-    <ImageView
-        android:id="@+id/circlesImg"
-        android:layout_width="660dp"
-        android:layout_height="729dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
+        app:srcCompat="@drawable/wellness_wave_logo" />
 
     <TextView
         android:id="@+id/patGreetingTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="130dp"
-        android:text="Hello Patient, \nPlease enter your required info"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
+        android:text="Join us to take control of your health \n Sign up now!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/userImg1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patGreetingTxt"
-        app:srcCompat="@drawable/user_outline_30dp" />
-
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patFNameEdt"
-        android:layout_width="143dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="14dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
         android:elevation="10dp"
-        android:hint="  First Name"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/userImg1"
-        app:layout_constraintStart_toEndOf="@+id/userImg1"
-        app:layout_constraintTop_toTopOf="@+id/userImg1" />
+        android:gravity="left|center"
+        android:hint="First Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patGreetingTxt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patLNameEdt"
-        android:layout_width="143dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Last Name"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/patFNameEdt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/patFNameEdt"
-        app:layout_constraintTop_toTopOf="@+id/patFNameEdt" />
-
-    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-        android:id="@+id/patUsernameEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
         android:elevation="10dp"
-        android:hint="  Username"
-        android:textColorHint="@color/grass"
+        android:hint="Last Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patFNameEdt" />
 
-    <ImageView
-        android:id="@+id/passwordImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/patUsernameEdt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:elevation="10dp"
+        android:gravity="left|center"
+        android:hint="Username"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImg1"
-        app:srcCompat="@drawable/password_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patLNameEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patPasswordEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Password"
-        android:inputType="textPassword"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordImg2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/passwordImg2"
-        app:layout_constraintTop_toTopOf="@+id/passwordImg2" />
-
-    <ImageView
-        android:id="@+id/emailImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:elevation="10dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordImg2"
-        app:srcCompat="@drawable/email_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patUsernameEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patEmailEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Email@example.com"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/emailImg2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/emailImg2"
-        app:layout_constraintTop_toTopOf="@+id/emailImg2" />
-
-    <ImageView
-        android:id="@+id/amkaImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:elevation="10dp"
+        android:hint="email@example.com"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailImg2"
-        app:srcCompat="@drawable/amka_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patPasswordEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patAmkaEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Amka"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/amkaImg2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/amkaImg2"
-        app:layout_constraintTop_toTopOf="@+id/amkaImg2" />
-
-    <ImageView
-        android:id="@+id/phoneNumImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:elevation="10dp"
+        android:hint="Amka"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amkaImg2"
-        app:srcCompat="@drawable/phone_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patEmailEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patPhoneNumEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
-        android:elevation="10dp"
-        android:hint="  Phone Number"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/phoneNumImg2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/phoneNumImg2"
-        app:layout_constraintTop_toTopOf="@+id/phoneNumImg2" />
-
-    <ImageView
-        android:id="@+id/dobImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:elevation="10dp"
+        android:hint="Phone Number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumImg2"
-        app:srcCompat="@drawable/dob_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/patAmkaEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patDobEdt"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edit_text_background_smokedmilky"
+        android:background="@drawable/edit_text_background_greys"
         android:elevation="10dp"
-        android:hint="  Date Of Birth"
-        android:textColorHint="@color/grass"
-        app:layout_constraintBottom_toBottomOf="@+id/dobImg"
+        android:hint="Birthdate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dobImg"
-        app:layout_constraintTop_toTopOf="@+id/dobImg" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patPhoneNumEdt" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/patSaveBtn"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
-        android:layout_width="122dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/smokedlinen"
-        android:text="Save"
+        style="@style/CustomButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:backgroundTint="@color/magenda"
+        android:text="Create Account"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patDobEdt" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

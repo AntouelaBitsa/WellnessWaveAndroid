@@ -26,30 +26,30 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="130dp"
-        android:text="Join as a Healthcare Professional."
+        android:text="Join as a Healthcare Professional"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavBar"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bottom_nav_bacground"
-        android:elevation="10dp"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
-        app:itemIconSize="20dp"
-        app:itemIconTint="@color/white"
-        app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNavBar"-->
+<!--        android:layout_width="360dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:background="@drawable/bottom_nav_bacground"-->
+<!--        android:elevation="10dp"-->
+<!--        app:itemActiveIndicatorStyle="@android:color/transparent"-->
+<!--        app:itemIconSize="20dp"-->
+<!--        app:itemIconTint="@color/white"-->
+<!--        app:itemRippleColor="@android:color/transparent"-->
+<!--        app:labelVisibilityMode="unlabeled"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:menu="@menu/bottom_nav_menu" />-->
 
 <!--    <ScrollView-->
 <!--        android:layout_width="410dp"-->
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/edit_text_background_greys"
                 android:elevation="10dp"
@@ -196,21 +196,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/docProfessionEdt" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/docSaveBtn"
-                style="@style/CustomButtonStyle2"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/yellow"
-                android:text="Create Account"
-                android:textAlignment="center"
-                android:textSize="12sp"
-                android:layout_gravity="center_horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/docAddressEdt" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/docSaveBtn"
+        style="@style/CustomButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/yellow"
+        android:text="Create Account"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/docAddressEdt" />
 
 <!--        </LinearLayout>-->
 
