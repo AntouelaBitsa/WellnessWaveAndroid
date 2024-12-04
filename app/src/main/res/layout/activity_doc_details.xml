@@ -4,246 +4,218 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/navyBlue"
     tools:context=".Activities.DocDetails">
 
     <ImageView
-        android:id="@+id/logInRightLogoImgView"
-        android:layout_width="wrap_content"
+        android:id="@+id/svgDecoration"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="Logo"
+        android:layout_marginTop="132dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
+        app:srcCompat="@drawable/userprofile_decorator" />
 
     <ImageView
-        android:id="@+id/docProfileImg"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="66dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doctor_outlined_72dp" />
-
-    <TextView
-        android:id="@+id/greedingDocTxt"
+        android:id="@+id/rightLogoImgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="98dp"
-        android:text="Hello mr. Doctor,"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        android:textSize="15sp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="User Profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
-        app:layout_constraintStart_toEndOf="@+id/docProfileImg"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/user_avatar" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bottom_nav_bacground"
+        android:elevation="10dp"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@color/white"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <Button
+        android:id="@+id/editProfileBtn"
+        style="@style/ThemeOverlay.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="250dp"
+        android:background="@android:color/transparent"
+        android:text="Edit Profile"
+        android:textColor="@color/icywhite"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/magenda" />
 
     <TextView
         android:id="@+id/docUsernameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="180dp"
+        android:layout_marginTop="8dp"
         android:text="Username"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/docProfileImg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toEndOf="@+id/docProfileImg"
-        app:layout_constraintTop_toTopOf="@+id/docProfileImg"
-        app:layout_constraintVertical_bias="0.83" />
-
-    <ImageView
-        android:id="@+id/usrImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/docProfileImg"
-        app:srcCompat="@drawable/user_outline_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/rightLogoImgView" />
 
     <TextView
-        android:id="@+id/docFNameTxt"
+        android:id="@+id/docFullNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:hint="First Name"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/usrImg2"
-        app:layout_constraintStart_toEndOf="@+id/usrImg2"
-        app:layout_constraintTop_toTopOf="@+id/usrImg2" />
+        android:layout_marginTop="8dp"
+        android:text="Dr. Full Name"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/docUsernameTxt" />
 
     <TextView
-        android:id="@+id/docLNameTxt"
+        android:id="@+id/emailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Last Name"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/usrImg2"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Email"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/docFNameTxt"
-        app:layout_constraintTop_toTopOf="@+id/usrImg2" />
-
-
-    <ImageView
-        android:id="@+id/passwordImg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usrImg2"
-        app:srcCompat="@drawable/password_outlined_30dp" />
-
-    <TextView
-        android:id="@+id/docPasswordTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordImg3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/passwordImg3"
-        app:layout_constraintTop_toTopOf="@+id/passwordImg3" />
-
-    <ImageView
-        android:id="@+id/emailImg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordImg3"
-        app:srcCompat="@drawable/email_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/docFullNameTxt" />
 
     <TextView
         android:id="@+id/docEmailTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Emai@example.com"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/emailImg3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:text="some@email.com"
+        android:textSize="13sp"
+        android:gravity="left|center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/emailImg3"
-        app:layout_constraintTop_toTopOf="@+id/emailImg3" />
-
-    <ImageView
-        android:id="@+id/amkaImg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailImg3"
-        app:srcCompat="@drawable/amka_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/emailTitle" />
 
     <TextView
-        android:id="@+id/docAmkaTxt"
+        android:id="@+id/phoneNumTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Amka"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/amkaImg3"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Phone Number"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/amkaImg3"
-        app:layout_constraintTop_toTopOf="@+id/amkaImg3" />
-
-    <ImageView
-        android:id="@+id/phoneNumImg3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amkaImg3"
-        app:srcCompat="@drawable/phone_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/docEmailTxt" />
 
     <TextView
         android:id="@+id/docPhoneNumTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/phoneNumImg3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:text="69--------"
+        android:textSize="13sp"
+        android:gravity="left|center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/phoneNumImg3"
-        app:layout_constraintTop_toTopOf="@+id/phoneNumImg3" />
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumTitle" />
 
-    <ImageView
-        android:id="@+id/professionImg3"
+    <TextView
+        android:id="@+id/professionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Phone Number"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumImg3"
-        app:srcCompat="@drawable/work_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/docPhoneNumTxt" />
 
     <TextView
         android:id="@+id/docProfessionTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Profession"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/professionImg3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:text="Profession"
+        android:textSize="13sp"
+        android:gravity="left|center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/professionImg3"
-        app:layout_constraintTop_toTopOf="@+id/professionImg3" />
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/professionTitle" />
 
-    <ImageView
-        android:id="@+id/addressImg3"
+    <TextView
+        android:id="@+id/addressTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Address"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/professionImg3"
-        app:srcCompat="@drawable/address_outlined_30dp" />
+        app:layout_constraintTop_toBottomOf="@+id/docProfessionTxt" />
 
     <TextView
         android:id="@+id/docAddressTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Address"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintBottom_toBottomOf="@+id/addressImg3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background_greys"
+        android:text="Address"
+        android:textSize="13sp"
+        android:gravity="left|center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addressImg3"
-        app:layout_constraintTop_toTopOf="@+id/addressImg3" />
-
-    <Button
-        android:id="@+id/btnTestDoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/docAddressTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
+
+    <ImageView
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/editProfileBtn"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
