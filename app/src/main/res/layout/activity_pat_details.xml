@@ -104,13 +104,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patFullNameTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/patEmailTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="some@email.com"
         android:textSize="13sp"
@@ -133,13 +134,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patEmailTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/patPhoneNumTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="69--------"
         android:textSize="13sp"
@@ -162,13 +164,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patPhoneNumTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/patDobTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="dd/MM/yyyy"
         android:textSize="13sp"
@@ -191,13 +194,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patDobTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/patAmkaTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="Amka"
         android:textSize="13sp"
