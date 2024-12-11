@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 
 import java.util.List;
@@ -20,10 +22,17 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
 
     private List<SpecializationSet> specializationList;
     private Context context;
+    private CardOnClickListener ocCardClick;
+    private int selectedPos = RecyclerView.NO_POSITION;
 
-    public SpecializationCarouselAdapter(List<SpecializationSet> specializatinList, Context context) {
+    public interface CardOnClickListener{
+        void cardOnClickListener(String specialization);
+    }
+
+    public SpecializationCarouselAdapter(List<SpecializationSet> specializatinList, Context context, CardOnClickListener cardOnClickListnr) {
         this.specializationList = specializatinList;
         this.context = context;
+        this.ocCardClick = cardOnClickListnr;
     }
 
     @NonNull
@@ -44,6 +53,7 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
         SpecializationSet specSet = specializationList.get(position);
         ((SpecializationViewHolder) holder).specializationTxt.setText(specSet.getSpecializationType());
         ((SpecializationViewHolder) holder).specializationImgView.setImageDrawable(specSet.getSpecializationIcon());
+        ((SpecializationViewHolder) holder).bind(specSet.getSpecializationType(), ocCardClick, position);
     }
 
     @Override
@@ -57,11 +67,44 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
     public class SpecializationViewHolder extends RecyclerView.ViewHolder{
         TextView specializationTxt;
         ImageView specializationImgView;
+        MaterialCardView specCard;
 
         public SpecializationViewHolder(@NonNull View itemView) {
             super(itemView);
             specializationTxt = itemView.findViewById(R.id.cardItemSpecializationTxt);
             specializationImgView = itemView.findViewById(R.id.cardItemImgSpecialization);
+            specCard = itemView.findViewById(R.id.specializationMaterialCard);
+        }
+
+        public void bind(String spec, CardOnClickListener ocCardClick, int position) {
+
+            if (selectedPos != position) {
+                // Change back to the original "sand" color
+                specCard.setCardBackgroundColor(
+                        ContextCompat.getColor(specCard.getContext(), R.color.sand)
+                );
+            } else {
+                // Change to "grey" color
+                specCard.setCardBackgroundColor(
+                        ContextCompat.getColor(specCard.getContext(), R.color.grey)
+                );
+            }
+
+            specCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ocCardClick != null){
+                        ocCardClick.cardOnClickListener(spec);
+                    }
+                    // Update the selected position
+                    int previousSelectedPosition = selectedPos;
+                    selectedPos = getAdapterPosition();
+
+                    // Notify the adapter to update the previous and current items
+                    notifyItemChanged(previousSelectedPosition);
+                    notifyItemChanged(selectedPos);
+                }
+            });
         }
     }
 }
