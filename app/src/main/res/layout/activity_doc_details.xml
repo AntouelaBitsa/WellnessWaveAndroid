@@ -50,7 +50,7 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <Button
-        android:id="@+id/editProfileBtn"
+        android:id="@+id/editDocProfileBtn"
         style="@style/ThemeOverlay.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,13 +104,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/docFullNameTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/docEmailTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="some@email.com"
         android:textSize="13sp"
@@ -133,13 +134,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/docEmailTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/docPhoneNumTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="69--------"
         android:textSize="13sp"
@@ -162,13 +164,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/docPhoneNumTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/docProfessionTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="Profession"
         android:textSize="13sp"
@@ -191,13 +194,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/docProfessionTxt" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/docAddressTxt"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="5dp"
+        android:enabled="false"
         android:background="@drawable/edit_text_background_greys"
         android:text="Address"
         android:textSize="13sp"
@@ -208,11 +212,11 @@
         app:layout_constraintTop_toBottomOf="@+id/addressTitle" />
 
     <ImageView
-        android:id="@+id/deleteAccount"
+        android:id="@+id/deleteDocAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/editProfileBtn"
+        app:layout_constraintEnd_toStartOf="@+id/editDocProfileBtn"
         app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
