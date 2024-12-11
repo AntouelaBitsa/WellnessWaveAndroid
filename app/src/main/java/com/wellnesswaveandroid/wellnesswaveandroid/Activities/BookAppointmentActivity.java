@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
@@ -48,7 +50,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private Spinner specialisationSpinner, docSpecSpinner;
     private Button pickdateBtn, picktimeBtn, bookAppoint;
     private TextView dateTxt, timeTxt;
-    private EditText commentsMltlnTxt;
+    private MaterialAutoCompleteTextView commentsMltlnTxt;
     private String formattedDate ="01-01-2000", formattedTime="00:00", specialisation="DEFAULT", doctor="NONE", comments="NONE";
     private int hour=00, minute=00;
     private Integer selectedDocId;
@@ -63,6 +65,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 //    private RetrofitService retrofitService;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +91,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         //Adding data to specialisation spinner from xml file - Static Data
         String[] spec = getResources().getStringArray(R.array.specialisations_array);
         ArrayAdapter<String> specialisationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spec);
-        specialisationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        specialisationAdapter.setDropDownViewResource(R.layout.spinner_drop_down_item_layout);
         specialisationSpinner.setAdapter(specialisationAdapter);
 
         System.out.println("Implementation: on item selected Of spinner");
@@ -98,8 +101,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.d("TAG 3 ", "Inside on item selected method");
                 specialisation = spec[position];
-                //TODO : POST request to get a list o doctors filtered by specialisation
-                //TODO : the endpoint need to get as parameters the specialisation String
+                //DONE : POST request to get a list o doctors filtered by specialisation
+                //DONE : the endpoint need to get as parameters the specialisation String
 //                getFilteredDocBySpecialisation(specialisation);
                 System.out.println("specialisation onClick => " + specialisation);
                 System.out.println("docFAndLName => " + docFAndLName.toString());
@@ -184,7 +187,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
         System.out.println("BTN => Time Selected : " + formattedTime);
 
-        //TODO: OnClick listener bookAppointment
+        //DONE: OnClick listener bookAppointment
         bookAppoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,7 +208,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 System.out.println("Specialisation => " + specialisation + " Doctor => " + doctor + " Date => " + formattedDate + " Time => " + formattedTime + " Commennts => " + comments);
                 Log.d("TAG 2001", "onClick: " + "Specialisation => " + specialisation + " Doctor => " + doctor + " Date => " + formattedDate + " Time => " + formattedTime + " Commennts => " + comments);
 
-                //TODO: Post request implementation
+                //DONE: Post request implementation
                 System.out.println("[Appnmnt 1] Before createAppointment()");
                 createAppointForPat(appointments);
             }
@@ -251,7 +254,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response)
             {
-                //TODO : POSTREQUEST result object (code, message)
+                //DONE : POST REQUEST result object (code, message)
                 //if statement for successful response and not null body()
                 System.out.println("Inside onResponse : OK2");
                 if (!response.isSuccessful() || response.body() == null) {
@@ -307,7 +310,6 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 Log.d("onFailure", "onResponse: " + t.getMessage());
             }
         });
-
     }
 
     /*private void updateDoctorSpinner() {
