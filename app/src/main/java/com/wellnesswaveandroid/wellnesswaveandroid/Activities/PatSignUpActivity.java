@@ -89,7 +89,7 @@ public class PatSignUpActivity extends AppCompatActivity {
                     public void onResponse(Call<Patient> call, Response<Patient> response) {
                         if(response.isSuccessful()){
                             Log.d(TAG + " SUCCESS: ", "onResponse: " + response.body());
-                            Toast.makeText(PatSignUpActivity.this, response.body().getPatientId(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(PatSignUpActivity.this, response.body().getPatientId(), Toast.LENGTH_LONG).show();
                         }else {
                             Log.d(TAG + " FAIL: ", "onResponse: FAILED" + response.body() + response.code());
                         }
