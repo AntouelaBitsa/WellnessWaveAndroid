@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 
 public class LogInActivity extends AppCompatActivity {
 
-    private Button logInButton, signInButton;
+    private Button signInButton;
     private MaterialAutoCompleteTextView edtUsername, edtPassword;
     private Doctor doc;
     private RetrofitService retrofitService;
@@ -37,6 +38,7 @@ public class LogInActivity extends AppCompatActivity {
     private Patient pat;
     private LogInDTO logInDTO;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +53,12 @@ public class LogInActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.passwordEdtTxt);
 
         //DONE : implementation Log In Button
-        logInButton = findViewById(R.id.logInBtn);
+        signInButton = findViewById(R.id.signInBtn);
         System.out.println("before onClick : OK0");
 
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            //TODO user validation
-            //TODO: implementation of get request and pass data to DocDetails activity so we can see the data
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            //DONE user validation
+            //DONE: implementation of get request and pass data to DocDetails activity so we can see the data
             @Override
             public void onClick(View view) {
                 System.out.println("Inside onClick : OK1");
@@ -67,15 +69,15 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-        //DONE : intent for UserTypeActivity
-        signInButton = findViewById(R.id.signInBtn);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent userType = new Intent(LogInActivity.this, UserTypeActivity.class);
-                startActivity(userType);
-            }
-        });
+//        //DONE : intent for UserTypeActivity
+//        signInButton = findViewById(R.id.signInBtn);
+//        signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent userType = new Intent(LogInActivity.this, UserTypeActivity.class);
+//                startActivity(userType);
+//            }
+//        });
     }
 
     private void logInDTOSession(String username, String password) {
