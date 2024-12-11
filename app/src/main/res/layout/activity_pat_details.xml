@@ -50,7 +50,7 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <Button
-        android:id="@+id/editProfileBtn"
+        android:id="@+id/editPatProfileBtn"
         style="@style/ThemeOverlay.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -241,11 +241,11 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/addressTitle" />-->
 
     <ImageView
-        android:id="@+id/deleteAccount"
+        android:id="@+id/deletePatAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/editProfileBtn"
+        app:layout_constraintEnd_toStartOf="@+id/editPatProfileBtn"
         app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

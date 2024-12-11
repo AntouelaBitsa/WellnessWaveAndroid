@@ -18,14 +18,12 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
-import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.AppointmentsApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.PatientApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,8 +80,8 @@ public class PatDetails extends AppCompatActivity {
         amkaTxt = findViewById(R.id.patAmkaTxt);
         phoneNumTxt = findViewById(R.id.patPhoneNumTxt);
         dobTxt = findViewById(R.id.patDobTxt);
-        editPatProfileBtn = findViewById(R.id.editProfileBtn);
-        deleteAccount = findViewById(R.id.deleteAccount);
+        editPatProfileBtn = findViewById(R.id.editPatProfileBtn);
+        deleteAccount = findViewById(R.id.deletePatAccount);
 
         Log.d("[P] Are HEre", " Yes");
         Toast.makeText(PatDetails.this, "Intent worked Successfully", Toast.LENGTH_LONG).show();
