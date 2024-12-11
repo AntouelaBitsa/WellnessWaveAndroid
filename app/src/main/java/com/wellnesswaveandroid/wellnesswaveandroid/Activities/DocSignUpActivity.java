@@ -91,7 +91,7 @@ public class DocSignUpActivity extends AppCompatActivity {
                     public void onResponse(Call<Doctor> call, Response<Doctor> response) {
                         if(response.isSuccessful()){
                             Log.d(TAG + "SUCESS", "onResponse: " + response.code());
-                            Toast.makeText(DocSignUpActivity.this, response.body().getDocId(), Toast.LENGTH_LONG).show();;
+//                            Toast.makeText(DocSignUpActivity.this, response.body().getDocId(), Toast.LENGTH_LONG).show();;
                         }else {
                             Log.d(TAG, "onResponse: FAILED" + response.body() + response.code());
                         }
