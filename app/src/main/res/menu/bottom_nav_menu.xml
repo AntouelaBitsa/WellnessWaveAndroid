@@ -7,13 +7,17 @@
         />
 
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/nav_profile"
-        android:title="Profile" />
-
-    <item
         android:id="@+id/nav_manage_appointments"
         android:icon="@drawable/nav_appoint_manage"
         android:title="Appointments" />
 
+    <item
+        android:id="@+id/nav_diagn_history"
+        android:icon="@drawable/nav_diagn_history"
+        android:title="History" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/nav_profile"
+        android:title="Profile" />
 </menu>
