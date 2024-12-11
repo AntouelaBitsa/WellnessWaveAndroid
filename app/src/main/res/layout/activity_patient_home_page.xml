@@ -7,53 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".Activities.PatientHomePageActivity">
 
-    <!---android:visibility="invisible"-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/linen"
-        app:itemIconTint="@color/darkgrass"
-        app:itemTextColor="@color/darkgrass"
-        app:itemRippleColor="@color/grass"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
-
     <ImageView
         android:id="@+id/rightLogoImgView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
+        app:srcCompat="@drawable/wellness_wave_logo" />
 
-    <ImageView
-        android:id="@+id/circlesImg"
-        android:layout_width="622dp"
-        android:layout_height="810dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="224dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="359dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bottom_nav_bacground"
+        android:elevation="10dp"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@color/white"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
     <TextView
         android:id="@+id/welcomePatTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
         android:text="Welcome, "
-        android:textAllCaps="true"
-        android:textColor="@color/grass"
+        android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@+id/rightLogoImgView"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,27 +56,25 @@
         android:id="@+id/usernamePatTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
         android:hint="Username"
-        android:textAllCaps="true"
-        android:textColor="@color/darkgrass"
-        android:textColorHint="@color/grass"
         android:padding="2dp"
+        android:textSize="13sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/welcomePatTxt"
         app:layout_constraintEnd_toStartOf="@+id/rightLogoImgView"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/welcomePatTxt" />
-
 
     <TextView
         android:id="@+id/upcomingAppntmnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="198dp"
         android:text="Upcoming Appointments"
-        android:textAllCaps="true"
-        android:textColor="@color/grass"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,40 +83,37 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appointmentRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:elevation="20dp"
         android:paddingTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/upcomingAppntmnt"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="@+id/upcomingAppntmnt"
-        app:layout_constraintTop_toBottomOf="@+id/upcomingAppntmnt"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcomingAppntmnt" />
 
     <TextView
         android:id="@+id/docCatergoriesTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Doctor Specialization"
-        android:textAllCaps="true"
-        android:textColor="@color/grass"
+        android:layout_marginBottom="8dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/docSpecializationRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.127"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentRecycler" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/docSpecializationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingTop="8dp"
         android:elevation="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/docCatergoriesTxt"
-        app:layout_constraintStart_toStartOf="@+id/docCatergoriesTxt"
-        app:layout_constraintTop_toBottomOf="@+id/docCatergoriesTxt"
-        />
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appointmentRecycler" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
