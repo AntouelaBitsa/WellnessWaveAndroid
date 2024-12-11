@@ -11,103 +11,113 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
+        app:srcCompat="@drawable/wellness_wave_logo" />
 
-    <ImageView
-        android:id="@+id/circlesImg"
-        android:layout_width="622dp"
-        android:layout_height="810dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="224dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_logo_circles_foreground" />
-
+    <!---android:visibility="invisible"-->
     <TextView
         android:id="@+id/bookAppointTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="94dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="198dp"
         android:text="Book Appointment"
-        android:textColor="@color/darkgrass2"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!---android:visibility="invisible"-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/linen"
-        app:itemIconTint="@color/darkgrass"
-        app:itemTextColor="@color/darkgrass"
-        app:itemRippleColor="@color/grass"
-        app:labelVisibilityMode="labeled"
+        android:layout_width="359dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bottom_nav_bacground"
+        android:elevation="10dp"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemIconSize="20dp"
+        app:itemIconTint="@color/white"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <TextView
-        android:id="@+id/specialisationTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="60dp"
-        android:text="Specialisation"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookAppointTxt" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/specialisationTxt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:layout_marginTop="60dp"-->
+    <!--        android:text="Specialisation"-->
+    <!--        android:textSize="13sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/bookAppointTxt" />-->
 
     <Spinner
         android:id="@+id/specialisationSpn"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/specialisationTxt"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:popupBackground="@drawable/spinner_popup_background"
+        android:background="@drawable/spinner_custom_bacground"
+        android:elevation="10dp"
+        android:autofillHints="Specialization"
+        android:entries="@array/specialisations_array"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/specialisationTxt"
-        app:layout_constraintTop_toTopOf="@+id/specialisationTxt"
-        android:entries="@array/specialisations_array"/>
-
-    <TextView
-        android:id="@+id/doctorTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="55dp"
-        android:text="Doctor"
-        android:textColor="@color/darkgrass2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specialisationTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/bookAppointTxt" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/doctorTxt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:layout_marginTop="55dp"-->
+    <!--        android:text="Doctor"-->
+    <!--        android:textColor="@color/darkgrass2"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/specialisationTxt" />-->
 
     <Spinner
         android:id="@+id/doctorSpn"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/doctorTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.648"
-        app:layout_constraintStart_toEndOf="@+id/doctorTxt"
-        app:layout_constraintTop_toTopOf="@+id/doctorTxt" />
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="30dp"
+        android:popupBackground="@drawable/spinner_popup_background"
+        android:background="@drawable/spinner_custom_bacground"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/specialisationSpn"
+        app:layout_constraintStart_toStartOf="@+id/specialisationSpn"
+        app:layout_constraintTop_toBottomOf="@+id/specialisationSpn" />
 
-    <TextView
-        android:id="@+id/dateTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="55dp"
-        android:text="Date"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctorTxt" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/dateTxt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:layout_marginTop="55dp"-->
+    <!--        android:text="Date"-->
+    <!--        android:textColor="@color/darkgrass2"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/doctorTxt" />-->
 
     <!-- <Spinner
         android:id="@+id/dateSpn"
@@ -119,46 +129,16 @@
         app:layout_constraintStart_toEndOf="@+id/dateTxt"
         app:layout_constraintTop_toTopOf="@+id/dateTxt" /> -->
 
-    <Button
-        android:id="@+id/pickDateBtn"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_width="180dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/linen"
-        android:elevation="10dp"
-        android:text="Pick Date"
-        android:textAlignment="center"
-        android:textColor="@color/darkgrass"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/dateTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toEndOf="@+id/dateTxt"
-        app:rippleColor="@color/matcha"/>
-
-    <TextView
-        android:id="@+id/slctdDateTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Selected Date : "
-        android:textAlignment="center"
-        android:textColor="@color/darkgrass2"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="@+id/pickDateBtn"
-        app:layout_constraintStart_toStartOf="@+id/pickDateBtn"
-        app:layout_constraintTop_toBottomOf="@+id/pickDateBtn" />
-
-    <TextView
-        android:id="@+id/timeTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="70dp"
-        android:text="Time"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTxt" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/timeTxt"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="24dp"-->
+    <!--        android:layout_marginTop="70dp"-->
+    <!--        android:text="Time"-->
+    <!--        android:textColor="@color/darkgrass2"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/dateTxt" />-->
 
     <!--<Spinner
         android:id="@+id/timeSpn"
@@ -172,28 +152,58 @@
         app:layout_constraintTop_toTopOf="@+id/timeTxt"
         app:layout_constraintVertical_bias="0.566" />-->
 
-    <Button
-        android:id="@+id/pickTimeBtn"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_width="180dp"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/pickDateBtn"
+        style="@style/CustomButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:backgroundTint="@color/linen"
-        android:elevation="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:backgroundTint="@color/icywhite"
+        android:text="Pick Date"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorSpn" />
+
+    <TextView
+        android:id="@+id/slctdDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Selected Date : "
+        android:textAlignment="center"
+        android:textColor="@color/darkgrass2"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/pickDateBtn"
+        app:layout_constraintStart_toStartOf="@+id/pickDateBtn"
+        app:layout_constraintTop_toBottomOf="@+id/pickDateBtn" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/pickTimeBtn"
+        style="@style/CustomButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:backgroundTint="@color/icywhite"
         android:text="Pick Time"
         android:textAlignment="center"
-        android:textColor="@color/darkgrass"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/timeTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toEndOf="@+id/timeTxt"
-        app:rippleColor="@color/matcha"/>
+        app:layout_constraintEnd_toEndOf="@+id/pickDateBtn"
+        app:layout_constraintStart_toStartOf="@+id/pickDateBtn"
+        app:layout_constraintTop_toBottomOf="@+id/pickDateBtn" />
 
     <TextView
         android:id="@+id/slctdTimeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:hint="Selected Time : "
         android:textAlignment="center"
         android:textColor="@color/darkgrass2"
@@ -202,46 +212,40 @@
         app:layout_constraintStart_toStartOf="@+id/pickTimeBtn"
         app:layout_constraintTop_toBottomOf="@+id/pickTimeBtn" />
 
-    <TextView
-        android:id="@+id/commentsTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="65dp"
-        android:text="Comments"
-        android:textColor="@color/darkgrass2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTxt" />
-
-    <EditText
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/commentsMltlnTxt"
-        android:layout_width="wrap_content"
+        style="@style/CustomEditTextStyle"
+        android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/multiline_edit_background_icywhite"
         android:ems="10"
+        android:gravity="top"
         android:hint="Add any comment to your doctor"
         android:inputType="textMultiLine"
-        android:gravity="top"
         android:lines="3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/commentsTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/commentsTxt" />
+        app:layout_constraintEnd_toEndOf="@+id/pickTimeBtn"
+        app:layout_constraintStart_toStartOf="@+id/pickTimeBtn"
+        app:layout_constraintTop_toBottomOf="@+id/pickTimeBtn" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/bookBtn"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        style="@style/CustomButtonStyle2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:backgroundTint="@color/linen"
-        android:elevation="10dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/magenda"
         android:text="Book"
         android:textAlignment="center"
-        android:textColor="@color/darkgrass"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentsTxt"
-        app:rippleColor="@color/matcha" />
+        app:layout_constraintEnd_toEndOf="@+id/commentsMltlnTxt"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/commentsMltlnTxt"
+        app:layout_constraintTop_toBottomOf="@+id/commentsMltlnTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
