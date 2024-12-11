@@ -2,7 +2,9 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Patient {
+import java.io.Serializable;
+
+public class Patient implements Serializable {
     //Transfer patient data between activities
     private static Patient patInstance;
 

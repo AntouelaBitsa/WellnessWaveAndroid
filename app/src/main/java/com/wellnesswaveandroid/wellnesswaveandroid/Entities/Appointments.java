@@ -2,10 +2,12 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Appointments {
+public class Appointments implements Serializable {
+    private static final long serialVersionUID = 1L;
     @SerializedName("appointmentId")
     private Integer appointmentId;
     @SerializedName("date")

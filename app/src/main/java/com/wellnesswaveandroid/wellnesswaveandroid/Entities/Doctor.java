@@ -2,7 +2,9 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
     private static Doctor docInstance;
 
     @SerializedName("docId")
