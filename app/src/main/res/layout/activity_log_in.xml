@@ -82,6 +82,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEdtTxt"
-        app:rippleColor="@color/darkgrass2" />
+        app:rippleColor="@color/icywhite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
