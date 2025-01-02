@@ -4,17 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:padding="10dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/matcha">
+    android:backgroundTint="@color/icywhite">
 
     <LinearLayout
         android:id="@+id/linearLayoutCarouselItem"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -22,16 +21,16 @@
             android:id="@+id/cardItemSpecializationTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Add \n Appointment"
+            android:layout_margin="20dp"
+            android:hint="New Appointment"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/cardItemImgSpecialization"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="30dp"
+            android:layout_marginBottom="22dp"
             android:src="@drawable/add_appointment_48"
             android:contentDescription="Add new appointment"
             android:layout_gravity="center" />
