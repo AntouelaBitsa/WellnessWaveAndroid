@@ -80,19 +80,21 @@ public class PatientHomePageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
                     return true;
-                }else if (item.getItemId() == R.id.nav_profile) {
+                }else if (item.getItemId() == R.id.nav_manage_appointments) {
+//                    startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
+                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), PatDetails.class));
                     //if there are transitions=> overridePendingTransition()
                     finish();
                     return true;
-                } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                        startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
-                    //if there are transitions=> overridePendingTransition()
-//                        finish();
-                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
-                    finish();
-                    return true;
-                }else {
+                } else {
                     return false;
                 }
             }
