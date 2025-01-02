@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -61,6 +62,8 @@ public class DocSignUpActivity extends AppCompatActivity {
 
                 //call of post request for user registration
                 postDoctorData();
+//                Intent goToSignIn = new Intent(DocSignUpActivity.this, MainActivity.class);
+//                startActivity(goToSignIn);
             }
 
             private void postDoctorData() {
@@ -90,8 +93,11 @@ public class DocSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Doctor> call, Response<Doctor> response) {
                         if(response.isSuccessful()){
+                            Intent goToSignIn = new Intent(DocSignUpActivity.this, MainActivity.class);
+                            startActivity(goToSignIn);
                             Log.d(TAG + "SUCESS", "onResponse: " + response.code());
 //                            Toast.makeText(DocSignUpActivity.this, response.body().getDocId(), Toast.LENGTH_LONG).show();;
+                            finish();
                         }else {
                             Log.d(TAG, "onResponse: FAILED" + response.body() + response.code());
                         }
