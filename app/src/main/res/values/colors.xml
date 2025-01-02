@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    OLD COLORS -->
     <color name="black">#FF000000</color>
     <color name="sand">#D7D7CE</color>
     <color name="grass">#7F867B</color>
@@ -10,4 +11,16 @@
     <color name="smokedlinen">#CDCBBF</color>
     <color name="darkgrass2">#545852</color>
     <color name="smokedmilky">#D9D9D9</color>
+
+<!--    NEW COLORS -->
+    <color name="white">#FFFFFF</color>
+    <color name="charcoalblue">#3D4248</color>
+    <color name="navyBlue">#140F2D</color>
+    <color name="magenda">#A40E4C</color>
+    <color name="skyblue">#3F88C5</color>
+    <color name="icy">#E5E9EC</color>
+    <color name="icywhite">#F5F5F5</color>
+    <color name="grey">#EAEAEA</color>
+    <color name="greymedium">#A19EA0</color>
+    <color name="yellow">#F6AE2D</color>
 </resources>
