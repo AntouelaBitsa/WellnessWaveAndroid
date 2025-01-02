@@ -2,9 +2,12 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.MenuItem;
@@ -28,6 +31,7 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DiagnosisApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.PDFGenerator;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 
 import java.text.SimpleDateFormat;
@@ -54,6 +58,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
     //private ArrayList<Patient> patientList;
     private Patient patientInstanceSlctd;
     private Doctor docInstance;
+    private Diagnosis diagnosisObj;
 
     //Handling delayed API Request
     //Handler handler = new Handler(Looper.getMainLooper());
@@ -70,6 +75,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
 
     //Diagnosis Object For Post Request
     private Diagnosis diagnosisReg;
+    private PDFGenerator pdfGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +115,8 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         diagnosisEdt = findViewById(R.id.prefilledAppointEdt);
         treatmentEdt = findViewById(R.id.treatementDiEdt);
         doseEdt = findViewById(R.id.doseDiEdt);
-        startDateBtn = findViewById(R.id.dateReBtn);
-        endDateBtn = findViewById(R.id.timeReBtn);
+        startDateBtn = findViewById(R.id.dateStartBtn);
+        endDateBtn = findViewById(R.id.dateEndBtn);
         infoDiEdt = findViewById(R.id.prefilledDateEdt);
         saveDiagn = findViewById(R.id.saveDiagnBtn);
         extractToPDF = findViewById(R.id.extractToPDFImg);
@@ -332,12 +338,10 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
 
         //DONE: Implement onClick of button: saveDiagn
         System.out.println(">[InsrtDgn 08 onCreate]: before saveDiagn onClick!!!");
-//--------------------SAVE BUTTON ONCLICK IMPLEMENTATION-----------------------
         saveDiagn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //DONE: Get content from editText-> diagnosisTxt, treeatmentTxt, doseTxt, infoTxt
-//--------------------GETTING TEXTS FROM UI COMPONENTS-----------------------
                 //TODO: check for empty fields => diagnosis, info/instructions: required fields, not null in API
                 diagnosis = diagnosisEdt.getText().toString();
                 treatment = treatmentEdt.getText().toString();
@@ -348,30 +352,35 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 info = infoDiEdt.getText().toString();
                 System.out.println(">[InsrtDgn 07 onCreate]: info= " + info);
                 //DONE: Create Object Diagnosis
-//--------------------CREATING A NEW OBJECT OF DIAGNOSIS-----------------------
-//--------------------HERE THE DOCTOR_ID PARAMETER: GETS THE HOLE OBJECT INSTANCE-----------------------
                 diagnosisReg = new Diagnosis(diagnosis,treatment,dose,formattedStartDate,formattedEndDate,info,doctorID,patientID);
                 System.out.println("Diagnosis => " + diagnosisReg.toString());
                 //DONE: Implement API POST Request
-//--------------------CALLS THE CREATE DIAGNOSIS REQUEST METHOD-----------------------
                 createDiagnosisRequest(diagnosisReg);
 
             }
         });
 
+
+
         //TODO: Implementation of onClick Listener for pdf extraction
+        extractToPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: get request to get the created diagnosis
+//                ActivityCompat.requestPermissions(InsertDiagnosisActivity.this,new String[]{
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+//
+//                pdfGenerator = new PDFGenerator(InsertDiagnosisActivity.this);
+//                pdfGenerator.generatePDF(patientInstanceSlctd, docInstance, diagnosis);
+//                Toast.makeText(InsertDiagnosisActivity.this, "PDF File Generated Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void createDiagnosisRequest(Diagnosis diagnosis) {
-//--------------------ENTERS METHOD-----------------------
         RetrofitService retrofitService = new RetrofitService();
         DiagnosisApi diagnosisApi = retrofitService.getRetrofit().create(DiagnosisApi.class);
         System.out.println("//////////////inside create diagnosis + before enqueue/////////////");
-//--------------------RUN STOPS HERE-----------------------
-//--------------------THE ISSUE SEEMS TO BE WITH RETROFIT THAT CANNOT CREATE THE BODY FOR THE POST REQUEST--------------------
-//--------------------ALSO GO TO DIAGNOSIS_API => FOR THE ISSUE WITH BODY CREATION-----------------------
-//--------------------SECOND ISSUE IS WITH PARAMETERS IN DIAGNOSIS MISMATCH--------------------
-//--------------------BUT AFTER EXTERNAL CONTROL I HAVEN'T DETECT SUCH ISSUE WITH FRONTEND AND BACKEND-----------------------
         diagnosisApi.createDiagnosis(diagnosis).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
@@ -384,7 +393,6 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                     System.out.println(">[InsrtDgn 02 createDiagnosisRequest]: response= " + response.isSuccessful() + " " + response.body());
                     Toast.makeText(InsertDiagnosisActivity.this, "Diagnosis Created", Toast.LENGTH_SHORT).show();
                 }
-
                 //DONE: intent to another screen
                 Intent goToHomePage = new Intent(InsertDiagnosisActivity.this, DoctorHomePageActivity.class);
                 startActivity(goToHomePage);
