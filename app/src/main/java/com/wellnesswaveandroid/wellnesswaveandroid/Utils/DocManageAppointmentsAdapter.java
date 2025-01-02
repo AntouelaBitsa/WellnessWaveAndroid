@@ -1,17 +1,20 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wellnesswaveandroid.wellnesswaveandroid.Activities.BookAppointmentActivity;
+import com.wellnesswaveandroid.wellnesswaveandroid.Activities.RescheduleAppointment;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Appointments;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 
@@ -20,17 +23,25 @@ import java.util.List;
 public class DocManageAppointmentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Appointments> appointmentsList;
     private Context context;
+    private OnBtnListener cancelListener;
+//    private int selectedPos = RecyclerView.NO_POSITION;
 
-    public DocManageAppointmentsAdapter(List<Appointments> appointmentsList, Context context) {
+    public  interface OnBtnListener {
+        void onCancelButtonClick(Appointments appoint);
+//        void onRescheduleButtonClick(Appointments appoint);
+    }
+
+    public DocManageAppointmentsAdapter(List<Appointments> appointmentsList, Context context, OnBtnListener onCancelListener) {
         this.appointmentsList = appointmentsList;
         this.context = context;
+        this.cancelListener = onCancelListener;
     }
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View manageView = LayoutInflater.from(context).inflate(R.layout.doc_manage_appointment_items, parent, false);
+        View manageView = LayoutInflater.from(context).inflate(R.layout.manage_appointments_item, parent, false);
         return new ManageViewHolder(manageView);
     }
 
@@ -43,16 +54,16 @@ public class DocManageAppointmentsAdapter extends RecyclerView.Adapter<RecyclerV
             String fullName = appoint.getPatient().getPatFirstName().concat(" ").concat(appoint.getPatient().getPatLastName());
             System.out.println("[-1-onBindViewHolder() Manage]: fullName= " + fullName);
             ((ManageViewHolder) holder).fullNamePatTxt.setText(fullName);
-            ((ManageViewHolder) holder).amkaPatTxt.setText(appoint.getPatient().getPatSecuredNum());
-            ((ManageViewHolder) holder).datePatTxt.setText(appoint.getDate());
-            ((ManageViewHolder) holder).timePatTxt.setText(appoint.getTime());
-            ((ManageViewHolder) holder).commentsPatTxt.setText(appoint.getAppointInfo());
-            ((ManageViewHolder) holder).cancelAppointBtn.setOnClickListener(new View.OnClickListener() {
+            //DONE: add data to all other components of the CardView
+            ((ManageViewHolder) holder).appointTimeTxt.setText(appoint.getTime());
+            //DONE: implement onClick Listeners for Image View's
+            ((ManageViewHolder) holder).bind(appoint, cancelListener, position);
+            ((ManageViewHolder) holder).reascheduleAppoint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /**
-                     * TODO: must navigate to another screen -> manage appointments screen
-                     * **/
+                    Intent goToRescheduleAppointment = new Intent(context, RescheduleAppointment.class);
+                    goToRescheduleAppointment.putExtra("appoint", appoint);
+                    context.startActivity(goToRescheduleAppointment);
                 }
             });
         }else {
@@ -71,17 +82,27 @@ public class DocManageAppointmentsAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public class ManageViewHolder extends RecyclerView.ViewHolder{
-        TextView fullNamePatTxt, amkaPatTxt, datePatTxt, timePatTxt, commentsPatTxt;
-        Button cancelAppointBtn;
+        TextView fullNamePatTxt, appointTimeTxt;
+        ImageView cancelAppoint, reascheduleAppoint;
 
         public ManageViewHolder(@NonNull View itemView) {
             super(itemView);
-            fullNamePatTxt = itemView.findViewById(R.id.manageCrdItmPatFullNameTxt);
-            amkaPatTxt = itemView.findViewById(R.id.manageCrdItmPatAmka);
-            datePatTxt = itemView.findViewById(R.id.manageCrdItmPatAppntDate);
-            timePatTxt = itemView.findViewById(R.id.manageCrdItmPatAppntTime);
-            commentsPatTxt = itemView.findViewById(R.id.manageCrdItmPatCommnts);
-            cancelAppointBtn = itemView.findViewById(R.id.appointCrslCrdItmPatInfolBtn);
+            fullNamePatTxt = itemView.findViewById(R.id.patfullNmTxt);
+//            amkaPatTxt = itemView.findViewById(R.id.manageCrdItmPatAmka);
+            appointTimeTxt = itemView.findViewById(R.id.appointHourTxt);
+            reascheduleAppoint = itemView.findViewById(R.id.rescheduleAppointImgView);
+            cancelAppoint = itemView.findViewById(R.id.cancelAppointImgView);
+        }
+
+        public void bind(Appointments appoint, OnBtnListener cancelListener, int position) {
+            cancelAppoint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (cancelListener != null){
+                        cancelListener.onCancelButtonClick(appoint);
+                    }
+                }
+            });
         }
     }
 }
