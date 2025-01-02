@@ -160,7 +160,7 @@ public class PatDetails extends AppCompatActivity {
                     updatedFields.put("phoneNum", patInstance.getPatPhoneNum());
                     updatedFields.put("dob", patInstance.getPatDob());
 
-                    //TODO: Method for Update API Call
+                    //DONE: Method for Update API Call
                     updatePatient(patInstance.getPatientId(), updatedFields);
 
                     emailTxt.setEnabled(false);
@@ -178,7 +178,7 @@ public class PatDetails extends AppCompatActivity {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Delete API Request
+                //DONE: Delete API Request
                 deletePatient(patInstance.getPatientId());
             }
         });
