@@ -108,9 +108,12 @@ public class RescheduleAppointment extends AppCompatActivity {
         Appointments appointmentObj = (Appointments) getFromHopePage.getSerializableExtra("appoint");
         System.out.println("[Reschedule *1*] intent data: " + appointmentObj.toString());
 
+        Patient currentPat = appointmentObj.getPatient();
         patInstance = Patient.getInstance();
+        patInstance.setPatientData(currentPat);
         if (patInstance != null){
             patAmka = patInstance.getPatSecuredNum();
+            System.out.println("Patient Amka= " + patAmka + "vs GETTING WITH INSTANCE= " + patInstance.getPatSecuredNum());
             fullNameP = patInstance.getPatFirstName().concat(" ").concat(patInstance.getPatLastName());
             patientID = patInstance.getPatientId();
         }else{
