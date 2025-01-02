@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/specializationDocsCard"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="16dp"
+    android:elevation="10dp"
+    android:layout_gravity="center"
+    android:background="@drawable/rounded_edit_text_background_smokedmilky"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/docDiagnosedFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Dr Full Name"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/docSpecializationTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specialization"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/docDiagnosedFullName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/docDiagnosedFullName"
+            app:layout_constraintTop_toTopOf="@+id/docDiagnosedFullName" />
+
+        <TextView
+            android:id="@+id/diagnStartDateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:text="Start Date"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/docDiagnosedFullName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/docDiagnosedFullName" />
+
+        <TextView
+            android:id="@+id/untilTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="until"
+            android:textSize="12sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBaseline_toBaselineOf="@+id/diagnStartDateTxt"
+            app:layout_constraintStart_toEndOf="@+id/diagnStartDateTxt" />
+
+        <TextView
+            android:id="@+id/diagnEndDateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="End Date"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/untilTxt"
+            app:layout_constraintStart_toEndOf="@+id/untilTxt" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/diagnRecyclrBtn"
+            style="@style/CustomButtonStyle3"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/yellow"
+            android:text="Diagnosis"
+            android:textColor="@color/navyBlue"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.971"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/docSpecializationTxt"
+            app:layout_constraintVertical_bias="1.0"
+            app:rippleColor="@color/icy" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
