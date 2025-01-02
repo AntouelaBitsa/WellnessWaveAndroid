@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/carouselItemDocAppointments"
-    android:layout_width="150dp"
-    android:layout_height="180dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
-    android:backgroundTint="@color/matcha"
+    android:backgroundTint="@color/icywhite"
     android:padding="10dp"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    app:rippleColor="@color/magenda">
 
     <LinearLayout
         android:id="@+id/linearLayoutCarouselItem"
@@ -22,36 +23,37 @@
             android:id="@+id/cardItemDocProfTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Day"
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"/>
+            android:layout_margin="20dp"
+            android:paddingTop="10dp"
+            android:hint="Doctor Name"
+            android:textSize="14sp"
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/cardItemDateDocTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:hint="01/01/2025"
             android:textSize="14sp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"/>
-
-        <Button
-            android:id="@+id/appointCrslCrdItmPatInfolBtn"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="110dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/linen"
-            android:elevation="8dp"
-            android:text="Info"
+            android:textColor="@color/skyblue"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/grass"
-            android:textSize="14sp"
-            app:rippleColor="@color/darkgrass2" />
+            android:gravity="center"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/appointCrslCrdItmPatInfolBtn"-->
+<!--            style="@style/CustomButtonStyle"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:elevation="8dp"-->
+<!--            android:text="Info"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="14sp"-->
+<!--            app:rippleColor="@color/darkgrass2" />-->
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
