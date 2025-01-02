@@ -27,4 +27,12 @@ public interface AppointmentsApi {
 
     @GET("/getAppointmentsByDoctor/{doctorId}")
     Call<List<Appointments>> getAppointmentsByDoctor(@Path("doctorId") Integer doctorId);
+
+    //DONE: must double check name from backend
+    @FormUrlEncoded
+    @POST("/deleteAppointment")
+    Call<Result> deleteAppointment(@Field("id") Integer appointId);
+
+    @GET("/getAppointmentsOnDateSelected/{date}/{doctorId}")
+    Call<List<Appointments>> getAppointmentsOnDateSelected(@Path("date") String date, @Path("doctorId") Integer doctorId);
 }
