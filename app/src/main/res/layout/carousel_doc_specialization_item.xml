@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/specializationMaterialCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
@@ -9,7 +10,7 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/matcha">
+    android:backgroundTint="@color/icywhite">
 
     <LinearLayout
         android:id="@+id/linearLayoutCarouselItem"
@@ -27,15 +28,15 @@
             android:hint="Specialization"
             android:textAllCaps="true"
             android:textAlignment="center"
-            android:textColor="@color/darkgrass"/>
+            android:textSize="12sp"/>
 
         <!--set image to this image view-->
         <ImageView
             android:id="@+id/cardItemImgSpecialization"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:contentDescription="Add new appointment"
             />
 

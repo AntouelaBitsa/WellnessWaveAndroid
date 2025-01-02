@@ -22,7 +22,7 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
 
     private List<SpecializationSet> specializationList;
     private Context context;
-    private CardOnClickListener ocCardClick;
+    private CardOnClickListener onCardClick;
     private int selectedPos = RecyclerView.NO_POSITION;
 
     public interface CardOnClickListener{
@@ -32,7 +32,7 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
     public SpecializationCarouselAdapter(List<SpecializationSet> specializatinList, Context context, CardOnClickListener cardOnClickListnr) {
         this.specializationList = specializatinList;
         this.context = context;
-        this.ocCardClick = cardOnClickListnr;
+        this.onCardClick = cardOnClickListnr;
     }
 
     @NonNull
@@ -53,7 +53,7 @@ public class SpecializationCarouselAdapter extends RecyclerView.Adapter<Recycler
         SpecializationSet specSet = specializationList.get(position);
         ((SpecializationViewHolder) holder).specializationTxt.setText(specSet.getSpecializationType());
         ((SpecializationViewHolder) holder).specializationImgView.setImageDrawable(specSet.getSpecializationIcon());
-        ((SpecializationViewHolder) holder).bind(specSet.getSpecializationType(), ocCardClick, position);
+        ((SpecializationViewHolder) holder).bind(specSet.getSpecializationType(), onCardClick, position);
     }
 
     @Override
