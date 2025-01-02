@@ -7,49 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".Activities.DoctorHomePageActivity">
 
-    <!---android:visibility="invisible"-->
+    <ImageView
+        android:id="@+id/rightLogoImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="277dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wellness_wave_logo" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"
         android:layout_width="359dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bottom_nav_bacground"
         android:elevation="10dp"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="20dp"
         app:itemIconTint="@color/white"
         app:itemRippleColor="@android:color/transparent"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <ImageView
-        android:id="@+id/rightLogoImgView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="277dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="Logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_logo_transparent_round" />
-
     <TextView
         android:id="@+id/welcomeDocTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/geologica"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
         android:text="Welcome, "
-        android:textAllCaps="true"
-        android:textColor="@color/grass"
+        android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@+id/rightLogoImgView"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,82 +56,69 @@
         android:id="@+id/usernameDocTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
         android:hint="Username"
-        android:textAllCaps="true"
-        android:textColor="@color/grass"
-        android:textColorHint="@color/grass"
         android:padding="2dp"
+        android:textSize="13sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/welcomeDocTxt"
         app:layout_constraintEnd_toStartOf="@+id/rightLogoImgView"
-        app:layout_constraintHorizontal_bias="0.03"
-        app:layout_constraintStart_toEndOf="@+id/welcomeDocTxt"/>
-
-    <!--Carousel Appoinments-->
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/welcomeDocTxt" />
 
     <TextView
         android:id="@+id/appointTxtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upcoming Appointments"
-        android:textColor="@color/grass"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="198dp"
+        android:text="My Appointments"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeDocTxt"
-        app:layout_constraintVertical_bias="0.020" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeDocTxt" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appointmentDocRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appointTxtTitle"
-        android:layout_marginLeft="5dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="5dp"
-        android:elevation="12dp"
-        android:foregroundGravity="center"
+        android:elevation="20dp"
         android:paddingTop="8dp"
-        android:layout_centerInParent="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointTxtTitle"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintTop_toBottomOf="@+id/appointTxtTitle" />
 
     <TextView
         android:id="@+id/infoTxtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appointmentDocRecycler"
+        android:layout_marginBottom="8dp"
         android:text="Info"
-        android:textColor="@color/grass"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/detailsCnstrntLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentDocRecycler"
-        app:layout_constraintVertical_bias="0.060" />
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/detailsCnstrntLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/infoTxtTitle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/rectangle_stroke_diagnosis"
-        android:padding="15dp"
+        android:paddingTop="15dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoTxtTitle"
-        app:layout_constraintVertical_bias="0.166">
+        app:layout_constraintTop_toBottomOf="@+id/appointmentDocRecycler">
 
         <TextView
             android:id="@+id/fullNameAppointPatTxt"
@@ -207,57 +193,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeAppointPatTxt" />
 
-        <Button
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/diagnsisBtn"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="125dp"
-            android:layout_height="48dp"
-            android:backgroundTint="@color/linen"
-            android:elevation="5dp"
+            style="@style/CustomButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/yellow"
             android:text="Diagnosis"
-            android:textColor="@color/grass"
-            android:textSize="14sp"
-            app:rippleColor="@color/grass"
+            android:textAlignment="center"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.995"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.045" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/rescheduleAppointBtn"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:backgroundTint="@color/linen"
-            android:elevation="5dp"
-            android:text="Reschedule"
-            android:textColor="@color/grass"
-            android:textSize="14sp"
-            app:rippleColor="@color/grass"
-            app:layout_constraintBottom_toBottomOf="@+id/cancelAppointBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cancelAppointBtn" />
-
-        <Button
-            android:id="@+id/cancelAppointBtn"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="130dp"
-            android:layout_height="48dp"
+            style="@style/CustomButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/linen"
-            android:elevation="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/grey"
+            android:text="Reschedule"
+            android:textColor="@color/navyBlue"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cancelAppointBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsAppointPatTxt" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/cancelAppointBtn"
+            style="@style/CustomButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/magenda"
             android:text="Cancel"
-            android:textColor="@color/grass"
-            app:rippleColor="@color/grass"
+            android:textAlignment="center"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.794"
             app:layout_constraintStart_toEndOf="@+id/rescheduleAppointBtn"
-            app:layout_constraintTop_toBottomOf="@+id/detailsAppointPatTxt"
-            app:layout_constraintVertical_bias="0.391" />
+            app:layout_constraintTop_toBottomOf="@+id/detailsAppointPatTxt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

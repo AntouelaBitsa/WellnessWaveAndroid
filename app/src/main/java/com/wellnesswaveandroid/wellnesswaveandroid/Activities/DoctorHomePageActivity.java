@@ -2,6 +2,7 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
@@ -89,11 +90,15 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                        startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
+                    startActivity(new Intent(getApplicationContext() , ManageAppointmentsActivity.class));
                     //if there are transitions=> overridePendingTransition()
-//                        finish();
+                    finish();
                     return true;
-                }else {
+                }else if (item.getItemId() == R.id.nav_diagn_history){
+//                    startActivity(new Intent(getApplicationContext()/*, Diagnosis History */));
+//                    finish();
+                    return true;
+                }else{
                     return false;
                 }
             }
@@ -172,11 +177,22 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         appointDocRecyclerView.setAdapter(docAppointmentCarouselAdapter);
         //Implementation of GET Request
         getDocAppointmentInfo(docInstance.getDocId());
-        System.out.println("SOS PRINT TEST 1 LIST PRINT: "+docAppointmentsList);
+        System.out.println("SOS PRINT TEST 1 LIST PRINT: "+ docAppointmentsList);
         appointDocRecyclerView.setLayoutManager(new CustomZoomLayoutManager(this));
+
+        if (docAppointmentsList.isEmpty()){
+            Log.d("RecyclerView", "LinearLayoutManager applied.");
+            appointDocRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            Log.d("RecyclerView", "Data set updated. Item count: " + docAppointmentsList.size());
+            docAppointmentCarouselAdapter.notifyDataSetChanged();
+        }else {
+            Log.d("RecyclerView", "CustomZoomLayoutManager applied.");
+            appointDocRecyclerView.setLayoutManager(new CustomZoomLayoutManager(this));
+            docAppointmentCarouselAdapter.notifyDataSetChanged();
+        }
+
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(appointDocRecyclerView);
-
 
 
         //OnClick Listener to navigate to Insert Diagnosis Activity
@@ -323,10 +339,12 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Appointments>> call, Response<List<Appointments>> response) {
                 System.out.println("[-0-DoctorHomePageActivity] onResponse: response BODY-> " + response.body());
+                docAppointmentsList.clear();
                 //TODO: set those data to the appointmentsList
                 if (!response.isSuccessful() || response.body() == null) {
                     System.out.println("[-1-DoctorHomePageActivity] onResponse: successful= no + body== null");
                     Toast.makeText(DoctorHomePageActivity.this, "Failed to get doctor's appointments list", Toast.LENGTH_SHORT).show();
+                    docAppointmentCarouselAdapter.notifyDataSetChanged();
                 }
 
                 System.out.println("[-2-DoctorHomePageActivity] onResponse: response BODY2--> " + response.body());
@@ -334,11 +352,12 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 //patUsername.setText(pUsername);
                 if (docAppointmentsList.isEmpty()) {
                     System.out.println("[-3-DoctorHomePageActivity] onResponse: the appointmentsList is empty");
+                    docAppointmentCarouselAdapter.notifyDataSetChanged();
+                }else{
+                    getNextAppointment(docAppointmentsList);
+                    System.out.println("LIST SIZE IN RESPONSE: " + docAppointmentsList.size());
                 }
-                getNextAppointment(docAppointmentsList);
-                System.out.println("LIST SIZE IN RESPONSE: " + docAppointmentsList.size());
                 docAppointmentCarouselAdapter.notifyDataSetChanged();
-
             }
 
             @Override
