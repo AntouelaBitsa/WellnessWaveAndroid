@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    android:elevation="8dp"
+    android:layout_gravity="center"
+    android:backgroundTint="#FFFFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/detAppointTxtLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Appointment details"
+            android:textColor="#140F2D"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.113"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/docFNameTxtPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="First Name"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detAppointTxtLbl" />
+
+        <TextView
+            android:id="@+id/docLNameTxtPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Last Name"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/docFNameTxtPopUp"
+            app:layout_constraintStart_toStartOf="@+id/docFNameTxtPopUp"
+            app:layout_constraintTop_toBottomOf="@+id/docFNameTxtPopUp" />
+
+        <TextView
+            android:id="@+id/docSpecTxtPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Specialization"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/docLNameTxtPopUp"
+            app:layout_constraintStart_toStartOf="@+id/docLNameTxtPopUp"
+            app:layout_constraintTop_toBottomOf="@+id/docLNameTxtPopUp" />
+
+        <TextView
+            android:id="@+id/docPhoneNumTxtPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Phone Number"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/docSpecTxtPopUp"
+            app:layout_constraintStart_toStartOf="@+id/docSpecTxtPopUp"
+            app:layout_constraintTop_toBottomOf="@+id/docSpecTxtPopUp" />
+
+        <TextView
+            android:id="@+id/docAddressTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Address"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/docPhoneNumTxtPopUp"
+            app:layout_constraintStart_toStartOf="@+id/docPhoneNumTxtPopUp"
+            app:layout_constraintTop_toBottomOf="@+id/docPhoneNumTxtPopUp" />
+
+        <TextView
+            android:id="@+id/appCommentsTxtPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Appointment Comments"
+            android:textAlignment="center"
+            android:textColor="#3F88C5"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/docAddressTxt"
+            app:layout_constraintStart_toStartOf="@+id/docAddressTxt"
+            app:layout_constraintTop_toBottomOf="@+id/docAddressTxt" />
+
+        <Button
+            android:id="@+id/rschdlBtnPopUp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#A40E4C"
+            android:elevation="5dp"
+            android:text="Reschedule"
+            android:textColor="#ffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/appCommentsTxtPopUp"
+            app:layout_constraintStart_toStartOf="@+id/appCommentsTxtPopUp"
+            app:layout_constraintTop_toBottomOf="@+id/appCommentsTxtPopUp"
+            app:rippleColor="@color/grass" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
