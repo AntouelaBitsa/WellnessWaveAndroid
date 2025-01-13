@@ -74,14 +74,13 @@ public class PatientHomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_home_page);
 
         bottomNavigationView = findViewById(R.id.bottomNavBar);
-//        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
                     return true;
                 }else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                    startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
+                    //TODO: Go to Manage Appointments (With Patient Data)
                     startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
                     finish();
                     return true;
@@ -91,7 +90,6 @@ public class PatientHomePageActivity extends AppCompatActivity {
                     return true;
                 } else if (item.getItemId() == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), PatDetails.class));
-                    //if there are transitions=> overridePendingTransition()
                     finish();
                     return true;
                 } else {

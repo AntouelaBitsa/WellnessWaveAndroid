@@ -54,16 +54,14 @@ public class PatDetails extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                      startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
-//                      finish();
-                    return true;
-                } else if (item.getItemId() == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), PatDetails.class));
+                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
                     finish();
                     return true;
-                } else if (item.getItemId() == R.id.nav_diagn_history){
-//                    startActivity(new Intent(getApplicationContext()/*, Diagnosis History */));
-//                    finish();
+                } else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.nav_profile){
                     return true;
                 }else {
                     return false;

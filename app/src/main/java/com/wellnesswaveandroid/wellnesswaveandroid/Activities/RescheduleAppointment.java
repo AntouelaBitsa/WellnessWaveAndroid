@@ -77,15 +77,18 @@ public class RescheduleAppointment extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), DoctorHomePageActivity.class));
                     finish();
                     return true;
-                }else if (item.getItemId() == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
-                    //if there are transitions=> overridePendingTransition()
+                }else if (item.getItemId() == R.id.nav_manage_appointments) {
+                    //TODO: navigation manage appointments activity but for patient's data
+                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
                     finish();
                     return true;
-                } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                        startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
-                    //if there are transitions=> overridePendingTransition()
-//                        finish();
+                }else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
+                    return true;
+                }else if (item.getItemId() == R.id.nav_profile) {
+                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
+                    finish();
                     return true;
                 }else {
                     return false;

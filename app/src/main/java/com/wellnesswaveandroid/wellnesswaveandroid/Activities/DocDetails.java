@@ -58,17 +58,19 @@ public class DocDetails extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), DoctorHomePageActivity.class));
-                    //if there are transitions=> overridePendingTransition()
                     finish();
                     return true;
-                }else if (item.getItemId() == R.id.nav_profile) {
+                }else if (item.getItemId() == R.id.nav_manage_appointments) {
+                    startActivity(new Intent(getApplicationContext(), ManageAppointmentsActivity.class));
+                    finish();
                     return true;
-                } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                        startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
-                    //if there are transitions=> overridePendingTransition()
-//                        finish();
+                } else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
                     return true;
-                }else {
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    return true;
+                } else {
                     return false;
                 }
             }

@@ -90,17 +90,19 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), DoctorHomePageActivity.class));
                     finish();
                     return true;
-                }else if (item.getItemId() == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
-                    //if there are transitions=> overridePendingTransition()
+                }else if (item.getItemId() == R.id.nav_manage_appointments) {
+                    startActivity(new Intent(getApplicationContext(), ManageAppointmentsActivity.class));
                     finish();
                     return true;
-                } else if (item.getItemId() == R.id.nav_manage_appointments) {
-//                        startActivity(new Intent(getApplicationContext() /*, Manage Appointments class */));
-                    //if there are transitions=> overridePendingTransition()
-//                        finish();
+                } else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
                     return true;
-                }else {
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
+                    finish();
+                    return true;
+                } else {
                     return false;
                 }
             }

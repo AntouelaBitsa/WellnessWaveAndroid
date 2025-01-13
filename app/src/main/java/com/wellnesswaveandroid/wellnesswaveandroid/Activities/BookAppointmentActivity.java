@@ -2,11 +2,14 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -73,6 +77,28 @@ public class BookAppointmentActivity extends AppCompatActivity {
         //TODO : fields validation
 
         bottomNavigationView = findViewById(R.id.bottomNavBar);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), PatientHomePageActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.nav_manage_appointments) {
+                    return true;
+                } else if (item.getItemId() == R.id.nav_diagn_history) {
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
+                    return true;
+                } else if (item.getItemId() == R.id.nav_profile){
+                    startActivity(new Intent(getApplicationContext(), PatDetails.class));
+                    finish();
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        });
 
         System.out.println("Components initialisation");
         specialisationSpinner = (Spinner) findViewById(R.id.specialisationSpn);
