@@ -23,4 +23,5 @@
     <color name="grey">#EAEAEA</color>
     <color name="greymedium">#A19EA0</color>
     <color name="yellow">#F6AE2D</color>
+    <color name="errorred">#D80000</color>
 </resources>
