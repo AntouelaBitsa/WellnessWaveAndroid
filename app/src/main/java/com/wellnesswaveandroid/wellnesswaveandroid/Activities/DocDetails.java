@@ -232,9 +232,9 @@ public class DocDetails extends AppCompatActivity {
     }
 
     private void deleteDoctor(Integer docId) {
-        System.out.println("[Pat 1] Inside deletePatient() before retrofit initialization -> patient ID = " + docId);
+        System.out.println("[DOC 1] Inside deleteDoctor() before retrofit initialization -> doctor ID = " + docId);
         RetrofitService retrofitDocService = new RetrofitService();
-        System.out.println("[Pat 1.1] API initialization = ");
+        System.out.println("[DOC 1.1] API initialization! ");
         DoctorApi doctorApi = retrofitDocService.getRetrofit().create(DoctorApi.class);
         doctorApi.deleteDoctor(docId).enqueue(new Callback<Result>() {
             @Override
