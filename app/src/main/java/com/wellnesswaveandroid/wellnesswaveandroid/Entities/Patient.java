@@ -26,7 +26,7 @@ public class Patient implements Serializable {
     private String patSecuredNum;
     @SerializedName("dob")
     private String patDob;
-    private int userType;
+    private Integer userType;
 
 
     //Transfer patient data between activities

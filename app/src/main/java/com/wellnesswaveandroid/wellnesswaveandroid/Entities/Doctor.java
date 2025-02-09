@@ -28,7 +28,7 @@ public class Doctor implements Serializable {
     @SerializedName("address")
     private String docAddress;
     @SerializedName("userType")
-    private int userType;
+    private Integer userType;
 
     //Transfer patient data between activities
     public static synchronized Doctor getInstance(){
