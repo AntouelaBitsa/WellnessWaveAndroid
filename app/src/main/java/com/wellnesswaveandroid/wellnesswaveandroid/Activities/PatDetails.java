@@ -109,7 +109,7 @@ public class PatDetails extends AppCompatActivity {
         String amka = patInstance.getPatSecuredNum();
 
         System.out.println("Intent Print : " + fullName+ " "+username+
-                " " +email+ " " +phoneNum+ " " +dob);
+                " " +email+ " " +phoneNum+ " " +dob + " " +amka);
 
         fullNameTxt.setText(fullName);
 //        lastNameTxt.setText(lastName);
@@ -151,6 +151,7 @@ public class PatDetails extends AppCompatActivity {
                             " Username: " + patInstance.getPatUsername() +
                             " Email: " + patInstance.getPatEmail() +
                             " Phone Num: " + patInstance.getPatPhoneNum() +
+                            " Pat AMKA: " + patInstance.getPatSecuredNum() +
                             " Birthdate: " + patInstance.getPatDob());
 
                     updatedFields = new HashMap<>();
@@ -194,10 +195,14 @@ public class PatDetails extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Toast.makeText(PatDetails.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     Log.d("Patient Update", "Updated Patient: " + response.toString());
+                    Intent goToWelcomeScreen = new Intent(PatDetails.this, MainActivity.class);
+                    goToWelcomeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(goToWelcomeScreen);
+                    finish();
                 }else {
                     // Handle the error
                     Toast.makeText(PatDetails.this, response.body() +" & " + response.code(), Toast.LENGTH_LONG).show();
-                    Log.e("Patient Update", "Failed to update patient. Response code: " + response.code() + " & " + response.body());
+                    Log.e("Patient DELETE", "Failed to DELETE patient. Response code: " + response.code() + " & " + response.body());
                 }
             }
 
