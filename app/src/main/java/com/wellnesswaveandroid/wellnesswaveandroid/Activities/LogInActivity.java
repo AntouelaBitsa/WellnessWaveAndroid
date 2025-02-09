@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -19,6 +20,7 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.LogInDtoApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.FieldsValidators;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.LogInDTO;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.SplitJSONImpl;
@@ -31,12 +33,15 @@ public class LogInActivity extends AppCompatActivity {
 
     private Button signInButton;
     private MaterialAutoCompleteTextView edtUsername, edtPassword;
+    private TextView usernameErrMessTxt, passwordErrMessTxt;
     private Doctor doc;
     private RetrofitService retrofitService;
     private SplitJSONImpl splitJSON = new SplitJSONImpl();
     //DONE: private Patient pat;
     private Patient pat;
     private LogInDTO logInDTO;
+    private FieldsValidators fieldsValidators;
+    private LogInDTO userInstance;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,8 +57,12 @@ public class LogInActivity extends AppCompatActivity {
         edtUsername = findViewById(R.id.usernameEdtTxt);
         edtPassword = findViewById(R.id.passwordEdtTxt);
 
+        usernameErrMessTxt = findViewById(R.id.usernameErrorTxtView);
+        passwordErrMessTxt = findViewById(R.id.passwordErrorTxtView);
+
         //DONE : implementation Log In Button
         signInButton = findViewById(R.id.signInBtn);
+        fieldsValidators = new FieldsValidators();
         System.out.println("before onClick : OK0");
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +73,37 @@ public class LogInActivity extends AppCompatActivity {
                 System.out.println("Inside onClick : OK1");
                 String username = edtUsername.getText().toString();
                 String password = edtPassword.getText().toString();
+
+                /*** Username Validation */
+                String usernameErrorMessage = fieldsValidators.validateUsername(username.trim());
+                usernameErrMessTxt.setVisibility(View.VISIBLE);
+                usernameErrMessTxt.setText(usernameErrorMessage);
+                usernameErrMessTxt.setTextColor(usernameErrMessTxt.getContext().getColor(R.color.errorred));
+
+                /*** Password Validation */
+                String passErrorMessage = fieldsValidators.validatePassword(password.trim());
+                passwordErrMessTxt.setVisibility(View.VISIBLE);
+                passwordErrMessTxt.setText(passErrorMessage);
+                passwordErrMessTxt.setTextColor(passwordErrMessTxt.getContext().getColor(R.color.errorred));
+
+                boolean empty = fieldsValidators.validateEmptyLogIn(username.trim(), password.trim());
+                boolean regex = fieldsValidators.validateRegexLogIn(password.trim());
+                boolean length = fieldsValidators.validateLengthLogIn(password.trim());
+
+                if (empty){
+                    Toast.makeText(LogInActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (regex) {
+                    System.out.println("[Validation Debug]: regex= " + regex + " & length= " + length);
+                    Toast.makeText(LogInActivity.this, "Please check the format of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (length) {
+                    Toast.makeText(LogInActivity.this, "Please check the text length of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 logInDTOSession(username, password);
             }
@@ -105,6 +145,7 @@ public class LogInActivity extends AppCompatActivity {
                 if (userSessionHelper.getMessage() == null){
                     System.out.println("Inside if : NOT OK");
                     System.out.println("userSession Json " + userSessionHelper.getMessage());
+                    //TODO: Toast message for not existent user or wrong credentials
                     Log.d(TAG, "onResponse: FAILED " + response.body().toString() + " " + response.code());
                     return;
                 } else if (userSessionHelper.getStatus() == 1){
@@ -117,11 +158,11 @@ public class LogInActivity extends AppCompatActivity {
 
                 //DONE: check for user type == 2 to be a patient
                 //DONE : call SpliJSONImpl class to get the user type
-                int userType = splitJSON.extractUserType(userJSON);
+                Integer userType = splitJSON.extractUserType(userJSON);
                 if(userType == 1) {
-                    docIntentImplementation(userJSON);
+                    docIntentImplementation(userJSON, userType);
                 }else if (userType == 2) {
-                    patIntentImplementation(userJSON);
+                    patIntentImplementation(userJSON, userType);
                 }
             }
 
@@ -137,11 +178,12 @@ public class LogInActivity extends AppCompatActivity {
 
 
     //DONE : docIntentImplementation()
-    private void docIntentImplementation(String userJSON) {
+    private void docIntentImplementation(String userJSON, Integer userType) {
         Doctor docInstance = splitJSON.extractDocFromJson(userJSON);
         System.out.println("[D] TEST PRINT: " + userJSON.toString());
         System.out.println("Doctor intent implementation... GSON");
         Doctor.getInstance().setDoctorData(docInstance); //test
+        LogInDTO.getInstance().setUserType(docInstance.getUserType());
 //        Gson gson = new Gson();
 //        Doctor tempDoc = gson.fromJson(userJSON, Doctor.class);
 //        Doctor docInstance = Doctor.getInstance();
@@ -163,21 +205,23 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     //DONE : patIntentImplementation()
-    private void patIntentImplementation(String userJSON){
+    private void patIntentImplementation(String userJSON, Integer userType){
         System.out.println("[P] TEST PRINT: " + userJSON.toString());
         Gson gson = new Gson();
         Patient tempPat = gson.fromJson(userJSON, Patient.class);
-        Patient patient = Patient.getInstance();
-        patient.setPatientData(tempPat);
-        System.out.println("[P] patIntentImplementation : " + patient.getPatEmail()+ " " + patient.toString());
+        Patient patInstance = Patient.getInstance();
+        patInstance.setPatientData(tempPat);
+        LogInDTO.getInstance().setUserType(patInstance.getUserType());
+        System.out.println("[P] patIntentImplementation : " + patInstance.getPatEmail()+ " " + patInstance.toString());
+        LogInDTO.getInstance().setUserType(patInstance.getUserType());
 //        Intent logInPatUser = new Intent(LogInActivity.this, PatDetails.class);
         Intent logInPatUser = new Intent(LogInActivity.this, PatientHomePageActivity.class);
-        logInPatUser.putExtra("first_namep", patient.getPatFirstName()); // Pass data to next activity -> must pass each filed seperatly
-        logInPatUser.putExtra("last_namep", patient.getPatLastName());
-        logInPatUser.putExtra("usernamep", patient.getPatUsername());
-        logInPatUser.putExtra("emailp", patient.getPatEmail());
-        logInPatUser.putExtra("phonep", patient.getPatPhoneNum());
-        logInPatUser.putExtra("dobp", patient.getPatDob());
+        logInPatUser.putExtra("first_namep", patInstance.getPatFirstName()); // Pass data to next activity -> must pass each filed seperatly
+        logInPatUser.putExtra("last_namep", patInstance.getPatLastName());
+        logInPatUser.putExtra("usernamep", patInstance.getPatUsername());
+        logInPatUser.putExtra("emailp", patInstance.getPatEmail());
+        logInPatUser.putExtra("phonep", patInstance.getPatPhoneNum());
+        logInPatUser.putExtra("dobp", patInstance.getPatDob());
         startActivity(logInPatUser);
     }
 
