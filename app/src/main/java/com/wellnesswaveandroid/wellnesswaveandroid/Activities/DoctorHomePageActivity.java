@@ -84,19 +84,19 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
                     return true;
-                }else if (item.getItemId() == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
-                    //if there are transitions=> overridePendingTransition()
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.nav_manage_appointments) {
+                }else if (item.getItemId() == R.id.nav_manage_appointments) {
                     startActivity(new Intent(getApplicationContext() , ManageAppointmentsActivity.class));
                     //if there are transitions=> overridePendingTransition()
                     finish();
                     return true;
                 }else if (item.getItemId() == R.id.nav_diagn_history){
-//                    startActivity(new Intent(getApplicationContext()/*, Diagnosis History */));
-//                    finish();
+                    startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
+                    finish();
+                    return true;
+                }else if (item.getItemId() == R.id.nav_profile) {
+                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
+                    //if there are transitions=> overridePendingTransition()
+                    finish();
                     return true;
                 }else{
                     return false;
@@ -115,6 +115,24 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         diagnosisBtn =  findViewById(R.id.diagnsisBtn);
         rescheduleBtn = findViewById(R.id.rescheduleAppointBtn);
         cancelBtn = findViewById(R.id.cancelAppointBtn);
+
+        //Get Doctor instance: ID
+        docInstance = Doctor.getInstance();
+        System.out.println("TEST PRINT SOS 2 DOCTOR: "+ docInstance.getDocId());
+        if (docInstance!=null){
+            usernameTxt.setText(docInstance.getDocUsername());
+            docID = docInstance.getDocId();
+        }else{
+            System.out.println("[1-DocHomePage] docInstance == null");
+        }
+
+        //Get Patient Instance: ID
+        patInstance = Patient.getInstance();
+        if (patInstance!=null){
+            patID = patInstance.getPatientId();
+        }else{
+            System.out.println("[1-DocHomePage] docInstance == null");
+        }
 
         System.out.println("--------------Print of nextAppoint List----------- => " + nextAppoint);
 
@@ -145,25 +163,6 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 cancelPopoUpDialog.dismiss();
             }
         });
-
-        //Get Doctor instance: ID
-        docInstance = Doctor.getInstance();
-        System.out.println("TEST PRINT SOS 2 DOCTOR: "+ docInstance.getDocId());
-        if (docInstance!=null){
-            usernameTxt.setText(docInstance.getDocUsername());
-            docID = docInstance.getDocId();
-//            docID = 6;
-        }else{
-            System.out.println("[1-DocHomePage] docInstance == null");
-        }
-
-        //Get Patient Instance: ID
-        patInstance = Patient.getInstance();
-        if (patInstance!=null){
-            patID = patInstance.getPatientId();
-        }else{
-            System.out.println("[1-DocHomePage] docInstance == null");
-        }
 
         //Upcoming Appointments Carousel
         docAppointmentsList = new ArrayList<>();
