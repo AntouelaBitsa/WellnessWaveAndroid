@@ -4,11 +4,8 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +18,6 @@ import com.wellnesswaveandroid.wellnesswaveandroid.R;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DoctorApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.FieldsValidators;
-
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -130,6 +125,32 @@ public class DocSignUpActivity extends AppCompatActivity {
                 addressErrMessageTxt.setText(addressErrorMessage);
                 addressErrMessageTxt.setTextColor(addressErrMessageTxt.getContext().getColor(R.color.errorred));
 
+                /**
+                 * Validation to proceed with request if all this errors occur
+                 */
+                boolean empty = fieldsValidators.validateEmptyDoc(docFirstName.getText().toString().trim(), docLastName.getText().toString().trim(),
+                        docUsername.getText().toString().trim(), docPassword.getText().toString().trim(),
+                        docEmail.getText().toString().trim(), docAmka.getText().toString().trim(), docPhoneNum.getText().toString().trim(),
+                        docProfession.getText().toString().trim(), docAddress.getText().toString().trim());
+                boolean regex = fieldsValidators.validateRegex(docPassword.getText().toString().trim(), docEmail.getText().toString().trim(),
+                        docPhoneNum.getText().toString().trim(), docAmka.getText().toString().trim());
+                boolean length = fieldsValidators.validateLength(docPassword.getText().toString().trim(), docPhoneNum.getText().toString().trim(),
+                        docAmka.getText().toString().trim());
+
+                if (empty){
+                    Toast.makeText(DocSignUpActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (regex) {
+                    System.out.println("[Validation Debug]: regex= " + regex + " & length= " + length);
+                    Toast.makeText(DocSignUpActivity.this, "Please check the format of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (length) {
+                    Toast.makeText(DocSignUpActivity.this, "Please check the text length of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //call of post request for user registration
                 postDoctorData();
 //                Intent goToSignIn = new Intent(DocSignUpActivity.this, MainActivity.class);
@@ -149,27 +170,6 @@ public class DocSignUpActivity extends AppCompatActivity {
                 String address = String.valueOf(docAddress.getText());
                 int type = 1; //code for doc
 
-                /**
-                 * Validation to proceed with request if all this errors occur
-                 */
-                boolean empty = fieldsValidators.validateEmpty(firstName.trim(), lastName.trim(), username.trim(), password.trim(),
-                        email.trim(), securedNum.trim(), phoneNum.trim(), profession.trim(), address.trim());
-                boolean regex = fieldsValidators.validateRegex(password.trim(), email.trim(), phoneNum.trim(), securedNum.trim());
-                boolean length = fieldsValidators.validateLength(password.trim(), securedNum.trim(), phoneNum.trim());
-
-                if (empty){
-                    Toast.makeText(DocSignUpActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (regex) {
-                    System.out.println("[Validation Debug]: regex= " + regex + " & length= " + length);
-                    Toast.makeText(DocSignUpActivity.this, "Please check the format of fields marked with error message.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-//                else if (length) {
-//                    Toast.makeText(DocSignUpActivity.this, "Please check the text length of fields marked with error message.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
                 //setting values to object doctor
                 doctor = new Doctor(firstName, lastName, username, password, email, securedNum, phoneNum, profession, address, type);
 
@@ -185,7 +185,7 @@ public class DocSignUpActivity extends AppCompatActivity {
                     public void onResponse(Call<Doctor> call, Response<Doctor> response) {
                         if (response.isSuccessful()) {
                             Intent goToSignIn = new Intent(DocSignUpActivity.this, MainActivity.class);
-                            startActivity(goToSignIn);
+                            startActivity(goToSignIn); 
                             Log.d(TAG + "SUCESS", "onResponse: " + response.code());
 //                            Toast.makeText(DocSignUpActivity.this, response.body().getDocId(), Toast.LENGTH_LONG).show();;
                             finish();
