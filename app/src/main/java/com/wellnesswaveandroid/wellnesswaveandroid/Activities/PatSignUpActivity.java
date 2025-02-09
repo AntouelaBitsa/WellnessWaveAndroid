@@ -4,12 +4,14 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -17,6 +19,7 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.PatientApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.FieldsValidators;
 
 import java.util.regex.Pattern;
 
@@ -27,9 +30,11 @@ import retrofit2.Response;
 public class PatSignUpActivity extends AppCompatActivity {
 
     private MaterialAutoCompleteTextView patFirstName, patLastName, patUsername, patPassword, patEmail, patAmka, patPhoneNum, patDob;
+    private TextView fnameErrMessageTxt, lnameErrMessageTxt, usernameErrMessageTxt, passErrMessageTxt, emailErrMessageTxt, amkaErrMessageTxt, phoneErrMessageTxt, dobErrMessageTxt;
     private Button savePatient;
     private RetrofitService retrofitService;
     private Patient patient;
+    private FieldsValidators fieldsValidators;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +54,99 @@ public class PatSignUpActivity extends AppCompatActivity {
         patPhoneNum = findViewById(R.id.patPhoneNumEdt);
         patDob = findViewById(R.id.patDobEdt);
 
+        fnameErrMessageTxt = findViewById(R.id.fNamePatErrorTxtView);
+        lnameErrMessageTxt = findViewById(R.id.lNamePatErrorTxtView);
+        usernameErrMessageTxt = findViewById(R.id.usernamePatErrorTxtView);
+        passErrMessageTxt = findViewById(R.id.passPatErrorTxtView);
+        emailErrMessageTxt = findViewById(R.id.emailPatErrorTxtView);
+        amkaErrMessageTxt = findViewById(R.id.amkaPatErrorTxtView);
+        phoneErrMessageTxt = findViewById(R.id.phonePatErrorTxtView);
+        dobErrMessageTxt = findViewById(R.id.dobPatErrorTxtView);
+
+
         //initialization: find views by id for save button
         savePatient = findViewById(R.id.patSaveBtn);
+        fieldsValidators = new FieldsValidators();
 
         savePatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //fields validation so the input is right
-                patientsFieldsValidation();
+//                patientsFieldsValidation();
+                /*** First Name Validation */
+                String firstNameErrorMessage = fieldsValidators.validateFirstName(patFirstName.getText().toString().trim());
+                fnameErrMessageTxt.setVisibility(View.VISIBLE);
+                fnameErrMessageTxt.setText(firstNameErrorMessage);
+                fnameErrMessageTxt.setTextColor(fnameErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Last Name Validation */
+                String lastNameErrorMessage = fieldsValidators.validateLastName(patLastName.getText().toString().trim());
+                lnameErrMessageTxt.setVisibility(View.VISIBLE);
+                lnameErrMessageTxt.setText(lastNameErrorMessage);
+                lnameErrMessageTxt.setTextColor(lnameErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Username Validation */
+                String usernameErrorMessage = fieldsValidators.validateUsername(patUsername.getText().toString().trim());
+                usernameErrMessageTxt.setVisibility(View.VISIBLE);
+                usernameErrMessageTxt.setText(usernameErrorMessage);
+                usernameErrMessageTxt.setTextColor(usernameErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Password Validation */
+                String passErrorMessage = fieldsValidators.validatePassword(patPassword.getText().toString().trim());
+                passErrMessageTxt.setVisibility(View.VISIBLE);
+                passErrMessageTxt.setText(passErrorMessage);
+                passErrMessageTxt.setTextColor(passErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Email Validation */
+                String emailErrorMessage = fieldsValidators.validateEmail(patEmail.getText().toString().trim());
+                emailErrMessageTxt.setVisibility(View.VISIBLE);
+                emailErrMessageTxt.setText(emailErrorMessage);
+                emailErrMessageTxt.setTextColor(emailErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** AMKA Validation */
+                String amkaErrorMessage = fieldsValidators.validateAmka(patAmka.getText().toString().trim());
+                amkaErrMessageTxt.setVisibility(View.VISIBLE);
+                amkaErrMessageTxt.setText(amkaErrorMessage);
+                amkaErrMessageTxt.setTextColor(amkaErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Phone Number Validation */
+                String phoneNumberErrorMessage = fieldsValidators.validatePhoneNumber(patPhoneNum.getText().toString().trim());
+                phoneErrMessageTxt.setVisibility(View.VISIBLE);
+                phoneErrMessageTxt.setText(phoneNumberErrorMessage);
+                phoneErrMessageTxt.setTextColor(phoneErrMessageTxt.getContext().getColor(R.color.errorred));
+
+                /*** Profession Validation */
+                String dobErrorMessage = fieldsValidators.validateDob(patDob.getText().toString().trim());
+                dobErrMessageTxt.setVisibility(View.VISIBLE);
+                dobErrMessageTxt.setText(dobErrorMessage);
+                dobErrMessageTxt.setTextColor(dobErrMessageTxt.getContext().getColor(R.color.errorred));
+
+
+                /**
+                 * Validation to proceed with request if all this errors occur
+                 */
+                boolean empty = fieldsValidators.validateEmptyPat(patFirstName.getText().toString().trim(), patLastName.getText().toString().trim(),
+                        patUsername.getText().toString().trim(), patPassword.getText().toString().trim(),
+                        patEmail.getText().toString().trim(), patAmka.getText().toString().trim(), patPhoneNum.getText().toString().trim(),
+                        patDob.getText().toString().trim());
+                boolean regex = fieldsValidators.validateRegex(patPassword.getText().toString().trim(), patEmail.getText().toString().trim(),
+                        patPhoneNum.getText().toString().trim(), patAmka.getText().toString().trim());
+                boolean length = fieldsValidators.validateLength(patPassword.getText().toString().trim(), patPhoneNum.getText().toString().trim(),
+                        patAmka.getText().toString().trim());
+
+                if (empty){
+                    Toast.makeText(PatSignUpActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (regex) {
+                    System.out.println("[Validation Debug]: regex= " + regex + " & length= " + length);
+                    Toast.makeText(PatSignUpActivity.this, "Please check the format of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (length) {
+                    Toast.makeText(PatSignUpActivity.this, "Please check the text length of fields marked with error message.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 //call of post request for user registration
                 postPatientData();
@@ -75,7 +165,7 @@ public class PatSignUpActivity extends AppCompatActivity {
                 int type = 2; //code for patient
 
                 //setting values to object Patient
-                patient = new Patient(firstName, lastName, username, password, email, securedNum, phoneNum, dob, type);
+                patient = new Patient(firstName, lastName, username, password, email, phoneNum, securedNum, dob, type);
 
                 //setting retrofit service
                 retrofitService = new RetrofitService();
@@ -89,6 +179,8 @@ public class PatSignUpActivity extends AppCompatActivity {
                     public void onResponse(Call<Patient> call, Response<Patient> response) {
                         if(response.isSuccessful()){
                             Log.d(TAG + " SUCCESS: ", "onResponse: " + response.body());
+                            Intent goToSignIn = new Intent(PatSignUpActivity.this, MainActivity.class);
+                            startActivity(goToSignIn);
 //                            Toast.makeText(PatSignUpActivity.this, response.body().getPatientId(), Toast.LENGTH_LONG).show();
                         }else {
                             Log.d(TAG + " FAIL: ", "onResponse: FAILED" + response.body() + response.code());

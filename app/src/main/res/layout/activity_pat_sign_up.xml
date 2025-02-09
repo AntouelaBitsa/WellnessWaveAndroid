@@ -47,6 +47,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patGreetingTxt" />
 
+    <TextView
+        android:id="@+id/fNamePatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patFNameEdt" />
+
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patLNameEdt"
         android:layout_width="match_parent"
@@ -60,6 +73,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patFNameEdt" />
+
+    <TextView
+        android:id="@+id/lNamePatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patLNameEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patUsernameEdt"
@@ -76,6 +102,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patLNameEdt" />
 
+    <TextView
+        android:id="@+id/usernamePatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patUsernameEdt" />
+
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patPasswordEdt"
         android:layout_width="match_parent"
@@ -90,6 +129,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patUsernameEdt" />
+
+    <TextView
+        android:id="@+id/passPatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patPasswordEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patEmailEdt"
@@ -106,6 +158,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patPasswordEdt" />
 
+    <TextView
+        android:id="@+id/emailPatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patEmailEdt" />
+
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patAmkaEdt"
         android:layout_width="match_parent"
@@ -119,6 +184,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patEmailEdt" />
+
+    <TextView
+        android:id="@+id/amkaPatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patAmkaEdt" />
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patPhoneNumEdt"
@@ -134,6 +212,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patAmkaEdt" />
 
+    <TextView
+        android:id="@+id/phonePatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patPhoneNumEdt" />
+
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/patDobEdt"
         android:layout_width="match_parent"
@@ -147,6 +238,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/patPhoneNumEdt" />
+
+    <TextView
+        android:id="@+id/dobPatErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patDobEdt"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/patSaveBtn"
