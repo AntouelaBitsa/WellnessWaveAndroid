@@ -64,8 +64,8 @@
     <style name="CustomSearchBarStyle" parent="Widget.AppCompat.SearchView">
         <item name="queryBackground">@drawable/custom_search_bar</item>
         <item name="android:background">@drawable/custom_search_bar</item>
-        <item name="android:textColor">@color/darkgrass</item>
-        <item name="android:textColorHint">@color/grass</item>
+        <item name="android:textColor">@color/skyblue</item>
+        <item name="android:textColorHint">@color/greylight</item>
         <item name="android:elevation">10dp</item>
     </style>
 
