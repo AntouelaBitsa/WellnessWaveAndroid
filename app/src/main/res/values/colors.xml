@@ -24,4 +24,5 @@
     <color name="greymedium">#A19EA0</color>
     <color name="yellow">#F6AE2D</color>
     <color name="errorred">#D80000</color>
+    <color name="greylight">#B3B3B3</color>
 </resources>
