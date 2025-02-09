@@ -1,12 +1,39 @@
 package com.wellnesswaveandroid.wellnesswaveandroid.Utils;
 
+import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
+
 public class LogInDTO {
+    private static LogInDTO userInstance;
     private String username, password;
-    private int userType;
+    private Integer userType;
+
+    //Transfer user data between activities
+    public static synchronized LogInDTO getInstance(){
+        if (userInstance == null){
+            userInstance = new LogInDTO();
+        }
+        return userInstance;
+    }
+
+    //Transfer user data between activities
+    public void setDoctorData(LogInDTO user){
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.userType = user.getUserType();
+    }
 
     public LogInDTO(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    private LogInDTO() {
+    }
+
+    public LogInDTO(String username, String password, Integer userType) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
     }
 
     public String getUsername() {
@@ -25,11 +52,11 @@ public class LogInDTO {
         this.password = password;
     }
 
-    public int getUserType() {
+    public Integer getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(Integer userType) {
         this.userType = userType;
     }
 }
