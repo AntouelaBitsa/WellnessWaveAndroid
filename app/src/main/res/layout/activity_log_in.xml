@@ -50,6 +50,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greetingTxt" />
 
+    <TextView
+        android:id="@+id/usernameErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameEdtTxt" />
+
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/passwordEdtTxt"
         style="@style/CustomEditTextStyleOutlined"
@@ -65,6 +78,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEdtTxt" />
+
+    <TextView
+        android:id="@+id/passwordErrorTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="Error Message"
+        android:textColor="@color/greymedium"
+        android:textSize="9sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEdtTxt" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/signInBtn"
