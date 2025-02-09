@@ -7,6 +7,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.PATCH;
@@ -27,6 +28,6 @@ public interface PatientApi {
     @PATCH("/updatePatient/{id}")
     Call<Patient> updatePatient(@Path("id") Integer id, @Body Map<String, Object> updatedPatMap);
 
-    @POST("/deletePatient/{id}")
+    @DELETE("/deletePatient/{id}")
     Call<Result> deletePatient(@Path("id") Integer patientId);
 }
