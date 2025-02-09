@@ -33,6 +33,6 @@ public interface AppointmentsApi {
     @POST("/deleteAppointment")
     Call<Result> deleteAppointment(@Field("id") Integer appointId);
 
-    @GET("/getAppointmentsOnDateSelected/{date}/{doctorId}")
-    Call<List<Appointments>> getAppointmentsOnDateSelected(@Path("date") String date, @Path("doctorId") Integer doctorId);
+    @GET("/getAppointmentsOnDateSelected/{date}/{userId}/{userType}")
+    Call<List<Appointments>> getAppointmentsOnDateSelected(@Path("date") String date, @Path("userId") Integer doctorId, @Path("userType") Integer userType);
 }
