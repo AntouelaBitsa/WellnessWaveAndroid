@@ -3,8 +3,6 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Appointments implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,12 +18,14 @@ public class Appointments implements Serializable {
     private Doctor doctor;
     @SerializedName("patient")
     private Patient patient;
+    @SerializedName("status")
+    private String status;
     private boolean isExpandable;
 
     public Appointments() {
     }
 
-    public Appointments(String date, String time, String appointInfo, Integer doctorId, Integer patientId) {
+    public Appointments(String date, String time, String appointInfo, Integer doctorId, Integer patientId, String status) {
         this.date = date;
         this.time = time;
         this.appointInfo = appointInfo;
@@ -33,6 +33,7 @@ public class Appointments implements Serializable {
         this.doctor.setDocId(doctorId);
         this.patient = Patient.getInstance();
         this.patient.setPatientId(patientId);
+        this.status = status;
         isExpandable = false;
     }
 
@@ -88,6 +89,15 @@ public class Appointments implements Serializable {
         this.appointmentId = appointmentId;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public String setStatus(String status) {
+        this.status = status;
+        return status;
+    }
+
     public boolean isExpandable() {
         return isExpandable;
     }
@@ -105,6 +115,7 @@ public class Appointments implements Serializable {
                 ", appointInfo='" + appointInfo + '\'' +
                 ", doctor=" + doctor +
                 ", patient=" + patient +
+                ", status=" + status +
                 '}';
     }
 }
