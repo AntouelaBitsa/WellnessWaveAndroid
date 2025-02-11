@@ -63,6 +63,7 @@ public class DocManageAppointmentsAdapter extends RecyclerView.Adapter<RecyclerV
                 public void onClick(View v) {
                     Intent goToRescheduleAppointment = new Intent(context, RescheduleAppointment.class);
                     goToRescheduleAppointment.putExtra("appoint", appoint);
+                    goToRescheduleAppointment.putExtra("patient", appoint.getPatient());
                     context.startActivity(goToRescheduleAppointment);
                 }
             });
