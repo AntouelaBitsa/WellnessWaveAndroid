@@ -28,6 +28,10 @@ public interface AppointmentsApi {
     @GET("/getAppointmentsByDoctor/{doctorId}")
     Call<List<Appointments>> getAppointmentsByDoctor(@Path("doctorId") Integer doctorId);
 
+    @FormUrlEncoded
+    @POST("/updateAppointOnReschedule")
+    Call<Result> updateAppointOnReschedule(@Field("id") Integer id, @Field("status") String status);
+
     //DONE: must double check name from backend
     @FormUrlEncoded
     @POST("/deleteAppointment")
