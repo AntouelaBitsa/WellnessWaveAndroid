@@ -36,9 +36,7 @@ public class DocDetails extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextView fullNameTxt, lastNameTxt, usernameTxt;
     private TextInputEditText passwordTxt, emailTxt, amkaTxt, phoneNumTxt, professionTxt, addressTxt;
-    //TODO: Delete account
     private ImageView deleteDocAccount;
-    //TODO: Update Doctors Information
     private Button editDocProfile;
     RetrofitService retrofitService;
     private static Integer docID;
@@ -144,7 +142,7 @@ public class DocDetails extends AppCompatActivity {
         professionTxt.setText(profession);
         addressTxt.setText(address);
 
-        //TODO: EDIT PROFILE LISTENER & CALL REQUEST
+        //DONE: EDIT PROFILE LISTENER & CALL REQUEST
         editDocProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +192,7 @@ public class DocDetails extends AppCompatActivity {
 
             }
         });
+
         //DONE: DELETE PROFILE LISTENER & CALL REQUEST
         deleteDocAccount.setOnClickListener(new View.OnClickListener() {
             @Override
