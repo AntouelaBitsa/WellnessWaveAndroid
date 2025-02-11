@@ -145,7 +145,8 @@ public class LogInActivity extends AppCompatActivity {
                 if (userSessionHelper.getMessage() == null){
                     System.out.println("Inside if : NOT OK");
                     System.out.println("userSession Json " + userSessionHelper.getMessage());
-                    //TODO: Toast message for not existent user or wrong credentials
+                    //DONE: Toast message for not existent user or wrong credentials
+                    Toast.makeText(LogInActivity.this, "User does no exist or wrong credentials", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onResponse: FAILED " + response.body().toString() + " " + response.code());
                     return;
                 } else if (userSessionHelper.getStatus() == 1){
@@ -161,8 +162,10 @@ public class LogInActivity extends AppCompatActivity {
                 Integer userType = splitJSON.extractUserType(userJSON);
                 if(userType == 1) {
                     docIntentImplementation(userJSON, userType);
+                    Toast.makeText(LogInActivity.this, "Successful Log In.", Toast.LENGTH_SHORT).show();
                 }else if (userType == 2) {
                     patIntentImplementation(userJSON, userType);
+                    Toast.makeText(LogInActivity.this, "Successful Log In.", Toast.LENGTH_SHORT).show();
                 }
             }
 
