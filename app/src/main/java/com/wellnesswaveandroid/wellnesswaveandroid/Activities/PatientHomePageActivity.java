@@ -102,7 +102,7 @@ public class PatientHomePageActivity extends AppCompatActivity {
         //Carousel for Appointments
         patUsername = findViewById(R.id.usernamePatTxt);
         recyclerView = findViewById(R.id.appointmentRecycler);
-        LinearLayout includedLayout = findViewById(R.id.emptyStateCardViewIncludedLayout);
+//        LinearLayout includedLayout = findViewById(R.id.emptyStateCardViewIncludedLayout);
 
         //Getting the patient instance ID: singleton pattern
         Patient pat = Patient.getInstance();
