@@ -6,10 +6,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.navigation.NavigationBarView;
@@ -29,8 +32,11 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Diagnosis;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
+import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.AppointmentsApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.DiagnosisApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.CustomDateValidator;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.FieldsValidators;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.PDFGenerator;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 
@@ -47,8 +53,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private TextInputEditText diagnosisEdt, treatmentEdt, doseEdt, infoDiEdt;
     private Button startDateBtn, endDateBtn, saveDiagn;
-    private ImageView extractToPDF;
-    private TextView fullNamePatTxt, amkaPatTxt;
+    private TextView fullNamePatTxt, amkaPatTxt, treatmentErrMsg, doseErrMsg, startDateErrMsg, endDateErrMsg, diagnosisErrMsg, infoErrMsg;
     private MaterialCheckBox enableFieldsChckBox;
 
     private Patient patientInstanceSlctd;
@@ -60,12 +65,14 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
     private String diagnosis, treatment, dose, info;
 
     //Date Picker variables
-    private String formattedStartDate, formattedEndDate;
+    private String formattedStartDate = null, formattedEndDate = null;
 
     //Diagnosis Object For Post Request
     private Diagnosis diagnosisReg;
     private PDFGenerator pdfGenerator;
+    private FieldsValidators fieldsValidators;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,22 +103,25 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //TODO: Search Bar-> search patient based on AMKA and select a patient
         System.out.println(">[InsrtDgn 01] onCreate : insert diagnosis HERE");
 
-
-        diagnosisEdt = findViewById(R.id.prefilledAppointEdt);
+        diagnosisEdt = findViewById(R.id.diagnosisDiEdt);
         treatmentEdt = findViewById(R.id.treatementDiEdt);
         doseEdt = findViewById(R.id.doseDiEdt);
         startDateBtn = findViewById(R.id.dateStartBtn);
         endDateBtn = findViewById(R.id.dateEndBtn);
-        infoDiEdt = findViewById(R.id.prefilledDateEdt);
+        infoDiEdt = findViewById(R.id.infoDiEdt);
         saveDiagn = findViewById(R.id.saveDiagnBtn);
-        extractToPDF = findViewById(R.id.extractToPDFImg);
         fullNamePatTxt = findViewById(R.id.patFullNameReTxt);
         amkaPatTxt = findViewById(R.id.patAmkaReTxt);
         enableFieldsChckBox = findViewById(R.id.activateChckBx);
+
+        diagnosisErrMsg = findViewById(R.id.diagnosisErrorTxtView);
+        infoErrMsg = findViewById(R.id.infoErrorTxtView);
+        treatmentErrMsg = findViewById(R.id.treatmentErrorTxtView);
+        doseErrMsg = findViewById(R.id.doseErrorTxtView);
+        startDateErrMsg = findViewById(R.id.startDateErrorTxtView);
+        endDateErrMsg = findViewById(R.id.endDateErrorTxtView);
 
 
         //DONE: get connected doctors id
@@ -124,8 +134,9 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         }
 
         Intent getFromHopePage = getIntent();
+        Appointments appointmentObj = (Appointments) getFromHopePage.getSerializableExtra("appoint");
         Patient patientObj = (Patient) getFromHopePage.getSerializableExtra("patient");
-        System.out.println("[Reschedule *1*] intent data: " + patientObj.getPatFirstName());
+        System.out.println("[Reschedule *1*] intent data: appointmentID" + appointmentObj.getAppointmentId());
 
         System.out.println(">[InsrtDgn 01.1 onCreate]: doctorID= " + doctorID);
         patientInstanceSlctd = Patient.getInstance();
@@ -145,13 +156,9 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         System.out.println("Insert Diagnosis: [TEST PRINT]-> amka = " + patAmka + " " + amkaPatTxt.getText());
         System.out.println("Insert Diagnosis: [TEST PRINT]-> fullName = " + fullNameP);
 
-        //here where the edit text context set to string
 
-        //TODO: Set Date Picker in buttons->  startDateBtn, endDateBtn
-        //TODO: Get content from date selection button
-        //--------------------Material Design Start Date Picker--------------------------
-
-//--------------------DATE PICKER FOR START TREATMENT-----------------------
+        //DONE: Set Date Picker in buttons->  startDateBtn, endDateBtn
+        //DONE: Get content from date selection button
         //START DATE
         startDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +166,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
                         .setTitleText("Select Start Date")
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .setCalendarConstraints(createCalendarConstraints())
                         .setTheme(R.style.MaterialCalendarTheme)
                         .build();
 
@@ -167,6 +175,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                     public void onPositiveButtonClick(Long selection) {
                         formattedStartDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                                 .format(new Date(selection));
+                        startDateBtn.setText(formattedStartDate);
                         System.out.println(">[InsrtDgn 05 onCreate] startDatePicker: " + formattedStartDate);
 
                     }
@@ -176,16 +185,14 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
         });
         System.out.println(">[InsrtDgn 05.1 onCreate]: start date= " + formattedStartDate);
 
-        //--------------------Material Design End Date Picker--------------------------
-
-//--------------------DATE PICKER FOR END TREATMENT-----------------------
-        //END DATE
+        //END DATE PICKER
         endDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker()
                         .setTitleText("Select End Date")
                         .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .setCalendarConstraints(createCalendarConstraints())
                         .setTheme(R.style.MaterialCalendarTheme)
                         .build();
 
@@ -194,6 +201,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                     public void onPositiveButtonClick(Long selection) {
                         formattedEndDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                                 .format(new Date(selection));
+                        endDateBtn.setText(formattedEndDate);
                         System.out.println(">[InsrtDgn 06 onCreate] endDatePicker: " + formattedEndDate);
                     }
                 });
@@ -201,6 +209,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
             }
         });
         System.out.println(">[InsrtDgn 06.1 onCreate]: start date= " + formattedEndDate);
+
 
         //Checked Check box to change editable attr
         enableFieldsChckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -210,7 +219,7 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 treatmentEdt.setBackground(ContextCompat.getDrawable(treatmentEdt.getContext(),R.drawable.rectangle_stroke_diagnosis));
                 doseEdt.setEnabled(isChecked);
                 doseEdt.setBackground(ContextCompat.getDrawable(doseEdt.getContext(),R.drawable.rectangle_stroke_diagnosis));
-                //TODO: add enable and enabled color change in buttons
+                //DONE: add enable and enabled color change in buttons
 
                 if (!enableFieldsChckBox.isChecked()){
                     treatmentEdt.setEnabled(isChecked);
@@ -221,6 +230,8 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
 
             }
         });
+
+        fieldsValidators = new FieldsValidators();
 
         //DONE: Implement onClick of button: saveDiagn
         System.out.println(">[InsrtDgn 08 onCreate]: before saveDiagn onClick!!!");
@@ -240,27 +251,80 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
                 //DONE: Create Object Diagnosis
                 diagnosisReg = new Diagnosis(diagnosis,treatment,dose,formattedStartDate,formattedEndDate,info,doctorID,patientID);
                 System.out.println("Diagnosis => " + diagnosisReg.toString());
+
+                /**
+                 * Validation
+                 */
+                String diagnosisErrMessage = fieldsValidators.validateEmpty(diagnosisEdt.getText().toString().trim());
+                diagnosisErrMsg.setVisibility(View.VISIBLE);
+                diagnosisErrMsg.setText(diagnosisErrMessage);
+                diagnosisErrMsg.setTextColor(diagnosisErrMsg.getContext().getColor(R.color.errorred));
+
+                String infoErrMessage = fieldsValidators.validateEmpty(infoDiEdt.getText().toString().trim());
+                infoErrMsg.setVisibility(View.VISIBLE);
+                infoErrMsg.setText(infoErrMessage);
+                infoErrMsg.setTextColor(infoErrMsg.getContext().getColor(R.color.errorred));
+
+                boolean emptyTreatment = false;
+                if (enableFieldsChckBox.isChecked()){
+                    String treatmentErrMessage = fieldsValidators.validateEmpty(treatmentErrMsg.getText().toString().trim());
+                    treatmentErrMsg.setVisibility(View.VISIBLE);
+                    treatmentErrMsg.setText(treatmentErrMessage);
+                    treatmentErrMsg.setTextColor(treatmentErrMsg.getContext().getColor(R.color.errorred));
+
+                    String doseErrMessage = fieldsValidators.validateEmpty(doseEdt.getText().toString().trim());
+                    doseErrMsg.setVisibility(View.VISIBLE);
+                    doseErrMsg.setText(doseErrMessage);
+                    doseErrMsg.setTextColor(doseErrMsg.getContext().getColor(R.color.errorred));
+
+                    emptyTreatment = fieldsValidators.validateEmptyTreatment(treatmentEdt.getText().toString().trim(),
+                            doseEdt.getText().toString().trim());
+                }
+
+                boolean emptyDiagnosis = fieldsValidators.validateEmptyDiagnosis(diagnosisEdt.getText().toString().trim(),
+                        infoDiEdt.getText().toString().trim());
+
+                if (emptyDiagnosis){
+                    Toast.makeText(InsertDiagnosisActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (enableFieldsChckBox.isChecked() && emptyTreatment) {
+                    Toast.makeText(InsertDiagnosisActivity.this, "Please fill in the empty fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (formattedStartDate == null && formattedEndDate == null){
+                    startDateErrMsg.setVisibility(View.VISIBLE);
+                    startDateErrMsg.setText("Select Date");
+                    startDateErrMsg.setTextColor(startDateErrMsg.getContext().getColor(R.color.errorred));
+
+                    endDateErrMsg.setVisibility(View.VISIBLE);
+                    endDateErrMsg.setText("Select Time");
+                    endDateErrMsg.setTextColor(endDateErrMsg.getContext().getColor(R.color.errorred));
+                    return;
+                }
+
                 //DONE: Implement API POST Request
+                updateCurrentAppointStatus(appointmentObj.getAppointmentId(), appointmentObj.setStatus("diagnosed"));
                 createDiagnosisRequest(diagnosisReg);
 
             }
         });
 
+    }
 
+    private CalendarConstraints createCalendarConstraints() {
+        CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
 
-        //TODO: Implementation of onClick Listener for pdf extraction
-        extractToPDF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: get request to get the created diagnosis
-//                ActivityCompat.requestPermissions(InsertDiagnosisActivity.this,new String[]{
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
-//
-//                pdfGenerator = new PDFGenerator(InsertDiagnosisActivity.this);
-//                pdfGenerator.generatePDF(patientInstanceSlctd, docInstance, diagnosis);
-//                Toast.makeText(InsertDiagnosisActivity.this, "PDF File Generated Successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
+        /**Disable Past Dates*/
+        constraintBuilder.setStart(MaterialDatePicker.todayInUtcMilliseconds());
+
+        /**Set custom validator for:
+         * 1: Saturday and Sunday
+         * 2: Holiday Dates
+         * */
+        constraintBuilder.setValidator(new CustomDateValidator());
+
+        return constraintBuilder.build();
     }
 
     private void createDiagnosisRequest(Diagnosis diagnosis) {
@@ -288,6 +352,31 @@ public class InsertDiagnosisActivity extends AppCompatActivity {
             public void onFailure(Call<Result> call, Throwable throwable) {
                 System.out.println(">[InsrtDgn 03] createDiagnosisRequest()-> onFailure: NOT OK");
                 Toast.makeText(InsertDiagnosisActivity.this, "Failed to fetch request" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateCurrentAppointStatus(Integer appointId, String status){
+        System.out.println("[Rschdl 2] Inside updateCurrentAppointStatus() before retrofit initialization -> appointmentID = " + appointId);
+        RetrofitService retrofitAppointSrvc = new RetrofitService();
+        System.out.println("[Rschdl 2.2] API initialization");
+        AppointmentsApi appointmentsApi = retrofitAppointSrvc.getRetrofit().create(AppointmentsApi.class);
+        appointmentsApi.updateAppointOnReschedule(appointId, status).enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                System.out.println("[Rschdl 2.3] Inside on Response: " + response.body() + " => " + response.isSuccessful());
+                if (response.isSuccessful()){
+                    Log.d("[APPOINT UPDATED] TAG:" + " SUCCESS: ", "onResponse: " + response.body());
+//                    Toast.makeText(RescheduleAppointment.this, "You have rescheduled this appointment successfully", Toast.LENGTH_LONG).show();
+                }else {
+                    Log.d("[APPOINT UPDATED] TAG:" + " FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(InsertDiagnosisActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d("[APPOINT UPDATED] TAG: " + " onFailure: ", "The Message is : " + t.getMessage());
             }
         });
     }
