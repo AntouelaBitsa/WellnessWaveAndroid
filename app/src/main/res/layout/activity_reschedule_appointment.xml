@@ -280,7 +280,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateReBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/startDateReBtn" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/commentReEdt"
@@ -338,7 +338,7 @@
             app:rippleColor="@color/matcha" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/timeReBtn"
+            android:id="@+id/endDateReBtn"
             style="@style/CustomButtonStyle3"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
@@ -347,15 +347,28 @@
             android:text="Time"
             android:textAlignment="center"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/dateReBtn"
+            app:layout_constraintBottom_toBottomOf="@+id/startDateReBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.322"
-            app:layout_constraintStart_toEndOf="@+id/dateReBtn"
-            app:layout_constraintTop_toTopOf="@+id/dateReBtn"
+            app:layout_constraintStart_toEndOf="@+id/startDateReBtn"
+            app:layout_constraintTop_toTopOf="@+id/startDateReBtn"
             app:rippleColor="@color/matcha" />
 
+        <TextView
+            android:id="@+id/timeErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/endDateReBtn"
+            app:layout_constraintStart_toStartOf="@+id/endDateReBtn"
+            app:layout_constraintTop_toBottomOf="@+id/endDateReBtn" />
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/dateReBtn"
+            android:id="@+id/startDateReBtn"
             style="@style/CustomButtonStyle3"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
@@ -369,6 +382,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateTimeTxtTitle"
             app:rippleColor="@color/matcha" />
+
+        <TextView
+            android:id="@+id/dateErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/startDateReBtn"
+            app:layout_constraintStart_toStartOf="@+id/startDateReBtn"
+            app:layout_constraintTop_toBottomOf="@+id/startDateReBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
