@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +81,8 @@ public class PatientHomePageActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.nav_home) {
                     return true;
                 }else if (item.getItemId() == R.id.nav_manage_appointments) {
-                    //TODO: Go to Manage Appointments (With Patient Data)
-                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
+                    //DONE: Go to Manage Appointments (With Patient Data)
+                    startActivity(new Intent(getApplicationContext(), ManageAppointmentsActivity.class));
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_diagn_history) {
@@ -101,6 +102,7 @@ public class PatientHomePageActivity extends AppCompatActivity {
         //Carousel for Appointments
         patUsername = findViewById(R.id.usernamePatTxt);
         recyclerView = findViewById(R.id.appointmentRecycler);
+        LinearLayout includedLayout = findViewById(R.id.emptyStateCardViewIncludedLayout);
 
         //Getting the patient instance ID: singleton pattern
         Patient pat = Patient.getInstance();
@@ -123,6 +125,30 @@ public class PatientHomePageActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(appointmentCarouselAdapter);
+
+
+//        if (!appointmentsList.isEmpty()){
+//            recyclerView.setVisibility(View.VISIBLE);
+//            includedLayout.setVisibility(View.INVISIBLE);
+//            Log.d("RecyclerView", "CustomZoomLayoutManager applied.");
+//            Log.d("RECYCLERVIEW", "onCreate() called with: savedInstanceState = [" + recyclerView.getLayoutManager() + "]");
+//            recyclerView.setLayoutManager(new CustomZoomLayoutManager(this));
+//            recyclerView.requestLayout();
+//            appointmentCarouselAdapter.notifyDataSetChanged();
+//        }else{
+//            Log.d("LinearLayout Included", "LinearLayout applied.");
+//            recyclerView.setVisibility(View.INVISIBLE);
+//            includedLayout.setVisibility(View.VISIBLE);
+//            recyclerView.requestLayout();  // Ensure recycler view gets its layout refreshed
+//            includedLayout.requestLayout();
+//            Log.d("LinearLayout Included", "Data set updated. Item count: " + appointmentsList.size());
+//
+//            Button bookAppointment = includedLayout.findViewById(R.id.emptyStateBookAppointBtn);
+//            bookAppointment.setOnClickListener(v -> {
+//                Intent goToBookAppointment = new Intent(PatientHomePageActivity.this, BookAppointmentActivity.class);
+//                startActivity(goToBookAppointment);
+//            });
+//        }
 
         if (appointmentsList.isEmpty()){
             Log.d("RecyclerView", "LinearLayoutManager applied.");
@@ -164,7 +190,7 @@ public class PatientHomePageActivity extends AppCompatActivity {
         System.out.println("[Debug message] inside callAppointDetailsPopUp(): ");
 //        System.out.println("[Debug message] callAppointDetailsPopUp() appointment:" + appointments.toString());
 
-        //Cancel Pop Up Dialog
+        //Specialization Pop Up Dialog
         specializationPopUp = new Dialog(PatientHomePageActivity.this);
         specializationPopUp.setContentView(R.layout.doc_spcialization_popup_dialog);
         specializationPopUp.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -330,20 +356,20 @@ public class PatientHomePageActivity extends AppCompatActivity {
     }
 
     private void getAppointmentsInfo(Integer pID) {
-        //TODO: Maybe it will be needed Singleton Pattern
-        //TODO: call get request of get list of appointments of a specific user
+        //DONE: call get request of get list of appointments of a specific user
         RetrofitService retrofitService = new RetrofitService();
         AppointmentsApi appointmentsApi = retrofitService.getRetrofit().create(AppointmentsApi.class);
         appointmentsApi.getAppointmentsByPatient(pID).enqueue(new Callback<List<Appointments>>() {
             @Override
             public void onResponse(Call<List<Appointments>> call, Response<List<Appointments>> response) {
                 System.out.println("[-0-PatientHomePageActivity] onResponse: response BODY-> " + response.body());
-                //TODO: set those data to the appointmentsList
+
                 if (!response.isSuccessful() || response.body() == null) {
                     System.out.println("[-1-PatientHomePageActivity] onResponse: successful= no + body== null");
                     Toast.makeText(PatientHomePageActivity.this, "Failed to get patient's appointments list", Toast.LENGTH_SHORT).show();
                 }
 
+                //DONE: set those data to the appointmentsList
                 System.out.println("[-2-PatientHomePageActivity] onResponse: response BODY2--> " + response.body());
                 appointmentsList.addAll(response.body());
                 patUsername.setText(pUsername);
