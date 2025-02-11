@@ -2,6 +2,8 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class BookedSlots {
 
     @SerializedName("slotId")
