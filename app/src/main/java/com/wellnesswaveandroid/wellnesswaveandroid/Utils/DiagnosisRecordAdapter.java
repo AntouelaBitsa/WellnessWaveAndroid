@@ -26,7 +26,7 @@ public class DiagnosisRecordAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private OnBtnListener diagnosisListener;
 
 
-    //TODO: Implement Listener for btnOnClick -> check methodology in Manage appointments activity (for PopUp)
+    //DONE: Implement Listener for btnOnClick -> check methodology in Manage appointments activity (for PopUp)
     public  interface OnBtnListener {
         void onDiagnosisButtonClick(Diagnosis diagnosis);
     }
