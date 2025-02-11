@@ -8,9 +8,10 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="18dp"
     app:cardElevation="8dp"
+    android:layout_gravity="center"
     android:backgroundTint="@color/icywhite"
-    android:padding="10dp"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutItem"
@@ -35,6 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="It’s quick and easy! Find the best time and date that works for you."
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
