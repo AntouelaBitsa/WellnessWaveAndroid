@@ -61,9 +61,11 @@ public class PatAppointmentCarouselAdapter extends RecyclerView.Adapter<Recycler
             View appointmentView = LayoutInflater.from(context).inflate(R.layout.carousel_pat_appointment_item, parent, false);
             return new ItemViewHolder(appointmentView);
         }else if (viewType == TYPE_ADD){
+//           else if (viewType == TYPE_ADD)
             View addView = LayoutInflater.from(context).inflate(R.layout.carousel_add_item, parent, false);
             return new AddViewHolder(addView);
-        }else {
+        }
+        else {
             View emptyStateView = LayoutInflater.from(context).inflate(R.layout.empty_state_new_appointment, parent,false);
             return new EmptyStateHolder(emptyStateView);
         }
@@ -73,22 +75,26 @@ public class PatAppointmentCarouselAdapter extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_APPOINTMENT){
             Appointments appoint = appointmentList.get(position);
+            String drString = "DR.";
+            ((ItemViewHolder) holder).docNameAppointTxt.setText(drString.concat(" ").concat(appoint.getDoctor().getDocLastName()));
             ((ItemViewHolder) holder).docProfAppntmntTxt.setText(appoint.getDoctor().getDocProfession());
             ((ItemViewHolder) holder).dateAppntmntTxt.setText(appoint.getDate());
-            //TODO: pop up of appoint info in home page
+            //DONE: pop up of appoint info in home page
             ((ItemViewHolder) holder).bind(appoint, btnListener, position);
         }else if (getItemViewType(position) == TYPE_ADD){
             ((AddViewHolder) holder).addImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent goToBookAppointment = new Intent(context, BookAppointmentActivity.class);
+                    goToBookAppointment.putExtra("source", "card");
                     context.startActivity(goToBookAppointment);
                 }
             });
-        }else {
+        }
+        else {
             ((EmptyStateHolder) holder).emptyStateBookAppointmentBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                     Intent goToBookAppointment = new Intent(context, BookAppointmentActivity.class);
                     context.startActivity(goToBookAppointment);
                 }
@@ -106,12 +112,13 @@ public class PatAppointmentCarouselAdapter extends RecyclerView.Adapter<Recycler
 
     //Initialize Appointment Card Item
     public class ItemViewHolder extends RecyclerView.ViewHolder{
-        TextView docProfAppntmntTxt, dateAppntmntTxt;
+        TextView docNameAppointTxt, docProfAppntmntTxt, dateAppntmntTxt;
 //        Button infoAppntmntBtn;
         MaterialCardView patCardView;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            docNameAppointTxt = itemView.findViewById(R.id.cardItmDocNameTxt);
             docProfAppntmntTxt = itemView.findViewById(R.id.cardItemDocProfTxt);
             dateAppntmntTxt = itemView.findViewById(R.id.cardItemDateDocTxt);
 //            infoAppntmntBtn = itemView.findViewById(R.id.appointCrslCrdItmPatInfolBtn);
