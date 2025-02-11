@@ -10,8 +10,8 @@ public class SplitJSONImpl {
 
     public SplitJSONImpl() {
     }
-    //TODO : based on the user type will be called each method separately
-    //TODO : add the same names as the entity class to match
+    //DONE : based on the user type will be called each method separately
+    //DONE : add the same names as the entity class to match
     public int extractUserType(String initialJSON){
         try{
             Result res = objectMapper.readValue(initialJSON, Result.class);
