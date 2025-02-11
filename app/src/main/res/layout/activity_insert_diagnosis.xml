@@ -42,7 +42,7 @@
         android:id="@+id/personalInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="33dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rectangle_stroke_diagnosis"
@@ -126,7 +126,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/prefilledAppointEdt"
+            android:id="@+id/diagnosisDiEdt"
             style="CustomEditTextStyleOutlined"
             android:layout_width="match_parent"
             android:layout_height="38dp"
@@ -146,6 +146,20 @@
             app:layout_constraintTop_toTopOf="@+id/diagnosisTxtTitle" />
 
         <TextView
+            android:id="@+id/diagnosisErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/diagnosisDiEdt"
+            app:layout_constraintHorizontal_bias="0.668"
+            app:layout_constraintStart_toStartOf="@+id/diagnosisDiEdt"
+            app:layout_constraintTop_toBottomOf="@+id/diagnosisDiEdt" />
+
+        <TextView
             android:id="@+id/dateInfoTxtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,7 +172,7 @@
             app:layout_constraintTop_toBottomOf="@+id/diagnosisTxtTitle" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/prefilledDateEdt"
+            android:id="@+id/infoDiEdt"
             style="CustomEditTextStyleOutlined"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -180,6 +194,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateInfoTxtTitle" />
+
+        <TextView
+            android:id="@+id/infoErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/infoDiEdt"
+            app:layout_constraintHorizontal_bias="0.957"
+            app:layout_constraintStart_toStartOf="@+id/infoDiEdt"
+            app:layout_constraintTop_toBottomOf="@+id/infoDiEdt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -205,7 +234,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/rectangle_stroke_diagnosis"
         android:paddingTop="10dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="@+id/activateChckBx"
         app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="@+id/activateChckBx"
@@ -241,6 +270,20 @@
             app:layout_constraintTop_toTopOf="@+id/dateTimeTxtTitle" />
 
         <TextView
+            android:id="@+id/treatmentErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/treatementDiEdt"
+            app:layout_constraintHorizontal_bias="0.668"
+            app:layout_constraintStart_toStartOf="@+id/treatementDiEdt"
+            app:layout_constraintTop_toBottomOf="@+id/treatementDiEdt" />
+
+        <TextView
             android:id="@+id/commentsTxtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -271,6 +314,20 @@
             app:layout_constraintTop_toTopOf="@+id/commentsTxtTitle"
             app:layout_constraintVertical_bias="0.473" />
 
+        <TextView
+            android:id="@+id/doseErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/doseDiEdt"
+            app:layout_constraintHorizontal_bias="0.872"
+            app:layout_constraintStart_toStartOf="@+id/doseDiEdt"
+            app:layout_constraintTop_toBottomOf="@+id/doseDiEdt" />
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/dateStartBtn"
             style="@style/CustomButtonStyle3"
@@ -287,6 +344,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.163"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/startDateErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/dateStartBtn"
+            app:layout_constraintStart_toStartOf="@+id/dateStartBtn"
+            app:layout_constraintTop_toBottomOf="@+id/dateStartBtn" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/dateEndBtn"
@@ -305,6 +375,20 @@
             app:layout_constraintStart_toEndOf="@+id/dateStartBtn"
             app:layout_constraintTop_toTopOf="@+id/dateStartBtn"
             app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/endDateErrorTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/greymedium"
+            android:textSize="9sp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/dateEndBtn"
+            app:layout_constraintStart_toStartOf="@+id/dateEndBtn"
+            app:layout_constraintTop_toBottomOf="@+id/dateEndBtn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -323,14 +407,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newAppointLayout"/>
 
-    <ImageView
-        android:id="@+id/extractToPDFImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/saveDiagnBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.683"
-        app:layout_constraintStart_toEndOf="@+id/saveDiagnBtn"
-        app:layout_constraintTop_toTopOf="@+id/saveDiagnBtn"
-        app:srcCompat="@drawable/pdf_extract" />
+<!--    <ImageView-->
+<!--        android:id="@+id/extractToPDFImg"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/saveDiagnBtn"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.683"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/saveDiagnBtn"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/saveDiagnBtn"-->
+<!--        app:srcCompat="@drawable/pdf_extract" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
