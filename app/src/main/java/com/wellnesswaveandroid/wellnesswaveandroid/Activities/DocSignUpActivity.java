@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ public class DocSignUpActivity extends AppCompatActivity {
     private RetrofitService retrofitService;
     private Doctor doctor;
     private FieldsValidators fieldsValidators;
+    private Spinner docSpecializationsSpinner;
+    private String specialization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,8 @@ public class DocSignUpActivity extends AppCompatActivity {
         docEmail = findViewById(R.id.docEmailEdt);
         docAmka = findViewById(R.id.docAmkaEdt);
         docPhoneNum = findViewById(R.id.docPhoneNumEdt);
-        docProfession = findViewById(R.id.docProfessionEdt);
+//        docProfession = findViewById(R.id.docProfessionEdt);
+        docSpecializationsSpinner = findViewById(R.id.docProfessionSpn);
         docAddress = findViewById(R.id.docAddressEdt);
 
         fnameErrMessageTxt = findViewById(R.id.fNameDocErrorTxtView);
@@ -64,6 +70,33 @@ public class DocSignUpActivity extends AppCompatActivity {
         //initialization: find views by id for save button
         saveDoctor = findViewById(R.id.docSaveBtn);
         fieldsValidators = new FieldsValidators();
+
+        //DONE : add contents to spinner specialisation
+        System.out.println("Adding data to specialisation spinner");
+        Log.d("TAG 1 ", "Adding data to specialisation spinner");
+        //Adding data to specialisation spinner from xml file - Static Data
+        String[] spec = getResources().getStringArray(R.array.specialisations_array);
+        ArrayAdapter<String> specialisationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spec);
+        specialisationAdapter.setDropDownViewResource(R.layout.spinner_drop_down_item_layout);
+        docSpecializationsSpinner.setAdapter(specialisationAdapter);
+        System.out.println("Implementation: on item selected Of spinner");
+        Log.d("TAG 2 ", "Implementation: on item selected Of spinner");
+        /**
+         * Get Specialization Selection from Drop Down
+         */
+        docSpecializationsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.d("TAG 3 ", "Inside on item selected method");
+                specialization = spec[position];
+                System.out.println("specialisation onClick => " + specialization);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+
 
         saveDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,10 +147,10 @@ public class DocSignUpActivity extends AppCompatActivity {
                 phoneErrMessageTxt.setTextColor(phoneErrMessageTxt.getContext().getColor(R.color.errorred));
 
                 /*** Profession Validation */
-                String professionErrorMessage = fieldsValidators.validateProfession(docProfession.getText().toString().trim());
-                professionErrMessageTxt.setVisibility(View.VISIBLE);
-                professionErrMessageTxt.setText(professionErrorMessage);
-                professionErrMessageTxt.setTextColor(professionErrMessageTxt.getContext().getColor(R.color.errorred));
+//                String professionErrorMessage = fieldsValidators.validateProfession(docProfession.getText().toString().trim());
+//                professionErrMessageTxt.setVisibility(View.VISIBLE);
+//                professionErrMessageTxt.setText(professionErrorMessage);
+//                professionErrMessageTxt.setTextColor(professionErrMessageTxt.getContext().getColor(R.color.errorred));
 
                 /*** Address Validation */
                 String addressErrorMessage = fieldsValidators.validateAddress(docAddress.getText().toString().trim());
@@ -131,7 +164,7 @@ public class DocSignUpActivity extends AppCompatActivity {
                 boolean empty = fieldsValidators.validateEmptyDoc(docFirstName.getText().toString().trim(), docLastName.getText().toString().trim(),
                         docUsername.getText().toString().trim(), docPassword.getText().toString().trim(),
                         docEmail.getText().toString().trim(), docAmka.getText().toString().trim(), docPhoneNum.getText().toString().trim(),
-                        docProfession.getText().toString().trim(), docAddress.getText().toString().trim());
+                        docAddress.getText().toString().trim());
                 boolean regex = fieldsValidators.validateRegex(docPassword.getText().toString().trim(), docEmail.getText().toString().trim(),
                         docPhoneNum.getText().toString().trim(), docAmka.getText().toString().trim());
                 boolean length = fieldsValidators.validateLength(docPassword.getText().toString().trim(), docPhoneNum.getText().toString().trim(),
@@ -166,9 +199,9 @@ public class DocSignUpActivity extends AppCompatActivity {
                 String email = String.valueOf(docEmail.getText());
                 String securedNum = String.valueOf(docAmka.getText());
                 String phoneNum = String.valueOf(docPhoneNum.getText());
-                String profession = String.valueOf(docProfession.getText());
+                String profession = specialization;
                 String address = String.valueOf(docAddress.getText());
-                int type = 1; //code for doc
+                Integer type = 1; //code for doc
 
                 //setting values to object doctor
                 doctor = new Doctor(firstName, lastName, username, password, email, securedNum, phoneNum, profession, address, type);
@@ -204,164 +237,4 @@ public class DocSignUpActivity extends AppCompatActivity {
         });
     }
 
-    //FIELDS VALIDATION FOR THE RIGHT INPUT
-//    public void fieldsValidation() {
-//        //PASSWORD VALIDATION
-//        docPassword.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (validatePassword() && editable.length()>0){
-//                    Toast.makeText(DocSignUpActivity.this, "Valid Password", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(DocSignUpActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        //EMAIL VALIDATION
-//        docEmail.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (validateEmail() && editable.length()>0){
-//                    Toast.makeText(DocSignUpActivity.this, "Valid Email", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(DocSignUpActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        //PHONE NUMBER VALIDATION
-//        docPhoneNum.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (validatePhoneNumber() && editable.length()>0){
-//                    Toast.makeText(DocSignUpActivity.this, "Valid Phone Number", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(DocSignUpActivity.this, "Invalid Phone Number", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        //ADDRESS VALIDATION
-//        docAddress.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if (validateAddress() && editable.length()>0){
-//                    Toast.makeText(DocSignUpActivity.this, "Valid Address", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(DocSignUpActivity.this, "Invalid Address", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
-
-//    //VALIDATION OF PASSWORD, EMAIL, PHONE NUMBER & ADDRESS
-//    //DONE: Password validation
-//    private boolean validatePassword(){
-//
-//
-//        String passValidated = docPassword.getText().toString().trim();
-//        //Checks if the password field is correctly completed
-//        if (passValidated.isEmpty()){                               //password field can not be empty
-//            docPassword.setError("Field can not be empty");
-//            return false;
-//        } else if (!passPattern.matcher(passValidated).matches()) {     //password field must follow all the rules
-//            docPassword.setError("Password is too weak");
-//            return false;
-//        }else{                                                      //password field is correctly completed
-//            docPassword.setError(null);
-//            return true;
-//        }
-//    }
-
-    //DONE: Email validation
-//    private boolean validateEmail(){
-//        String email = "^[a-zA-Z0-9.%+-]"
-//                + "+@[a-zA-Z0-9.-]"
-//                + "+\\.[a-zA-Z]{2,}$";
-//        Pattern emailPattern = Pattern.compile(email);
-//
-//        String emailValidated = docEmail.getText().toString().trim();
-//
-//        //Checks if the password field is correctly completed
-//        if (emailValidated.isEmpty()){                                     //email field can not be empty
-//            docEmail.setError("Field can not be empty");
-//            return false;
-//        } else if (!emailPattern.matcher(emailValidated).matches()) {     //email field must follow all the rules
-//            docEmail.setError("Wrong email syntax! It must be example@domain.com");
-//            return false;
-//        }else{                                                            //email field is correctly completed
-//            docEmail.setError(null);
-//            return true;
-//        }
-//    }
-
-    //DONE: Phone number validation
-//    private boolean validatePhoneNumber(){
-//        String phoneNumber = "^\\+[1-9\\d{1,10}$]";
-//        Pattern phonePattern = Pattern.compile(phoneNumber);
-//
-//        String phoneNumberValidated = docPhoneNum.getText().toString().trim();
-//
-//        //Checks if the password field is correctly completed
-//        if (phoneNumberValidated.isEmpty()){                                     //phone number field can not be empty
-//            docPhoneNum.setError("Field can not be empty");
-//            return false;
-//        } else if (!phonePattern.matcher(phoneNumberValidated).matches()) {     //phone number field must follow all the rules
-//            docPhoneNum.setError("Wrong phone number! It must contain only numbers," + "\n and the length it has to be 10");
-//            return false;
-//        }else{                                                                  //phone number field is correctly completed
-//            docPhoneNum.setError(null);
-//            return true;
-//        }
-//    }
-
-    //DONE: Address validation
-//    private boolean validateAddress(){
-//        String myAddress = "^([A-Za-z\\s\\-']+\\s\\d+),"
-//                + "\\s([A-Za-z\\s]+)\\s(\\d{5}),\\s([A-Za-z\\s]+)$";
-//        Pattern addressPattern = Pattern.compile(myAddress);
-//
-//        String addressValidated = docAddress.getText().toString().trim();
-//
-//        //Checks if the password field is correctly completed
-//        if (addressValidated.isEmpty()){                                      //address field can not be empty
-//            docAddress.setError("Field can not be empty");
-//            return false;
-//        } else if (!addressPattern.matcher(addressValidated).matches()) {     //address field must follow all the rules
-//            docAddress.setError("Wrong address syntax! It must be: Road No, Area Postal Code, City");
-//            return false;
-//        }else{                                                                 //address field is correctly completed
-//            docAddress.setError(null);
-//            return true;
-//        }
-//    }
 }
