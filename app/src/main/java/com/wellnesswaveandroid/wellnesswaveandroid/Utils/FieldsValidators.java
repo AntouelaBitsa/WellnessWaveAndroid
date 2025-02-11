@@ -9,14 +9,22 @@ public class FieldsValidators {
     public FieldsValidators() {
     }
 
-    public boolean validateEmptyDoc(String fname, String lname, String username, String password, String email, String amka, String phone, String profession, String address){
+    public boolean validateEmptyDoc(String fname, String lname, String username, String password, String email, String amka, String phone, String address){
         return fname.isEmpty() || lname.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || amka.isEmpty()
-                || phone.isEmpty() || profession.isEmpty() || address.isEmpty();
+                || phone.isEmpty() || address.isEmpty();
     }
 
     public boolean validateEmptyPat(String fname, String lname, String username, String password, String email, String amka, String phone, String dob){
         return fname.isEmpty() || lname.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty() || amka.isEmpty()
                 || phone.isEmpty() || dob.isEmpty();
+    }
+
+    public boolean validateEmptyDiagnosis(String diagnosis, String info){
+        return diagnosis.isEmpty() || info.isEmpty();
+    }
+
+    public boolean validateEmptyTreatment(String treatment, String dose){
+        return treatment.isEmpty() || dose.isEmpty();
     }
 
     public boolean validateRegex(String password, String email, String phone, String amka){
@@ -149,7 +157,6 @@ public class FieldsValidators {
         } else {
             return "";
         }
-        //TODO: "Email is already in use. Please use a different email."
     }
 
     public String validatePhoneNumber(String incomingPhoneNumber){
@@ -223,6 +230,14 @@ public class FieldsValidators {
     public String validateDob(String incomingDob) {
         if (incomingDob.isEmpty()){
             return "Birthdate is required.";
+        }else {
+            return "";
+        }
+    }
+
+    public String validateEmpty(String incomingTxt) {
+        if (incomingTxt.isEmpty()){
+            return "Fill in the field";
         }else {
             return "";
         }
