@@ -135,6 +135,7 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
         }
         System.out.println("[**UserType] userTypeInstance == " + userTypeInstance.getUserType());
 
+        //DONE: Add if condition weather the userType == 1 : Doctor Logged In
         userType = userTypeInstance.getUserType();
         if (userType == 1){
             docInstance = Doctor.getInstance();
@@ -185,7 +186,7 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
         }else if (userType == 2){
             System.out.println("[UserType 7] condition check for user type: PATIENT to call get request");
 
-            //TODO: change this: app:layout_constraintTop_toBottomOf="@+id/searchBar" to be to usernameTxt
+            //DONE: change this: app:layout_constraintTop_toBottomOf="@+id/searchBar" to be to usernameTxt
             constraintSet = new ConstraintSet();
             constraintSet.clone(diagnRecConstrntLyt); //clone current layout
 
@@ -202,20 +203,20 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
 
 
         diagnosisHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //TODO: Call get Request of Get All Diagnosis
+        //DONE: Call get Request of Get All Diagnosis
         diagnosisRecordAdapter = new DiagnosisRecordAdapter(diagnosisList, this, new DiagnosisRecordAdapter.OnBtnListener() {
             @Override
             public void onDiagnosisButtonClick(Diagnosis diagnosis) {
-                //TODO: callPopUpDialog(diagnosis);
+                //DONE: callPopUpDialog(diagnosis);
                 callDiagnosisDetailsPopUp(diagnosis);
-                //TODO: popUp.show();
+                //DONE: popUp.show();
                 diagnosisDetailsPopUp.show();
             }
         });
         diagnosisHistoryRecyclerView.setAdapter(diagnosisRecordAdapter);
 
 //--------------------SEARCH VIEW IMPLEMENTATION -----------------------
-        //TODO: Add if condition weather the userType == 1 : Doctor Logged In
+
 
     }
 
@@ -226,14 +227,14 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
         diagnosisDetailsPopUp.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_popup_background));
         diagnosisDetailsPopUp.setCancelable(true);//when user clicks outside the dialog can not close
 
-        //TODO: Declare Components for TextViews
+        //DONE: Declare Components for TextViews
         diagnType = diagnosisDetailsPopUp.findViewById(R.id.diagnTypeCardTxt);
         diagnInstractions = diagnosisDetailsPopUp.findViewById(R.id.diagnInstructionsCardTxt);
         treatmentName = diagnosisDetailsPopUp.findViewById(R.id.treatNameCardTxt);
         treatmentDose = diagnosisDetailsPopUp.findViewById(R.id.treatDoseCardTxt);
 
 
-        //TODO: set context to TextViews
+        //DONE: set context to TextViews
         diagnType.setText(diagnosis.getDiagnType());
         diagnInstractions.setText(diagnosis.getDiagnInfo());
         treatmentName.setText(diagnosis.getTreatment());
@@ -367,10 +368,10 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
 
     //API Get Request: search patient and having dynamic data in recycler view
     private void searchPatient(String amka) {
-        //TODO: retrofit, diagnosis api, diagnosis (entity)
+        //DONE: retrofit, diagnosis api, diagnosis (entity)
         RetrofitService retrofitService = new RetrofitService();
         DiagnosisApi diagnosisApi = retrofitService.getRetrofit().create(DiagnosisApi.class);
-        //TODO: API call for endpoint: searchPatByAmka -> get request
+        //DONE: API call for endpoint: searchPatByAmka -> get request
         diagnosisApi.searchPatByAmka(amka).enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -410,7 +411,7 @@ public class DiagnosisRecordsActivity extends AppCompatActivity {
                         selectedPatient.getPatFirstName() + " " +
                         selectedPatient.getPatLastName() + " " +
                         selectedPatient.getPatSecuredNum());
-                //TODO: add all these data to the list appeared in the recycler view
+                //DONE: add all these data to the list appeared in the recycler view
                 ArrayList<Patient> matchedPatList = new ArrayList<>();
                 matchedPatList.add(selectedPatient);
                 if (matchedPatList.isEmpty()){
