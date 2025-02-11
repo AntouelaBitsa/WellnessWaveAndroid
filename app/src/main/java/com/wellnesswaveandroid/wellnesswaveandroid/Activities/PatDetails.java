@@ -54,7 +54,7 @@ public class PatDetails extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_manage_appointments) {
-                    startActivity(new Intent(getApplicationContext(), BookAppointmentActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ManageAppointmentsActivity.class));
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_diagn_history) {
