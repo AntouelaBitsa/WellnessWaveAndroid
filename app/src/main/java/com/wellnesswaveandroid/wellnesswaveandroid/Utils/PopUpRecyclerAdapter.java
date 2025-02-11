@@ -43,11 +43,13 @@ public class PopUpRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                     concat(" ").concat(spcDocItem.getDocLastName()));
             ((SpecializationPopUpItem) holder).phoneTxt.setText(spcDocItem.getDocPhoneNum());
             ((SpecializationPopUpItem) holder).addressTxt.setText(spcDocItem.getDocAddress());
-            //TODO: Button Listener
+            //DONE: Button Listener
             ((SpecializationPopUpItem) holder).bookAppointment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent goToBookAppointment = new Intent(context, BookAppointmentActivity.class);
+                    goToBookAppointment.putExtra("source", "popup");
+                    goToBookAppointment.putExtra("doc", spcDocItem);
                     context.startActivity(goToBookAppointment);
                 }
             });
