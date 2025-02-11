@@ -23,8 +23,8 @@ public interface BookedSlotsApi {
     @GET("/getBookedSlotsByDate/{date}/{docId}")
     Call<Map<String, Set<String>>> getBookedSlotsByDate(@Path("date") String date, @Path("docId") Integer docId);
 
-    @POST("/createSlot/{docId}")
-    Call<Result> createSlot(@Body BookedSlots bookedSlots, @Path("docId") Integer docId);
+    @POST("/createSlot")
+    Call<Result> createSlot(@Body BookedSlots bookedSlots);
 
     @PUT("/updateSlot/{slotDate}/{docId}")
     Call<Result> updateSlot(
