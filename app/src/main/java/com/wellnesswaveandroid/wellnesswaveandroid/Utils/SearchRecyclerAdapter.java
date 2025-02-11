@@ -32,7 +32,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         this.onItemClickListener = onItemClickListener;
     }
 
-    //TODO: implemntation of onItemClickListener()
+    //DONE: implemntation of onItemClickListener()
     public interface OnItemClickListener{
         void onItemClick(Patient patient);
     }
@@ -65,7 +65,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         String fName = currentPatient.getPatFirstName();
         String lName = currentPatient.getPatLastName();
         String amka = currentPatient.getPatSecuredNum();
-        //TODO: get also the patients id ... (soon)
         System.out.println(">[SrchRcclrAdptr 02] onBindViewHolder(): after getting data from currentPatient " +
                 fName + " " + lName + " " + amka);
 
@@ -100,7 +99,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         return patientArrayList.size();
     }
 
-    //TODO: updateList for dynamic data population
+    //DONE: updateList for dynamic data population
     public void updatePatList(ArrayList<Patient> newPatList){
         //1st way
         patientArrayList.clear();
