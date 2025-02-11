@@ -3,6 +3,7 @@ package com.wellnesswaveandroid.wellnesswaveandroid.Activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Appointments;
-import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Diagnosis;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Doctor;
 import com.wellnesswaveandroid.wellnesswaveandroid.Entities.Patient;
 import com.wellnesswaveandroid.wellnesswaveandroid.R;
@@ -27,6 +27,7 @@ import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.AppointmentsApi;
 import com.wellnesswaveandroid.wellnesswaveandroid.Retrofit.RetrofitService;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.DocManageAppointmentsAdapter;
 import com.wellnesswaveandroid.wellnesswaveandroid.Utils.LogInDTO;
+import com.wellnesswaveandroid.wellnesswaveandroid.Utils.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,8 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
     private LogInDTO userTypeInstance;
     private Integer userType;
 
+    private Class<?> targetHomePage, targetUserDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,7 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), DoctorHomePageActivity.class));
+                    startActivity(new Intent(getApplicationContext(), targetHomePage));
                     finish();
                     return true;
                 }else if (item.getItemId() == R.id.nav_manage_appointments) {
@@ -74,7 +77,7 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
 //                    finish();
                     return true;
                 }else if (item.getItemId() == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), DocDetails.class));
+                    startActivity(new Intent(getApplicationContext(), targetUserDetails));
                     finish();
                     return true;
                 }else{
@@ -96,6 +99,8 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
             if (docInstance == null){
                 System.out.println("[ManageAppoint 1] docInstance == null");
             }
+            targetHomePage = DoctorHomePageActivity.class;
+            targetUserDetails = DocDetails.class;
             System.out.println("[ManageAppoint 2] docInstance.getDocUsername()= " + docInstance.getDocUsername());
             System.out.println("[ManageAppoint 3] docInstance.getUserType()= " + docInstance.getUserType());
         } else if (userType == 2) {
@@ -104,6 +109,8 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
             if (patInstance == null){
                 System.out.println("[ManageAppoint 4] patInstance == null");
             }
+            targetHomePage = PatientHomePageActivity.class;
+            targetUserDetails = PatDetails.class;
             System.out.println("[ManageAppoint 5] patInstance.getPatUsername()= " + patInstance.getPatUsername());
             System.out.println("[ManageAppoint 6] patInstance.getUserType()= " + patInstance.getUserType());
         }
@@ -131,9 +138,9 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
                 // Display selected date
                 Toast.makeText(ManageAppointmentsActivity.this, "Selected Date: " + selectedDate, Toast.LENGTH_SHORT).show();
                 if (userType == 1){
-                    getDateBasedAppointmentsDoc(selectedDate, docInstance.getDocId(), userType);
+                    getDateBasedAppointments(selectedDate, docInstance.getDocId(), userType);
                 } else if (userType == 2) {
-                    getDateBasedAppointmentsDoc(selectedDate, patInstance.getPatientId(), userType);
+                    getDateBasedAppointments(selectedDate, patInstance.getPatientId(), userType);
                 }
 
             }
@@ -157,7 +164,7 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //DONE: business logic on cancellation for API Request
                 Integer appointID = appoint.getAppointmentId();
-//                deleteAppoint(appointID);
+                updateCurrentAppointStatus(appointID, appoint.setStatus("canceled"));
                 cancelPopUp.dismiss();
             }
         });
@@ -170,8 +177,33 @@ public class ManageAppointmentsActivity extends AppCompatActivity {
         });
     }
 
-    private void getDateBasedAppointmentsDoc(String selectedDate, Integer userId, Integer userType) {
-        //TODO: API call to endpoint
+    private void updateCurrentAppointStatus(Integer appointId, String status){
+        System.out.println("[Rschdl 2] Inside updateCurrentAppointStatus() before retrofit initialization -> appointmentID = " + appointId);
+        RetrofitService retrofitAppointSrvc = new RetrofitService();
+        System.out.println("[Rschdl 2.2] API initialization");
+        AppointmentsApi appointmentsApi = retrofitAppointSrvc.getRetrofit().create(AppointmentsApi.class);
+        appointmentsApi.updateAppointOnReschedule(appointId, status).enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                System.out.println("[Rschdl 2.3] Inside on Response: " + response.body() + " => " + response.isSuccessful());
+                if (response.isSuccessful()){
+                    Log.d("[APPOINT UPDATED] TAG:" + " SUCCESS: ", "onResponse: " + response.body());
+//                    Toast.makeText(RescheduleAppointment.this, "You have rescheduled this appointment successfully", Toast.LENGTH_LONG).show();
+                }else {
+                    Log.d("[APPOINT UPDATED] TAG:" + " FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(ManageAppointmentsActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d("[APPOINT UPDATED] TAG: " + " onFailure: ", "The Message is : " + t.getMessage());
+            }
+        });
+    }
+
+    private void getDateBasedAppointments(String selectedDate, Integer userId, Integer userType) {
+        //DONE: API call to endpoint
         System.out.println("Inside getDateBasedAppointments()");
         System.out.println("[SOS PRINT] Incoming Parameters: Id= "+ userId + " and SelectedDate= " + selectedDate + " and userType= " + userType);
         RetrofitService retrofitService = new RetrofitService();
