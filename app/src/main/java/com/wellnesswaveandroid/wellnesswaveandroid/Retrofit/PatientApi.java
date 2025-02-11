@@ -19,7 +19,6 @@ public interface PatientApi {
     @POST("/createPatient")
     Call<Patient> createPatient(@Body Patient patient);
 
-    //TODO: Get endpoint for getPatientById
     //DONE: logIn endpoint
     @FormUrlEncoded
     @POST("/patientLogInSession")
