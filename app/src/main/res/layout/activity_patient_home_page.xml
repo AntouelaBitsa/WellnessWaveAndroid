@@ -80,6 +80,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomePatTxt" />
 
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/emptyStateCardViewIncludedLayout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/upcomingAppntmnt"-->
+<!--        android:visibility="gone">-->
+
+<!--        <include-->
+<!--            android:id="@+id/emptyStateCardViewIncluded"-->
+<!--            layout="@layout/empty_state_new_appointment" />-->
+
+<!--    </LinearLayout>-->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appointmentRecycler"
         android:layout_width="match_parent"
