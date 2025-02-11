@@ -45,6 +45,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,14 +64,15 @@ public class BookAppointmentActivity extends AppCompatActivity {
     private Button pickdateBtn, picktimeBtn, bookAppoint;
     private TextView dateTxt, timeTxt;
     private MaterialAutoCompleteTextView commentsMltlnTxt;
-    private String formattedDate ="01-01-2000", formattedTime="00:00", specialisation="DEFAULT", doctor="NONE", comments="NONE";
+    private String formattedDate ="01-01-2000", formattedTime="00:00", specialisation="DEFAULT",
+            doctor="NONE", comments="NONE", status="NOT DEFINED";
     private int hour=00, minute=00;
     private Integer selectedDocId;
     private Appointments appointments, responseAppoint;
     private List<String> docFAndLName = new ArrayList<>();
     private ArrayList<Doctor> specialisedArray;
     private ArrayAdapter<String> doctorAdapter;
-//    private Integer idDoc;
+
     private Integer bookPat;
     private LocalDate selectedLocalDate;
     private LocalTime selectedLocalTime;
@@ -98,6 +100,8 @@ public class BookAppointmentActivity extends AppCompatActivity {
                     finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_manage_appointments) {
+                    startActivity(new Intent(getApplicationContext(), ManageAppointmentsActivity.class));
+                    finish();
                     return true;
                 } else if (item.getItemId() == R.id.nav_diagn_history) {
                     startActivity(new Intent(getApplicationContext(), DiagnosisRecordsActivity.class));
@@ -123,6 +127,20 @@ public class BookAppointmentActivity extends AppCompatActivity {
         commentsMltlnTxt = findViewById(R.id.commentsMltlnTxt);
         bookAppoint = findViewById(R.id.bookBtn);
 
+        Intent getFromHomePage = getIntent();
+        String source = getFromHomePage.getStringExtra("source");
+        Log.d("SOS PRINT", "onCreate: Intent form POPUP DIALOG => source: " + source);
+        Doctor doctorObj = (Doctor) getFromHomePage.getSerializableExtra("doc");
+        Log.d("SOS PRINT", "onCreate: Intent form POPUP DIALOG => doctor: " + doctorObj);
+
+        if (doctorObj != null){
+            specialisation = doctorObj.getDocProfession();
+            //DONE: set to docFAndLName the doctor's first and last name
+            doctor = doctorObj.getDocFirstName().concat(" ").concat(doctorObj.getDocLastName());
+            docFAndLName.add(doctor);
+        }
+
+
 
         //DONE : add contents to spinner specialisation
         System.out.println("Adding data to specialisation spinner");
@@ -133,40 +151,67 @@ public class BookAppointmentActivity extends AppCompatActivity {
         specialisationAdapter.setDropDownViewResource(R.layout.spinner_drop_down_item_layout);
         specialisationSpinner.setAdapter(specialisationAdapter);
 
-        System.out.println("Implementation: on item selected Of spinner");
-        Log.d("TAG 2 ", "Implementation: on item selected Of spinner");
-        specialisationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.d("TAG 3 ", "Inside on item selected method");
-                specialisation = spec[position];
-                //DONE : POST request to get a list o doctors filtered by specialisation
-                //DONE : the endpoint need to get as parameters the specialisation String
-//                getFilteredDocBySpecialisation(specialisation);
-                System.out.println("specialisation onClick => " + specialisation);
-                System.out.println("docFAndLName => " + docFAndLName.toString());
-                testGetSpec(specialisation);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-        System.out.println("SPN => Specialisation Selected : " + specialisation);
-
         //DONE : add contents to spinner Doctor
         //Adding data to Doctor Spinner the first and last name in method updateDoctorSpinner()
         doctorAdapter = new ArrayAdapter<>(BookAppointmentActivity.this, android.R.layout.simple_spinner_item, docFAndLName);
         doctorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         docSpecSpinner.setAdapter(doctorAdapter);
-        docSpecSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                doctor = doctorAdapter.getItem(position);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
+        /**
+         * Condition to check source data
+         * If navigation coming from PopUp Dialog (Specialization Carousel) set data from Intent
+         * If navigation coming from Add New Appointment Card (Appointments Carousel) set data by implementing get Request on API
+         */
+        if (source.equals("popup")){
+            Integer posSpec = specialisationAdapter.getPosition(specialisation);
+            if (posSpec == -1){ return; }
+            specialisationSpinner.setSelection(posSpec);
+            Log.d("POPUP DATA", "[PopUp Incoming Data] Specialization: " + specialisation + " pos: " + posSpec);
+
+            Integer posDoc = docFAndLName.indexOf(doctor);
+            if (posSpec == -1){ return; }
+            docSpecSpinner.setSelection(posDoc);
+            selectedDocId = doctorObj.getDocId();
+            Log.d("POPUP DATA", "[PopUp Incoming Data] Doctor: " + doctor + " pos: " + posDoc);
+        }else{
+            System.out.println("Implementation: on item selected Of spinner");
+            Log.d("TAG 2 ", "Implementation: on item selected Of spinner");
+            /**
+             * Get Specialization Selection from Drop Down
+             */
+            specialisationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                    Log.d("TAG 3 ", "Inside on item selected method");
+                    specialisation = spec[position];
+                    //DONE : POST request to get a list o doctors filtered by specialisation
+                    //DONE : the endpoint need to get as parameters the specialisation String
+//                getFilteredDocBySpecialisation(specialisation);
+                    System.out.println("specialisation onClick => " + specialisation);
+                    System.out.println("docFAndLName => " + docFAndLName.toString());
+                    testGetSpec(specialisation);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+
+            /**
+             * Get Doctor Selection
+             */
+            docSpecSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    doctor = doctorAdapter.getItem(position);
+                    System.out.println("[BookAppoint DEBUG] Selected Position: " + position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {}
+            });
+
+        }
+        System.out.println("SPN => Specialisation Selected : " + specialisation);
         System.out.println("SPN => Doctor Selected : " + doctor);
 
 
@@ -193,11 +238,18 @@ public class BookAppointmentActivity extends AppCompatActivity {
 
 //                        /**Get request to find all booked slots in DB based on the date selected by the user*/
 //                        getBookedSlotsByDate(selectedLocalDate.toString());
+                        getUnavailableTime(formattedDate, selectedDocId);
+                        Log.d("TAG 3000", "onClick() Map booked slot = [" + bookedSlot+ "]");
                     }
                 });
                 materialDatePicker.show(getSupportFragmentManager(), "MATERIAL DATE PICKER");
             }
         });
+
+        if (formattedDate == null){
+            dateTxt.setText("Please select date.");
+            return;
+        }
         System.out.println("BTN => Date Selected : " + formattedDate);
 
         //DONE : implement time picker
@@ -241,11 +293,6 @@ public class BookAppointmentActivity extends AppCompatActivity {
 //                            timeTxt.setText("Selected Time: " + selectedLocalTime);
 //
 //                        }
-
-                        getUnavailableTime(formattedDate, selectedDocId);
-                        Log.d(TAG, "onClick() Map booked slot = [" + bookedSlot+ "]");
-                        checkHoursAvailability(bookedSlot, formattedTime);
-                        //TODO: make changes on UI of the time picker
                     }
                 });
                 materialTimePicker.show(getSupportFragmentManager(), "MATERIAL TIME PICKER");
@@ -266,8 +313,9 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 System.out.println("[P2] patientID = " + bookPat + " [D2] doctorID = " + selectedDocId);
                 //DONE: get the text from multiline edit text
                 comments = String.valueOf(commentsMltlnTxt.getText());
+                status = "active";
                 //DONE: Data gathering
-                appointments = new Appointments(formattedDate,formattedTime,comments,selectedDocId,bookPat);
+                appointments = new Appointments(formattedDate,formattedTime,comments,selectedDocId,bookPat,status);
                 System.out.println("Appointment data: " + appointments);
 //                System.out.println("TXT => Comments Selected : " + comments);
                 System.out.println("Specialisation => " + specialisation + " Doctor => " + doctor + " Date => " + formattedDate + " Time => " + formattedTime + " Commennts => " + comments);
@@ -276,41 +324,45 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 //DONE: Post request implementation
                 System.out.println("[Appnmnt 1] Before createAppointment()");
 //                responseAppoint = new Appointments();
-                createAppointForPat(appointments);
-
+                checkHoursAvailability(formattedDate, formattedTime, selectedDocId);
+//                createAppointForPat(appointments);
             }
 
         });
 
     }
 
+    private void checkHoursAvailability(String incomingDate, String incomingTime, Integer doctorId) {
+        if (bookedSlot == null){
+            Toast.makeText(this, "Error fetching available Slots. Try Again.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-    /**
-     * In this method is implemented a series of conditions, where the system is inspecting if the selected doctor has availability in
-     * @param bookedSlot for the selected date and
-     * @param formattedTime
-     */
-    private void checkHoursAvailability(Map<String, Set<String>> bookedSlot, String formattedTime) {
-        Log.d(TAG, "checkHoursAvailability() called with: bookedSlot = [" + bookedSlot + "], formattedTime = [" + formattedTime + "]");
-        boolean dateExists = bookedSlot.keySet().stream().anyMatch(dateKey -> dateKey.equals(formattedDate));
-        boolean timeExists = bookedSlot.values().stream().anyMatch(timeSet -> timeSet.contains(formattedTime));
-//        boolean timeExists = bookedSlot.get(formattedDate).contains(formattedTime);
-//        boolean dateExists = bookedSlot.containsKey(formattedDate);
-        if (bookedSlot.isEmpty()){
-            /**there formatted date does not exist in booked slot => create the slot*/
-            Log.d(TAG, "checkHoursAvailability() calling createNewSlotRequest() with: bookedSlot = [" + formattedDate + " " + formattedTime + " " + selectedDocId + "]");
-            createNewSlotRequest(new BookedSlots(formattedDate, formattedTime, selectedDocId), selectedDocId);
-        } else if (dateExists == true && timeExists == false){ //and date exists
-            /**formattedTime does not exists inside the booked slot => add time in booked slot for this date*/
-            Log.d(TAG, "checkHoursAvailability() calling updateExistingSlotRequest() with: parameters = [" + formattedDate + " " + formattedTime + " " + selectedDocId + "]");
-            updateExistingSlotRequest(formattedTime, formattedDate, selectedDocId);
+        if (bookedSlot.containsKey(incomingDate)){
+            Log.d("checkHoursAvailability(): ", "Date in bookedSlot Map " + bookedSlot.containsKey(incomingDate));
+            Set<String> bookedTimes = bookedSlot.get(incomingDate);
+
+            if (bookedTimes.contains(incomingTime)){
+                Log.d("checkHoursAvailability(): ", "Time in bookedSlot Map " + bookedTimes.contains(incomingTime));
+                Toast.makeText(this, "Selected time is unavailable. Choose another time.", Toast.LENGTH_SHORT).show();
+                return;
+            }else {
+                Log.d("checkHoursAvailability(): ", "Time in bookedSlot Map " + bookedTimes.contains(incomingTime));
+                BookedSlots newSlot = new BookedSlots(incomingDate, incomingTime, doctorId);
+                Log.d("checkHoursAvailability(): ", "New bookedSlot Entry " + newSlot);
+                createNewSlotRequest(newSlot);
+            }
+        }else {
+            Log.d("checkHoursAvailability(): ", "Date in bookedSlot Map " + bookedSlot.containsKey(incomingDate));
+            BookedSlots newSlot = new BookedSlots(incomingDate, incomingTime, doctorId);
+            Log.d("checkHoursAvailability(): ", "New bookedSlot Entry " + newSlot);
+            createNewSlotRequest(newSlot);
         }
-        else if (dateExists == true && timeExists == true){
-            /**formattedTime exists inside the booked slot => show Toast message: please select another time for the appointment*/
-            Toast.makeText(this, "Please select another time for the appointment", Toast.LENGTH_SHORT).show();
-        }
+        Log.d("checkHoursAvailability(): ", "New Appointment to be booked " + appointments);
+        createAppointForPat(appointments);
     }
 
+    //PUT Request
     private void updateExistingSlotRequest(String formattedTime, String formattedDate, Integer selectedDocId) {
         Log.d(TAG, "updateExistingSlotRequest() called with: formattedTime = [" + formattedTime + "], formattedDate = ["
                 + formattedDate + "], selectedDocId = [" + selectedDocId + "]");
@@ -337,11 +389,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
     }
 
-    private void createNewSlotRequest(BookedSlots bookedSlots, Integer selectedDocId) {
+    // POST REQUEST
+    private void createNewSlotRequest(BookedSlots bookedSlots) {
         Log.d(TAG, "createNewSlotRequest() called with: bookedSlots = [" + bookedSlots + "], selectedDocId = [" + selectedDocId + "]");
         RetrofitService retrofitService = new RetrofitService();
         BookedSlotsApi bookedSlotsApi = retrofitService.getRetrofit().create(BookedSlotsApi.class);
-        bookedSlotsApi.createSlot(bookedSlots, selectedDocId).enqueue(new Callback<Result>() {
+        bookedSlotsApi.createSlot(bookedSlots).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 if (!response.isSuccessful() || response.body() == null){
@@ -351,7 +404,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "[onResponse(): createNewSlotRequest()] called with: call = [" + call + "], response = [" + response.body() + "]");
-                Toast.makeText(BookAppointmentActivity.this, "Slot Booked successfully, Slot: " + bookedSlots, Toast.LENGTH_LONG).show();
+                Toast.makeText(BookAppointmentActivity.this, "Slot Booked successfully.", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -362,6 +415,12 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Get Request to API to get All booked slots based on Date selection
+     * @param formattedDate is for the selected date from the user
+     * @param selectedDocId is for the selected doctor from the user
+     */
     private void getUnavailableTime(String formattedDate, Integer selectedDocId) {
         /**GET request on API*/
         Log.d(TAG, "getUnavailableTime() called with: formattedDate = [" + formattedDate + "], selectedDocId = [" + selectedDocId + "]");
@@ -396,65 +455,6 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Find a way to export this and other related methods to CustomTimeValidator Class
-//    private boolean isTimeValid(LocalTime time) {
-//        if (time.isBefore(startTime) || time.isAfter(endTime)){
-//            return false;
-//        }
-//
-//        /**Get Booked Slots for selected Date*/
-//        Set<LocalTime> bookedSlots = bookedSlotsByDate.getOrDefault(selectedLocalDate, new HashSet<>());
-//        if (bookedSlots.contains(time)){
-//            return false;
-//        }
-//
-//        LocalTime previousSlot = time.minusMinutes(30);
-//        LocalTime nextSlot = time.minusMinutes(30);
-//
-//        if (bookedSlots.contains(previousSlot) || bookedSlots.contains(nextSlot)){
-//            return false;
-//        }
-//        return true;
-//    }
-
-    /**Get request to find all booked slots in DB based on the date selected by the user*/
-//    private void getBookedSlotsByDate(String date) {
-//        RetrofitService retrofitService = new RetrofitService();
-//        BookedSlotsApi bookedSlotsApi = retrofitService.getRetrofit().create(BookedSlotsApi.class);
-//
-//        bookedSlotsApi.getBookedSlotsByDate(date).enqueue(new Callback<List<BookedSlots>>() {
-//            @Override
-//            public void onResponse(Call<List<BookedSlots>> call, Response<List<BookedSlots>> response) {
-//                if (!response.isSuccessful() && response.body() == null){
-//                    System.out.println("[BookAppoint getBookedSlotsByDate()] (onResponse): successful = " + response.isSuccessful()
-//                            + " body == " + response.body());
-//                    Toast.makeText(BookAppointmentActivity.this, "Failed to get BookedSlots of selected Date", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                List<BookedSlots> slots = response.body();
-//                System.out.println("[BookAppoint getBookedSlotsByDate() 01] (onResponse): slot = " + slots);
-//                Set<LocalTime> bookedTimes = slots.stream().
-//                        map(slot -> LocalTime.parse(slot.getSlotTime().toString())).collect(Collectors.toSet());
-//                System.out.println("[BookAppoint getBookedSlotsByDate() 02] (onResponse): bookedTimes = " + bookedTimes);
-//
-//                bookedSlotsByDate.put(LocalDate.parse(date), bookedTimes);
-//                System.out.println("[BookAppoint getBookedSlotsByDate() 03] (onResponse): bookedSlotsByDate = " + bookedSlotsByDate);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<BookedSlots>> call, Throwable throwable) {
-//                System.out.println("[BookAppoint getBookedSlotsByDate() 03] (onFailure): NOT OK");
-//                System.out.println("[BookAppoint getBookedSlotsByDate() 03] (onFailure): throwable.getMessage() : " + throwable.getMessage());
-//                Toast.makeText(BookAppointmentActivity.this, "Failed to fetch request" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
-    /**
-     *
-     * @return
-     */
     private CalendarConstraints createCalendarConstraints() {
         CalendarConstraints.Builder constraintBuilder = new CalendarConstraints.Builder();
 
@@ -482,18 +482,11 @@ public class BookAppointmentActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Log.d("[Appnmnt 3]" + " SUCCESS: ", "onResponse: " + response.body());
                     Toast.makeText(BookAppointmentActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
-//                    String message = response.body().getMessage();
-//                    if (message.isEmpty() || message == null){
-//                        Toast.makeText(BookAppointmentActivity.this, "No appointments found", Toast.LENGTH_LONG).show();
-//                        return;
-//                    }
-//                    Gson gson = new Gson();
-//                    Type appointment = new TypeToken<Appointments>(){}.getType();
-//                    responseAppoint = gson.fromJson(message, appointment);
-//                    Log.d("TAG 2003", "response Appointment");
+
                     /**Save Slot via API POST Request*/
                     Log.d(TAG, "onResponse: before createBookSlots() selectedLocalTime: " + selectedLocalTime + " selectedLocalDate: " + selectedLocalDate);
-
+                    Intent goToHomePage = new Intent(BookAppointmentActivity.this, PatientHomePageActivity.class);
+                    startActivity(goToHomePage);
                 }else {
                     Log.d("[APP 1] TAG:" + " FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
                 }
@@ -507,31 +500,6 @@ public class BookAppointmentActivity extends AppCompatActivity {
         });
     }
 
-//    private void createBookSlot(LocalDate date, LocalTime time) {
-//        Log.d(TAG, "createBookSlot: date: " + date + " | time: " + time);
-//        BookedSlots bookedSlots = new BookedSlots(date.toString(), time.toString(),26);
-//        Log.d(TAG, "createBookSlot: bookedSlots = " + bookedSlots);
-//
-//        RetrofitService retrofitService = new RetrofitService();
-//        BookedSlotsApi bookedSlotsApi = retrofitService.getRetrofit().create(BookedSlotsApi.class);
-//
-//        bookedSlotsApi.createSlot(bookedSlots).enqueue(new Callback<Result>() {
-//            @Override
-//            public void onResponse(Call<Result> call, Response<Result> response) {
-//                Log.d("TAG 2004", "onResponse: createBookSlot()");
-//                if (!response.isSuccessful() && response.body() == null) {
-//                    Log.d("API_NULL_RESPONSE", "Slot response is null!");
-//                    return;
-//                }
-//                Log.d("API_SUCCESS", "Slot booked successfully | response.body(): " + response.body() );
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Result> call, Throwable throwable) {
-//                Log.e("API_ERROR", "Error saving booked slot", throwable);
-//            }
-//        });
-//    }
 
     private void testGetSpec(String specialisation) {
         System.out.println("Specialisation = " + specialisation);
