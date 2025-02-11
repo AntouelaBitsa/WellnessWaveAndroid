@@ -65,11 +65,11 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     //Helpful Variables
     private Doctor docInstance;
     private Patient patInstance, selectedPatient, patientInstance;
-    private Integer docID, patID;
+    private Integer docID, patID, appointID;
     private String fullNamePat;
     private List<Appointments> docAppointmentsList;
 //    private List<Appointments> docManageAppointmentsList;
-    private Appointments nextAppoint;
+    private Appointments nextAppoint, selectedAppointment;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -134,7 +134,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             System.out.println("[1-DocHomePage] docInstance == null");
         }
 
-        System.out.println("--------------Print of nextAppoint List----------- => " + nextAppoint);
+        System.out.println("--------------Print of nextAppoint List----------- => " + selectedAppointment);
 
         //Cancel Pop Up Dialog
         cancelPopoUpDialog = new Dialog(DoctorHomePageActivity.this);
@@ -150,7 +150,8 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //DONE: business logic on cancellation for API Request
-                Integer appointID = nextAppoint.getAppointmentId();
+                appointID = selectedAppointment.getAppointmentId();
+                updateCurrentAppointStatus(appointID, selectedAppointment.setStatus("canceled"));
                 deleteAppoint(appointID);
                 cancelPopoUpDialog.dismiss();
             }
@@ -170,6 +171,10 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 new DocAppointmentCarouselAdapter.OnInfoBtnListener() {
             @Override
             public void onInfoButtonClick(Appointments appoint) {
+                selectedAppointment = appoint;
+                System.out.println("[DEBUG PRINT] selected Appoint data: " + selectedAppointment.toString());
+                selectedPatient = appoint.getPatient();
+                System.out.println("[DEBUG PRINT] selected Pateint data: " + selectedPatient.getPatientId());
                 setDataToDetailsLayout(appoint);
             }
         });
@@ -195,19 +200,27 @@ public class DoctorHomePageActivity extends AppCompatActivity {
 
 
         //OnClick Listener to navigate to Insert Diagnosis Activity
-        //TODO: second type of Insert Diagnosis
+        //DONE: second type of Insert Diagnosis
         diagnosisBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (selectedAppointment == null || selectedPatient == null){
+                    Toast.makeText(DoctorHomePageActivity.this, "Please select Appointment first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 navigateToInsertDiagnosis();
             }
         });
 
         //OnClick Listener to navigate to Reschedule Appointment Activity
-        //TODO: business logic in Reschedule Appointment Activity java class
+        //DONE: business logic in Reschedule Appointment Activity java class
         rescheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (selectedAppointment == null || selectedPatient == null){
+                    Toast.makeText(DoctorHomePageActivity.this, "Please select Appointment first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 navigateToRescheduleAppointment();
             }
         });
@@ -234,7 +247,6 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Log.d("[APPOINT 1] TAG:" + "SUCCESS: ", "onResponse: " + response.body());
                     Toast.makeText(DoctorHomePageActivity.this, "You have canceled this appointment successfully", Toast.LENGTH_LONG).show();
-                    //TODO: check if this appointment id already deleted and show error message to user
                 }else {
                     Log.d("[APPOINT 1] TAG:" + "FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
                 }
@@ -249,13 +261,39 @@ public class DoctorHomePageActivity extends AppCompatActivity {
 
     }
 
+    private void updateCurrentAppointStatus(Integer appointId, String status){
+        System.out.println("[Rschdl 2] Inside updateCurrentAppointStatus() before retrofit initialization -> appointmentID = " + appointId);
+        RetrofitService retrofitAppointSrvc = new RetrofitService();
+        System.out.println("[Rschdl 2.2] API initialization");
+        AppointmentsApi appointmentsApi = retrofitAppointSrvc.getRetrofit().create(AppointmentsApi.class);
+        appointmentsApi.updateAppointOnReschedule(appointId, status).enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                System.out.println("[Rschdl 2.3] Inside on Response: " + response.body() + " => " + response.isSuccessful());
+                if (response.isSuccessful()){
+                    Log.d("[APPOINT UPDATED] TAG:" + " SUCCESS: ", "onResponse: " + response.body());
+//                    Toast.makeText(RescheduleAppointment.this, "You have rescheduled this appointment successfully", Toast.LENGTH_LONG).show();
+                }else {
+                    Log.d("[APPOINT UPDATED] TAG:" + " FAIL: ", "onResponse: FAILED " + response.body() + " " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Toast.makeText(DoctorHomePageActivity.this, "Request Failed" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d("[APPOINT UPDATED] TAG: " + " onFailure: ", "The Message is : " + t.getMessage());
+            }
+        });
+    }
+
     private void navigateToRescheduleAppointment() {
         Intent goToReschedule = new Intent(DoctorHomePageActivity.this, RescheduleAppointment.class);
         patientInstance = Patient.getInstance();
         patientInstance.setPatientData(selectedPatient);
         System.out.println("Doctor Home Page: [TEST PRINT Reschedule] -> Patient selected = " + patientInstance);
         System.out.println("Doctor home page before intent");
-        goToReschedule.putExtra("appoint", nextAppoint);
+        goToReschedule.putExtra("appoint", selectedAppointment);
+        goToReschedule.putExtra("patient", patientInstance);
         startActivity(goToReschedule);
     }
 
@@ -265,59 +303,60 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         patientInstance = Patient.getInstance();
         patientInstance.setPatientData(selectedPatient);
         System.out.println("Doctor Home Page: [TEST PRINT] -> Patient selected = " + patientInstance);
+        goToInsertDiagnosis.putExtra("appoint", selectedAppointment);
         goToInsertDiagnosis.putExtra("patient", patientInstance);
         startActivity(goToInsertDiagnosis);
     }
 
-    private void getNextAppointment(List<Appointments> appointList) {
-        Collections.sort(appointList, new Comparator<Appointments>() {
-            @Override
-            public int compare(Appointments appoint1, Appointments appoint2) {
-                //return appoint1.getTime().compareTo(appoint2.getTime());
-                try {
-                    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-
-                    Date firstDate = sdfDate.parse(appoint1.getDate());
-                    Date secondDate = sdfDate.parse(appoint2.getDate());
-
-                    int comparedDate = firstDate.compareTo(secondDate);
-                    if (comparedDate == 0){
-                        Date firstTime = sdfTime.parse(appoint1.getTime());
-                        Date secondTime = sdfTime.parse(appoint2.getTime());
-                        return firstTime.compareTo(secondTime);
-                    }
-                    return comparedDate;
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        System.out.println("sorted list of appointment: " + appointList);
-
-        if (appointList.size()>1){
-            nextAppoint = appointList.get(1);
-            System.out.println("DoctorHomePage: [TEST PRINT]-> Next appoint = " + nextAppoint);
-        }else {
-            nextAppoint = appointList.get(0);
-            System.out.println("List does not have a second appointment" + nextAppoint);
-        }
+//    private void getNextAppointment(List<Appointments> appointList) {
+//        Collections.sort(appointList, new Comparator<Appointments>() {
+//            @Override
+//            public int compare(Appointments appoint1, Appointments appoint2) {
+//                //return appoint1.getTime().compareTo(appoint2.getTime());
+//                try {
+//                    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+//                    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+//
+//                    Date firstDate = sdfDate.parse(appoint1.getDate());
+//                    Date secondDate = sdfDate.parse(appoint2.getDate());
+//
+//                    int comparedDate = firstDate.compareTo(secondDate);
+//                    if (comparedDate == 0){
+//                        Date firstTime = sdfTime.parse(appoint1.getTime());
+//                        Date secondTime = sdfTime.parse(appoint2.getTime());
+//                        return firstTime.compareTo(secondTime);
+//                    }
+//                    return comparedDate;
+//                } catch (ParseException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//
+//        System.out.println("sorted list of appointment: " + appointList);
+//
+//        if (appointList.size()>1){
+//            nextAppoint = appointList.get(1);
+//            System.out.println("DoctorHomePage: [TEST PRINT]-> Next appoint = " + nextAppoint);
+//        }else {
+//            nextAppoint = appointList.get(0);
+//            System.out.println("List does not have a second appointment" + nextAppoint);
+//        }
 
         //Get second record of the list
 //        for (int i=0; i<appointList.size(); i++){
 //            nextAppoint = appointList.get(i++);
 //            break;
 //        }
-
-        System.out.println("-->> [DocHomePage 1] Sorted list: " + nextAppoint);
-
-        //Set the value to each text view
-        setDataToDetailsLayout(nextAppoint);
-
-        //set the patients id
-        selectedPatient = nextAppoint.getPatient();
-    }
+//
+//        System.out.println("-->> [DocHomePage 1] Sorted list: " + nextAppoint);
+//
+//        //Set the value to each text view
+//        setDataToDetailsLayout(nextAppoint);
+//
+//        //set the patients id
+//        selectedPatient = nextAppoint.getPatient();
+//    }
 
     private void setDataToDetailsLayout(Appointments nextAppoint) {
         fullNamePatTxt.setText(concatFullName(nextAppoint.getPatient().getPatFirstName(), nextAppoint.getPatient().getPatLastName()));
@@ -339,23 +378,25 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             public void onResponse(Call<List<Appointments>> call, Response<List<Appointments>> response) {
                 System.out.println("[-0-DoctorHomePageActivity] onResponse: response BODY-> " + response.body());
                 docAppointmentsList.clear();
-                //TODO: set those data to the appointmentsList
+
                 if (!response.isSuccessful() || response.body() == null) {
                     System.out.println("[-1-DoctorHomePageActivity] onResponse: successful= no + body== null");
                     Toast.makeText(DoctorHomePageActivity.this, "Failed to get doctor's appointments list", Toast.LENGTH_SHORT).show();
                     docAppointmentCarouselAdapter.notifyDataSetChanged();
                 }
 
+                //DONE: set those data to the appointmentsList
                 System.out.println("[-2-DoctorHomePageActivity] onResponse: response BODY2--> " + response.body());
                 docAppointmentsList.addAll(response.body());
                 //patUsername.setText(pUsername);
                 if (docAppointmentsList.isEmpty()) {
                     System.out.println("[-3-DoctorHomePageActivity] onResponse: the appointmentsList is empty");
                     docAppointmentCarouselAdapter.notifyDataSetChanged();
-                }else{
-                    getNextAppointment(docAppointmentsList);
-                    System.out.println("LIST SIZE IN RESPONSE: " + docAppointmentsList.size());
                 }
+//                else{
+//                    getNextAppointment(docAppointmentsList);
+//                    System.out.println("LIST SIZE IN RESPONSE: " + docAppointmentsList.size());
+//                }
                 docAppointmentCarouselAdapter.notifyDataSetChanged();
             }
 
