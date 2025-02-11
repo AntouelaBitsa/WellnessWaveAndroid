@@ -54,7 +54,7 @@ public class PDFGenerator {
         // Background color
         canvas.drawColor(Color.WHITE);
 
-        //TODO: Wellness Wave Logo - Top/Right Corner
+        //DONE: Wellness Wave Logo - Top/Right Corner
         Drawable logoSmallDrawable = context.getResources().getDrawable(R.drawable.wellness_wave_logo, null);
         if (logoSmallDrawable != null){
             Bitmap bitmap = Bitmap.createBitmap((int) 30, (int) 29.46, Bitmap.Config.ARGB_8888);
@@ -65,7 +65,7 @@ public class PDFGenerator {
             canvas.drawBitmap(bitmap, 546, 11, null);
         }
 
-        //TODO: Wellness Wave Logo - Center/Right Page Side - Decorator
+        //DONE: Wellness Wave Logo - Center/Right Page Side - Decorator
 
         Drawable logoDecoratorDrawable = context.getResources().getDrawable(R.drawable.logo_decorator, null);
         if (logoDecoratorDrawable != null){
@@ -83,7 +83,7 @@ public class PDFGenerator {
         int skyBlue = ContextCompat.getColor(context, R.color.skyblue);
         float cornerRadius = 10f;
 
-        //TODO: Provided by Wellness Wave - Small text Top/Left Corner
+        //DONE: Provided by Wellness Wave - Small text Top/Left Corner
 //        paint.setColor(Color.LTGRAY);
         paint.setTypeface(typeface);
         paint.setTextSize(10);
@@ -91,14 +91,14 @@ public class PDFGenerator {
         paint.setTextAlign(Paint.Align.LEFT);
         canvas.drawText("Provided by Wellness Wave", 20, 30, paint);
 
-        //TODO: Title Medical Diagnosis Document
+        //DONE: Title Medical Diagnosis Document
         paint.setColor(navyBlue);
         paint.setTypeface(boldTypeface);
         paint.setTextSize(16);
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText("Medical Diagnosis Document", pageInfo.getPageWidth()/2, 70, paint);
 
-        //TODO: Rectangle Decorators Patient and Doctor
+        //DONE: Rectangle Decorators Patient and Doctor
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setColor(skyBlue);
@@ -116,7 +116,7 @@ public class PDFGenerator {
 //        data.setColor(navyBlue);
 //        data.setTextSize(11);
 
-        //TODO: Patient Details Text
+        //DONE: Patient Details Text
         paint.setTypeface(boldTypeface);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(navyBlue);
@@ -137,7 +137,7 @@ public class PDFGenerator {
         canvas.drawText("Birthdate: " + patientData.getPatDob(), 32, 200, paint);
         canvas.drawText("Ph. Num.: " + patientData.getPatPhoneNum(), 32, 220, paint);
 
-        //TODO: Doctor Details Text
+        //DONE: Doctor Details Text
         paint.setTypeface(boldTypeface);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(navyBlue);
@@ -151,7 +151,7 @@ public class PDFGenerator {
         canvas.drawText("Profession: " + doctorData.getDocProfession(), 325, 200, paint);
         canvas.drawText("Ph. Num.: " + doctorData.getDocPhoneNum(), 325, 220, paint);
 
-        //TODO: Diagnosis Section & Decorator
+        //DONE: Diagnosis Section & Decorator
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setColor(skyBlue);
@@ -166,7 +166,7 @@ public class PDFGenerator {
         canvas.drawText("Diagnosis Type: " + diagnosisData.getDiagnType(), 30, 320, paint);
         canvas.drawText("Instructions: " + diagnosisData.getDiagnInfo(), 30, 340, paint);
 
-        //TODO: Treatment Section & Decorator
+        //DONE: Treatment Section & Decorator
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setColor(skyBlue);
@@ -183,7 +183,7 @@ public class PDFGenerator {
         canvas.drawText("Start Date: " + diagnosisData.getStartDate(), 30, 490, paint);
         canvas.drawText("End Date: " + diagnosisData.getEndDate(), 30, 510, paint);
 
-        //TODO: Diagnosis Document provided by Wellness Wave Application
+        //DONE: Diagnosis Document provided by Wellness Wave Application
         paint.setTextSize(10);
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText("Diagnosis Document provided by Wellness Wave Application", pageInfo.getPageWidth() / 2, 820, paint);
